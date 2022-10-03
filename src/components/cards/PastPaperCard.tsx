@@ -10,8 +10,16 @@ import {
     Typography,
 } from "@mui/material";
 import PrintIcon from "@mui/icons-material/Print";
+import { useTag } from "../../hooks/useTag";
+import { DataArray } from "@mui/icons-material";
 
 export function PastPaperCard() {
+    const { data, isLoading, error, setTagId } = useTag();
+
+    console.log("Data:", data);
+    console.log("isLoading:", isLoading);
+    console.log("error:", error);
+
     const boxSize = "350px";
 
     return (
@@ -28,8 +36,8 @@ export function PastPaperCard() {
                 <Grid item p={1} direction="row" xs={3}>
                     <Grid container justifyContent="space-between">
                         <Grid item>
-                            <Typography variant="h4" textAlign="left">
-                                PAT 1 ต.ค. 53
+                            <Typography variant="h5" textAlign="left">
+                                {data.name}
                             </Typography>
                         </Grid>
                         <Grid item>
@@ -41,7 +49,9 @@ export function PastPaperCard() {
                 <Grid item xs={4} alignItems="center" display="flex">
                     <Grid container direction="row" height="100%">
                         <Grid item xs={4}>
-                            <Typography variant="h4">50</Typography>
+                            <Typography variant="h4">
+                                {data.problemList.length}
+                            </Typography>
                             <Typography variant="body1">Problems</Typography>
                         </Grid>
                         <Divider
@@ -51,7 +61,7 @@ export function PastPaperCard() {
                             sx={{ mr: "-1px" }}
                         />
                         <Grid item xs={4}>
-                            <Typography variant="h4">300</Typography>
+                            <Typography variant="h4">-</Typography>
                             <Typography variant="body1">Total score</Typography>
                         </Grid>
                         <Divider
@@ -61,8 +71,10 @@ export function PastPaperCard() {
                             sx={{ mr: "-1px" }}
                         />
                         <Grid item xs={4}>
-                            <Typography variant="h4">3:30</Typography>
-                            <Typography variant="body1">hrs</Typography>
+                            <Typography variant="h4">
+                                {data.timeLimit}
+                            </Typography>
+                            <Typography variant="body1">mins</Typography>
                         </Grid>
                     </Grid>
                 </Grid>
@@ -80,7 +92,9 @@ export function PastPaperCard() {
                         </Grid>
                         <Grid item xs={4}>
                             <Typography variant="body1">Exam Date</Typography>
-                            <Typography variant="body1">Oct 53</Typography>
+                            <Typography variant="body1">
+                                {data.datePublished}
+                            </Typography>
                         </Grid>
                         <Grid item xs={4}>
                             <Typography variant="body1">Difficulty</Typography>
@@ -108,15 +122,7 @@ export function PastPaperCard() {
                             WebkitBoxOrient: "vertical",
                         }}
                     >
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                        Curabitur nec placerat justo, posuere tempor ex.
-                        Vestibulum ante ipsum primis in faucibus orci luctus et
-                        ultrices posuere cubilia curae; Vestibulum scelerisque
-                        elementum dui sed pellentesque. Phasellus at molestie
-                        odio. Morbi iaculis mattis nunc, a varius ante ultricies
-                        at. Aliquam vehicula posuere turpis quis gravida. Sed
-                        erat felis, mattis non dui sed, dictum pellentesque
-                        orci.
+                        {data.description}
                     </Typography>
                 </Grid>
                 <Grid
@@ -142,7 +148,15 @@ export function PastPaperCard() {
                             </IconButton>
                         </Grid>
                         <Grid item>
-                            <Button variant="contained">See more</Button>
+                            <Button
+                                variant="contained"
+                                onClick={() => {
+                                    setTagId(1);
+                                    console.log("Clicked");
+                                }}
+                            >
+                                See more
+                            </Button>
                         </Grid>
                     </Grid>
                 </Grid>
