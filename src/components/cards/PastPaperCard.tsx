@@ -7,20 +7,50 @@ import {
     IconButton,
     Paper,
     Rating,
+    Skeleton,
     Typography,
 } from "@mui/material";
 import PrintIcon from "@mui/icons-material/Print";
 import { useTag } from "../../hooks/useTag";
-import { DataArray } from "@mui/icons-material";
 
 export function PastPaperCard() {
     const { data, isLoading, error, setTagId } = useTag();
 
-    console.log("Data:", data);
-    console.log("isLoading:", isLoading);
-    console.log("error:", error);
-
     const boxSize = "350px";
+
+    // Write isLoading and error cases
+
+    if (isLoading) {
+        return (
+            <Paper
+                style={{
+                    width: boxSize,
+                    height: boxSize,
+                    padding: "10px",
+                    borderRadius: "10px",
+                }}
+                elevation={3}
+            >
+                <Skeleton variant="rounded" width={330} height={330} />
+            </Paper>
+        );
+    }
+
+    if (error) {
+        return (
+            <Paper
+                style={{
+                    width: boxSize,
+                    height: boxSize,
+                    padding: "10px",
+                    borderRadius: "10px",
+                }}
+                elevation={3}
+            >
+                <Typography variant="h6">Unable to load content.</Typography>
+            </Paper>
+        );
+    }
 
     return (
         <Paper
@@ -93,7 +123,7 @@ export function PastPaperCard() {
                         <Grid item xs={4}>
                             <Typography variant="body1">Exam Date</Typography>
                             <Typography variant="body1">
-                                {data.datePublished}
+                                {data.datePublished?.toLocaleDateString()}
                             </Typography>
                         </Grid>
                         <Grid item xs={4}>
@@ -129,14 +159,14 @@ export function PastPaperCard() {
                     item
                     p={1}
                     sx={{
-                        justifySelf: "flex-end",
+                        justifySelf: "end",
                     }}
                 >
                     <Grid
                         container
                         direction="row"
                         spacing={1}
-                        sx={{ justifyContent: "flex-end" }}
+                        sx={{ alignSelf: "end" }}
                     >
                         <Grid item>
                             <Chip size="small" label="Important" />
@@ -151,7 +181,7 @@ export function PastPaperCard() {
                             <Button
                                 variant="contained"
                                 onClick={() => {
-                                    setTagId(1);
+                                    setTagId(2);
                                     console.log("Clicked");
                                 }}
                             >

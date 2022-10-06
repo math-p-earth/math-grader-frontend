@@ -1,4 +1,4 @@
-export interface Tag {
+export interface TagDto {
     id: number;
     name: string;
     tagType: TagType;
@@ -7,10 +7,10 @@ export interface Tag {
     timeLimit?: number;
     datePublished?: Date;
 
-    problemList: Problem[];
+    problemList: ProblemDto[];
 }
 
-export interface Problem {
+export interface ProblemDto {
     id: number;
     problemType: ProblemType;
     content: string;
