@@ -7,21 +7,38 @@ import {
     Typography,
 } from "@mui/material";
 import React from "react";
-import { ChoiceList } from "./answers/Choices";
+import { ProblemDto } from "../../types/dto";
+import { Answer } from "./answers/Answer";
+import { Choices } from "./answers/Choices";
 
-export function ProblemCard() {
+export function ProblemCard({ problem }: { problem: ProblemDto }) {
     return (
-        <Paper>
-            <ChoiceList />
+        <Paper
+            sx={{
+                p: "10px",
+                width: "600px",
+            }}
+        >
+            <Grid container direction="column" spacing={1}>
+                <Grid item>
+                    <Typography align="left" variant="body1">
+                        {problem.content}
+                    </Typography>
+                </Grid>
+                <Grid item>
+                    {
+                        <Answer
+                            problemType={problem.problemType}
+                            answer={problem.answer}
+                            choices={
+                                problem.problemType == "MCQ"
+                                    ? problem.choices
+                                    : []
+                            }
+                        />
+                    }
+                </Grid>
+            </Grid>
         </Paper>
     );
 }
-
-// const [alignment, setAlignment] = React.useState('web');
-
-//   const handleChange = (
-//     event: React.MouseEvent<HTMLElement>,
-//     newAlignment: string,
-//   ) => {
-//     setAlignment(newAlignment);
-//   };

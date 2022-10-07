@@ -1,4 +1,4 @@
-import { TagDto } from "../types/dto"
+import { ProblemDto, TagDto } from "../types/dto"
 
 export function tagFetchResponse (data: any) {
 
@@ -10,16 +10,36 @@ export function tagFetchResponse (data: any) {
         examType: data?.examType,
         timeLimit: data?.timeLimit,
         datePublished: new Date(data?.datePublished),
-        problemList: data?.problemList
+        problemList: data?.problemList ? data.problemList.map((pb: any) => problemFetchResponse(pb)) : []
     } as TagDto
 }
 
 export function problemFetchResponse (data: any) {
+
+    return {
+        id: data?.number,
+        problemType: data?.problemType,
+        content: data?.content,
+        difficulty: data?.difficulty,
+        answer: data?.answer,
+        choices: data?.choices,
+        order: data?.order,
+        score: data?.score
+    } as ProblemDto
     
 
 }
 
 
+// export interface ProblemDto {
+//     id: number;
+//     problemType: ProblemType;
+//     content: string;
+//     difficulty: number;
+//     answer: string;
+//     choices: string[];
+//     order?: number;
+//     score?: number;
 
 
     // "id": 1,

@@ -1,14 +1,8 @@
 import { Button, Grid, Paper, Typography } from "@mui/material";
 import React from "react";
+import { AnswerState } from "./Answer";
 
 const buttonSize = "40px";
-
-interface ChoiceState {
-    currentAnswer: number | undefined;
-    correctAnswer: number;
-    wrongAnswer: number[];
-    answerState: "ANSWERING" | "ANSWERED";
-}
 
 interface ChoiceStyle {
     variant: "outlined" | "contained";
@@ -44,41 +38,76 @@ const choiceStyle = {
     } as ChoiceStyle,
     WRONG: {
         variant: "contained",
-        color: "primary",
+        color: "error",
         disabled: false,
         disableRipple: true,
     } as ChoiceStyle,
 };
 
-export function ChoiceList() {
-    const [choiceState, setChoiceState] = React.useState<ChoiceState>({
-        currentAnswer: undefined,
-        correctAnswer: 1,
-        wrongAnswer: [],
-        answerState: "ANSWERING",
-    });
+export function Choices({
+    choiceList,
+    answerState,
+    setAnswerState,
+}: {
+    choiceList: string[];
+    answerState: AnswerState;
+    setAnswerState: Function;
+}) {
+    const [choiceStyleList, setChoiceStyleList] = React.useState<ChoiceStyle[]>(
+        Array(choiceList.length).fill(choiceStyle.NORMAL)
+    );
+
+    const toggleAnswer = (val: string) => {
+        setAnswerState((prev: AnswerState) => ({
+            ...prev,
+            currentAnswer: val,
+        }));
+    };
+
+    React.useEffect(() => {
+        choiceStyling(answerState, choiceStyleList, setChoiceStyleList);
+    }, [answerState]);
 
     return (
         <Grid container spacing={1}>
-            {[1, 2, 3, 4].map((num) => {
+            {choiceList.map((choice, idx) => {
                 return (
-                    <Choice choiceNo={num} caption={"Blah Blah Blah Blah"} />
+                    <Choice
+                        choiceNo={idx + 1}
+                        caption={choice}
+                        choiceStyling={choiceStyleList[idx]}
+                        toggleAnswer={toggleAnswer}
+                    />
                 );
             })}
         </Grid>
     );
 }
 
-function Choice({ choiceNo, caption }: { choiceNo: number; caption: string }) {
+function Choice({
+    choiceNo,
+    caption,
+    choiceStyling,
+    toggleAnswer,
+}: {
+    choiceNo: number;
+    caption: string;
+    choiceStyling: ChoiceStyle;
+    toggleAnswer: Function;
+}) {
     return (
         <Grid item container spacing={1}>
             <Grid item>
                 <Button
-                    {...choiceStyle.CORRECT}
+                    {...choiceStyling}
                     sx={{
                         p: 0,
                         minWidth: buttonSize,
                         height: buttonSize,
+                    }}
+                    onClick={() => {
+                        if (choiceStyling == choiceStyle.NORMAL)
+                            toggleAnswer(choiceNo.toString());
                     }}
                 >
                     <Typography variant="h6">{choiceNo}</Typography>
@@ -100,3 +129,50 @@ function Choice({ choiceNo, caption }: { choiceNo: number; caption: string }) {
         </Grid>
     );
 }
+
+function choiceStyling(
+    answerState: AnswerState,
+    choiceStyleList: ChoiceStyle[],
+    setChoiceStyleList: Function
+) {
+    // For Debugging
+
+    console.log(answerState);
+
+    if (answerState.answerStatus == "ANSWERING") {
+        let newChoiceStyle = [];
+        for (var i = 1; i <= choiceStyleList.length; i++) {
+            const idx = i.toString();
+            if (answerState.wrongAnswer.includes(idx)) {
+                newChoiceStyle.push(choiceStyle.WRONG);
+            } else if (idx == answerState.currentAnswer) {
+                newChoiceStyle.push(choiceStyle.SELECTED);
+            } else {
+                newChoiceStyle.push(choiceStyle.NORMAL);
+            }
+        }
+
+        setChoiceStyleList(newChoiceStyle);
+    } else if (answerState.answerStatus == "ANSWERED") {
+        let newChoiceStyle = [];
+        for (var i = 1; i <= choiceStyleList.length; i++) {
+            const idx = i.toString();
+            if (answerState.wrongAnswer.includes(idx)) {
+                newChoiceStyle.push(choiceStyle.WRONG);
+            } else if (idx == answerState.correctAnswer) {
+                newChoiceStyle.push(choiceStyle.CORRECT);
+            } else {
+                newChoiceStyle.push(choiceStyle.DISABLED);
+            }
+        }
+
+        setChoiceStyleList(newChoiceStyle);
+    }
+}
+
+// AnswerState {
+//     currentAnswer: string | undefined;
+//     correctAnswer: string;
+//     wrongAnswer: string[];
+//     answerState: "ANSWERING" | "ANSWERED";
+// }
