@@ -8,6 +8,7 @@ import {
 } from "@mui/material";
 import React from "react";
 import { ProblemDto } from "../../types/dto";
+import { Markdown } from "../md/Markdown";
 import { Answer } from "./answers/Answer";
 import { Choices } from "./answers/Choices";
 
@@ -16,14 +17,13 @@ export function ProblemCard({ problem }: { problem: ProblemDto }) {
         <Paper
             sx={{
                 p: "10px",
-                width: "600px",
+                minWidth: "600px",
+                maxWidth: "900px",
             }}
         >
-            <Grid container direction="column" spacing={1}>
+            <Grid container direction="column" spacing={2} padding="10px">
                 <Grid item>
-                    <Typography align="left" variant="body1">
-                        {problem.content}
-                    </Typography>
+                    <Markdown content={problem.content} />
                 </Grid>
                 <Grid item>
                     {

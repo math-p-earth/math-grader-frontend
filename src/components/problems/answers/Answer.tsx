@@ -24,7 +24,7 @@ export function Answer({
         currentAnswer: "",
         correctAnswer: "1",
         wrongAnswer: ["3"],
-        answerStatus: "ANSWERING",
+        answerStatus: "ANSWERED",
     });
 
     const onClear = () => {
@@ -35,13 +35,8 @@ export function Answer({
     const onSubmit = () => {};
 
     return (
-        <Grid container direction="row">
-            <Grid item>
-                <Typography variant="body2">
-                    {JSON.stringify(answerState)}
-                </Typography>
-            </Grid>
-            <Grid item>
+        <Grid container direction="row" spacing={2}>
+            <Grid item xs={9}>
                 {(() => {
                     if (problemType == "MCQ") {
                         return (
@@ -61,11 +56,25 @@ export function Answer({
                     }
                 })()}
             </Grid>
-            <Grid item>
-                <Button onClick={onClear}>Clear</Button>
+            <Grid
+                item
+                xs={3}
+                container
+                direction="column"
+                justifyContent="end"
+                spacing={1}
+            >
+                <Grid item>
+                    <Button onClick={onClear}>Clear</Button>
+                </Grid>
+                <Grid item>
+                    <Button variant="contained">Submit</Button>
+                </Grid>
             </Grid>
             <Grid item>
-                <Button>Submit</Button>
+                <Typography variant="body2">
+                    {JSON.stringify(answerState)}
+                </Typography>
             </Grid>
         </Grid>
     );

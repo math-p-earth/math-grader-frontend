@@ -1,5 +1,6 @@
 import { Button, Grid, Paper, Typography } from "@mui/material";
 import React from "react";
+import { Markdown } from "../../md/Markdown";
 import { AnswerState } from "./Answer";
 
 const buttonSize = "40px";
@@ -97,7 +98,7 @@ function Choice({
 }) {
     return (
         <Grid item container spacing={1}>
-            <Grid item>
+            <Grid item alignSelf="center">
                 <Button
                     {...choiceStyling}
                     sx={{
@@ -117,13 +118,14 @@ function Choice({
                 <Paper
                     elevation={1}
                     sx={{
-                        pt: "3px",
-                        pb: "3px",
+                        width: "300px",
+                        pt: "1px",
+                        pb: "1px",
                         pl: "10px",
                         pr: "10px",
                     }}
                 >
-                    <Typography>{caption}</Typography>
+                    <Markdown content={caption} />
                 </Paper>
             </Grid>
         </Grid>
