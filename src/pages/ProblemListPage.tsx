@@ -8,7 +8,7 @@ export function ProblemListPage() {
     console.log(data);
 
     return (
-        <Grid container spacing={2}>
+        <Grid container justifyContent="center" spacing={2}>
             {data &&
                 data.problemList.map((pb) => {
                     return (

@@ -1,5 +1,5 @@
 import { TextField } from "@mui/material";
-import { AnswerState } from "./Answer";
+import { AnswerState } from "../../../types/state";
 
 export function ShortAnswer({
     answerState,
@@ -20,6 +20,7 @@ export function ShortAnswer({
     return (
         <div>
             <TextField
+                fullWidth
                 variant="outlined"
                 label="Short Answer"
                 size="small"

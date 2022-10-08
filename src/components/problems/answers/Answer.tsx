@@ -1,15 +1,9 @@
-import { Button, Grid, Typography } from "@mui/material";
+import { Button, Divider, Grid, Typography } from "@mui/material";
 import React from "react";
 import { ProblemType } from "../../../types/dto";
+import { AnswerState } from "../../../types/state";
 import { Choices } from "./Choices";
 import { ShortAnswer } from "./ShortAnswer";
-
-export interface AnswerState {
-    currentAnswer: string | undefined;
-    correctAnswer: string;
-    wrongAnswer: string[];
-    answerStatus: "ANSWERING" | "ANSWERED";
-}
 
 export function Answer({
     problemType,
@@ -21,10 +15,12 @@ export function Answer({
     choices: string[];
 }) {
     const [answerState, setAnswerState] = React.useState<AnswerState>({
+        problemId: 0,
+        userId: 0,
         currentAnswer: "",
-        correctAnswer: "1",
-        wrongAnswer: ["3"],
-        answerStatus: "ANSWERED",
+        correctAnswer: "",
+        wrongAnswer: [],
+        status: "NOATTEMPT",
     });
 
     const onClear = () => {
@@ -56,9 +52,12 @@ export function Answer({
                     }
                 })()}
             </Grid>
+            <Grid item xs={1}>
+                <Divider orientation="vertical" />
+            </Grid>
             <Grid
                 item
-                xs={3}
+                xs={2}
                 container
                 direction="column"
                 justifyContent="end"

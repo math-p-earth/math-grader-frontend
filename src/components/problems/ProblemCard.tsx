@@ -1,5 +1,7 @@
 import {
+    Avatar,
     Box,
+    Divider,
     Grid,
     Paper,
     ToggleButton,
@@ -10,7 +12,6 @@ import React from "react";
 import { ProblemDto } from "../../types/dto";
 import { Markdown } from "../md/Markdown";
 import { Answer } from "./answers/Answer";
-import { Choices } from "./answers/Choices";
 
 export function ProblemCard({ problem }: { problem: ProblemDto }) {
     return (
@@ -20,12 +21,26 @@ export function ProblemCard({ problem }: { problem: ProblemDto }) {
                 minWidth: "600px",
                 maxWidth: "900px",
             }}
+            elevation={3}
         >
-            <Grid container direction="column" spacing={2} padding="10px">
+            <Grid container direction="column" spacing={1} padding="10px">
+                <Grid item container>
+                    <Grid item>
+                        <Avatar variant="rounded">{problem.order}</Avatar>
+                    </Grid>
+                </Grid>
+                <Grid item>
+                    <Divider />
+                </Grid>
                 <Grid item>
                     <Markdown content={problem.content} />
                 </Grid>
-                <Grid item>
+                <Grid
+                    item
+                    sx={{
+                        ml: "80px",
+                    }}
+                >
                     {
                         <Answer
                             problemType={problem.problemType}

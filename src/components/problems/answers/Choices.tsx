@@ -1,7 +1,7 @@
 import { Button, Grid, Paper, Typography } from "@mui/material";
 import React from "react";
+import { AnswerState } from "../../../types/state";
 import { Markdown } from "../../md/Markdown";
-import { AnswerState } from "./Answer";
 
 const buttonSize = "40px";
 
@@ -141,7 +141,10 @@ function choiceStyling(
 
     console.log(answerState);
 
-    if (answerState.answerStatus == "ANSWERING") {
+    if (
+        answerState.status == "NOATTEMPT" ||
+        answerState.status == "INCORRECT"
+    ) {
         let newChoiceStyle = [];
         for (var i = 1; i <= choiceStyleList.length; i++) {
             const idx = i.toString();
@@ -155,7 +158,10 @@ function choiceStyling(
         }
 
         setChoiceStyleList(newChoiceStyle);
-    } else if (answerState.answerStatus == "ANSWERED") {
+    } else if (
+        answerState.status == "CORRECT" ||
+        answerState.status == "COMPLETE"
+    ) {
         let newChoiceStyle = [];
         for (var i = 1; i <= choiceStyleList.length; i++) {
             const idx = i.toString();

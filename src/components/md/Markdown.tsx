@@ -30,7 +30,11 @@ export function Markdown({
         | undefined;
 }) {
     return (
-        <Typography variant={variant} align={align}>
+        <Typography
+            variant={variant}
+            align={align}
+            fontFamily="'Sarabun', san-serif"
+        >
             <ReactMarkdown
                 children={content}
                 remarkPlugins={[remarkMath, remarkGfm, remarkFrontmatter]}
