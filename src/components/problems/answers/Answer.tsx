@@ -33,6 +33,15 @@ export function Answer({
     };
 
     const onSubmit = async () => {
+        if (
+            submissionStatus.wrongAnswer.includes(
+                submissionStatus.currentAnswer
+            )
+        ) {
+            setSubmissionStatus((prev) => ({ ...prev, currentAnswer: "" }));
+            return;
+        }
+
         const newSubmissionStatus = (
             await httpClient.post("/submission", {
                 ...submissionStatus,

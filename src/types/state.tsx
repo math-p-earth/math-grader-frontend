@@ -1,7 +1,7 @@
 export interface SubmissionStatus {
     problemId: number;
     userId: number;
-    currentAnswer: string | undefined;
+    currentAnswer: string;
     correctAnswer?: string;
     wrongAnswer: string[];
     status: "NOATTEMPT" | "INCORRECT" | "CORRECT" | "PENDING" | "COMPLETE";
