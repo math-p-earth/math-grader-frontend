@@ -1,17 +1,17 @@
 import { TextField } from "@mui/material";
-import { AnswerState } from "../../../types/state";
+import { SubmissionStatus } from "../../../types/state";
 
 export function ShortAnswer({
-    answerState,
-    setAnswerState,
+    submissionStatus,
+    setSubmissionStatus,
 }: {
-    answerState: AnswerState;
-    setAnswerState: Function;
+    submissionStatus: SubmissionStatus;
+    setSubmissionStatus: Function;
 }) {
     const onChange = (e: any) => {
-        console.log(answerState);
+        console.log(submissionStatus);
 
-        setAnswerState((prev: AnswerState) => ({
+        setSubmissionStatus((prev: SubmissionStatus) => ({
             ...prev,
             currentAnswer: e.target.value,
         }));
@@ -25,7 +25,7 @@ export function ShortAnswer({
                 label="Short Answer"
                 size="small"
                 onChange={onChange}
-                value={answerState.currentAnswer}
+                value={submissionStatus ? submissionStatus.currentAnswer : ""}
             />
         </div>
     );

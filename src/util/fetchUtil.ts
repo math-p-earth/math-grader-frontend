@@ -17,7 +17,7 @@ export function tagFetchResponse (data: any) {
 export function problemFetchResponse (data: any) {
 
     return {
-        id: data?.number,
+        id: data?.id,
         problemType: data?.problemType,
         content: data?.content,
         difficulty: data?.difficulty,

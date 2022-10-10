@@ -43,6 +43,7 @@ export function ProblemCard({ problem }: { problem: ProblemDto }) {
                 >
                     {
                         <Answer
+                            problemId={problem.id}
                             problemType={problem.problemType}
                             answer={problem.answer}
                             choices={

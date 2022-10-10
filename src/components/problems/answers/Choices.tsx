@@ -1,6 +1,6 @@
 import { Button, Grid, Paper, Typography } from "@mui/material";
 import React from "react";
-import { AnswerState } from "../../../types/state";
+import { SubmissionStatus } from "../../../types/state";
 import { Markdown } from "../../md/Markdown";
 
 const buttonSize = "40px";
@@ -47,27 +47,27 @@ const choiceStyle = {
 
 export function Choices({
     choiceList,
-    answerState,
-    setAnswerState,
+    submissionStatus,
+    setSubmissionStatus,
 }: {
     choiceList: string[];
-    answerState: AnswerState;
-    setAnswerState: Function;
+    submissionStatus: SubmissionStatus;
+    setSubmissionStatus: Function;
 }) {
     const [choiceStyleList, setChoiceStyleList] = React.useState<ChoiceStyle[]>(
         Array(choiceList.length).fill(choiceStyle.NORMAL)
     );
 
     const toggleAnswer = (val: string) => {
-        setAnswerState((prev: AnswerState) => ({
+        setSubmissionStatus((prev: SubmissionStatus) => ({
             ...prev,
             currentAnswer: val,
         }));
     };
 
     React.useEffect(() => {
-        choiceStyling(answerState, choiceStyleList, setChoiceStyleList);
-    }, [answerState]);
+        choiceStyling(submissionStatus, choiceStyleList, setChoiceStyleList);
+    }, [submissionStatus]);
 
     return (
         <Grid container spacing={1}>
@@ -133,24 +133,24 @@ function Choice({
 }
 
 function choiceStyling(
-    answerState: AnswerState,
+    submissionStatus: SubmissionStatus,
     choiceStyleList: ChoiceStyle[],
     setChoiceStyleList: Function
 ) {
     // For Debugging
 
-    console.log(answerState);
+    console.log(submissionStatus);
 
     if (
-        answerState.status == "NOATTEMPT" ||
-        answerState.status == "INCORRECT"
+        submissionStatus.status == "NOATTEMPT" ||
+        submissionStatus.status == "INCORRECT"
     ) {
         let newChoiceStyle = [];
         for (var i = 1; i <= choiceStyleList.length; i++) {
             const idx = i.toString();
-            if (answerState.wrongAnswer.includes(idx)) {
+            if (submissionStatus.wrongAnswer.includes(idx)) {
                 newChoiceStyle.push(choiceStyle.WRONG);
-            } else if (idx == answerState.currentAnswer) {
+            } else if (idx == submissionStatus.currentAnswer) {
                 newChoiceStyle.push(choiceStyle.SELECTED);
             } else {
                 newChoiceStyle.push(choiceStyle.NORMAL);
@@ -159,15 +159,15 @@ function choiceStyling(
 
         setChoiceStyleList(newChoiceStyle);
     } else if (
-        answerState.status == "CORRECT" ||
-        answerState.status == "COMPLETE"
+        submissionStatus.status == "CORRECT" ||
+        submissionStatus.status == "COMPLETE"
     ) {
         let newChoiceStyle = [];
         for (var i = 1; i <= choiceStyleList.length; i++) {
             const idx = i.toString();
-            if (answerState.wrongAnswer.includes(idx)) {
+            if (submissionStatus.wrongAnswer.includes(idx)) {
                 newChoiceStyle.push(choiceStyle.WRONG);
-            } else if (idx == answerState.correctAnswer) {
+            } else if (idx == submissionStatus.correctAnswer) {
                 newChoiceStyle.push(choiceStyle.CORRECT);
             } else {
                 newChoiceStyle.push(choiceStyle.DISABLED);
@@ -178,9 +178,9 @@ function choiceStyling(
     }
 }
 
-// AnswerState {
+// SubmissionStatus {
 //     currentAnswer: string | undefined;
 //     correctAnswer: string;
 //     wrongAnswer: string[];
-//     answerState: "ANSWERING" | "ANSWERED";
+//     submissionStatus: "ANSWERING" | "ANSWERED";
 // }

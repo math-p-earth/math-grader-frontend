@@ -1,23 +1,25 @@
 import React from "react";
 import useSWR from "swr";
-import { AnswerState } from "../types/state";
+import { SubmissionStatus } from "../types/state";
 import { tagFetchResponse } from "../util/fetchUtil";
 
 export function useSubmission(problemId: number, userId: number) {
-    const [answerState, setAnswerState] = React.useState<AnswerState>({
-        problemId: 0,
-        userId: 0,
-        currentAnswer: "",
-        correctAnswer: "",
-        wrongAnswer: [],
-        status: "NOATTEMPT",
-    });
+    const [submissionStatus, setSubmissionStatus] =
+        React.useState<SubmissionStatus>({
+            problemId: problemId,
+            userId: 0,
+            currentAnswer: "",
+            correctAnswer: "",
+            wrongAnswer: [],
+            status: "NOATTEMPT",
+        });
 
-    const { data, error } = useSWR(["/submission/"]);
+    const { data, error } = useSWR(["/submission/", submissionStatus]);
 
     return {
         data: data,
         isLoading: !data && !error,
         error: error,
+        setSubmissionStatus: setSubmissionStatus,
     };
 }

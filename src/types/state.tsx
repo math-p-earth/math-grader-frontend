@@ -1,4 +1,4 @@
-export interface AnswerState {
+export interface SubmissionStatus {
     problemId: number;
     userId: number;
     currentAnswer: string | undefined;
