@@ -19,6 +19,7 @@ export interface ProblemDto {
     choices: string[];
     order?: number;
     score?: number;
+    source?: string;
 }
 
 export type ProblemType = "MCQ" | "SHORT" | "TF" | "PROOF";

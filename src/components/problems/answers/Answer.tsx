@@ -53,7 +53,7 @@ export function Answer({
 
     return (
         <Grid container direction="row" spacing={2}>
-            <Grid item xs={9}>
+            <Grid item alignSelf="center" xs={9}>
                 {(() => {
                     if (problemType == "MCQ") {
                         return (
@@ -92,11 +92,6 @@ export function Answer({
                         Submit
                     </Button>
                 </Grid>
-            </Grid>
-            <Grid item>
-                <Typography variant="body2">
-                    {JSON.stringify(submissionStatus)}
-                </Typography>
             </Grid>
         </Grid>
     );

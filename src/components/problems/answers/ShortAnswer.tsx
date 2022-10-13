@@ -1,4 +1,4 @@
-import { TextField } from "@mui/material";
+import { TextField, TextFieldProps } from "@mui/material";
 import React from "react";
 import { SubmissionStatus } from "../../../types/state";
 
@@ -20,7 +20,6 @@ export function ShortAnswer({
                 str += ", ";
             }
         }
-
         setHelperWrong(str);
     }, [submissionStatus]);
 
@@ -42,8 +41,15 @@ export function ShortAnswer({
                 size="small"
                 onChange={onChange}
                 value={submissionStatus ? submissionStatus.currentAnswer : ""}
+                disabled={
+                    submissionStatus.status == "CORRECT" ||
+                    submissionStatus.status == "COMPLETE" ||
+                    submissionStatus.status == "PENDING"
+                }
                 error={submissionStatus.status == "INCORRECT"}
-                helperText={helperWrong}
+                helperText={
+                    submissionStatus.wrongAnswer.length == 0 ? "" : helperWrong
+                }
             />
         </div>
     );
