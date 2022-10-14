@@ -1,5 +1,6 @@
 import { Box, Grid, styled } from "@mui/material";
 import React from "react";
+import { theme } from "../assets/styles/theme";
 import { ApplicationBar } from "./components/ApplicationBar";
 import { NavigatorMenu } from "./components/NavigatorMenu";
 
@@ -35,7 +36,16 @@ export function Dashboard({ children }: { children: JSX.Element }) {
                 setOpen={setOpen}
             />
             <NavigatorMenu menuWidth={menuWidth} open={open} />
-            <Main open={open}>{children}</Main>
+            <Main open={open}>
+                <Box
+                    display="flex"
+                    alignItems="center"
+                    justifyContent="flex-end"
+                    padding={theme.spacing(0, 1)}
+                    sx={{ ...theme.mixins.toolbar }}
+                />
+                {children}
+            </Main>
         </Box>
     );
 }
