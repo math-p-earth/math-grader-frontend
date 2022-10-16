@@ -2,6 +2,7 @@ import {
     Box,
     Divider,
     Drawer,
+    Grid,
     List,
     ListItem,
     ListItemButton,
@@ -14,6 +15,7 @@ import HomeIcon from "@mui/icons-material/Home";
 import ListAltIcon from "@mui/icons-material/ListAlt";
 import DescriptionIcon from "@mui/icons-material/Description";
 import MenuBookIcon from "@mui/icons-material/MenuBook";
+import { Profile } from "./Profile";
 
 interface MenuListInterface {
     icon: JSX.Element;
@@ -56,7 +58,7 @@ function MenuList() {
                     <ListItemButton
                         component={Paper}
                         style={{
-                            borderRadius: "20px",
+                            borderRadius: "5px",
                         }}
                     >
                         <ListItemIcon>{item.icon}</ListItemIcon>
@@ -113,7 +115,21 @@ export function NavigatorMenu({
                     }}
                 />
             </Paper>
-            <MenuList />
+            <Grid
+                container
+                direction="column"
+                justifyContent="space-between"
+                sx={{
+                    height: "100%",
+                }}
+            >
+                <Grid item>
+                    <MenuList />
+                </Grid>
+                <Grid item>
+                    <Profile />
+                </Grid>
+            </Grid>
         </Drawer>
     );
 }
