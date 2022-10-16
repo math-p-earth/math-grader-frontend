@@ -1,6 +1,5 @@
 import React from "react";
 import useSWR from "swr";
-import { TagDto } from "../types/dto";
 import { tagFetchResponse } from "../util/fetchUtil";
 
 export function useTag() {

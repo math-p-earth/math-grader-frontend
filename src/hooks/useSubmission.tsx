@@ -1,7 +1,6 @@
 import React from "react";
 import useSWR from "swr";
 import { SubmissionStatus } from "../types/state";
-import { tagFetchResponse } from "../util/fetchUtil";
 
 export function useSubmission(problemId: number, userId: number) {
     const [submissionStatus, setSubmissionStatus] =

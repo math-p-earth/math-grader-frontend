@@ -1,5 +1,3 @@
-import React from "react";
-import logo from "./logo.svg";
 import "./App.css";
 import { ProblemListPage } from "./pages/ProblemListPage";
 import { Dashboard } from "./layouts/Dashboard";

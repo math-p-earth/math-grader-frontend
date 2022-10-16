@@ -1,4 +1,4 @@
-import { Box, IconButton, styled, Toolbar } from "@mui/material";
+import { IconButton, styled, Toolbar } from "@mui/material";
 import MuiAppBar, { AppBarProps as MuiAppBarProps } from "@mui/material/AppBar";
 import MenuIcon from "@mui/icons-material/Menu";
 

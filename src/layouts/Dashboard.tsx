@@ -1,4 +1,4 @@
-import { Box, Grid, styled } from "@mui/material";
+import { Box, styled } from "@mui/material";
 import React from "react";
 import { theme } from "../assets/styles/theme";
 import { ApplicationBar } from "./components/ApplicationBar";

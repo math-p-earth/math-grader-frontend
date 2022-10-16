@@ -1,14 +1,4 @@
-import {
-    Avatar,
-    Box,
-    Divider,
-    Grid,
-    Paper,
-    ToggleButton,
-    ToggleButtonGroup,
-    Typography,
-} from "@mui/material";
-import React from "react";
+import { Avatar, Divider, Grid, Paper } from "@mui/material";
 import { ProblemDto } from "../../types/dto";
 import { Markdown } from "../md/Markdown";
 import { Answer } from "./answers/Answer";

@@ -1,4 +1,4 @@
-import { TextField, TextFieldProps } from "@mui/material";
+import { TextField } from "@mui/material";
 import React from "react";
 import { SubmissionStatus } from "../../../types/state";
 

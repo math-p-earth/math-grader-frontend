@@ -1,4 +1,4 @@
-import { Button, Divider, Grid, Typography } from "@mui/material";
+import { Button, Divider, Grid } from "@mui/material";
 import React from "react";
 import { ProblemType } from "../../../types/dto";
 import { SubmissionStatus } from "../../../types/state";
