@@ -9,18 +9,18 @@ import { Choices } from './Choices'
 import { ShortAnswer } from './ShortAnswer'
 
 export function Answer({
-  problemType,
+  type,
   answer,
   choices,
-  problemId,
+  id,
 }: {
-  problemType: ProblemType
+  type: ProblemType
   answer: string
   choices: string[]
-  problemId: number
+  id: string
 }) {
   const [submissionStatus, setSubmissionStatus] = React.useState<SubmissionStatus>({
-    problemId: problemId,
+    problemId: id,
     userId: 0,
     currentAnswer: '',
     correctAnswer: '',
@@ -52,7 +52,7 @@ export function Answer({
     <Grid container direction="row" spacing={2}>
       <Grid item alignSelf="center" xs={9}>
         {(() => {
-          if (problemType == 'MCQ') {
+          if (type == 'MCQ') {
             return (
               <Choices
                 choiceList={choices}
@@ -60,7 +60,7 @@ export function Answer({
                 setSubmissionStatus={setSubmissionStatus}
               />
             )
-          } else if (problemType == 'SHORT') {
+          } else if (type == 'SHORT') {
             return (
               <ShortAnswer
                 submissionStatus={submissionStatus}

@@ -11,7 +11,7 @@ export function ProblemCard({ problem }: { problem: ProblemDto }) {
     <Paper
       sx={{
         p: '10px',
-        width: '700px',
+        width: '900px',
       }}
       elevation={3}
     >
@@ -36,10 +36,10 @@ export function ProblemCard({ problem }: { problem: ProblemDto }) {
         >
           {
             <Answer
-              problemId={problem.id}
-              problemType={problem.problemType}
+              id={problem.id}
+              type={problem.type}
               answer={problem.answer}
-              choices={problem.problemType == 'MCQ' ? problem.choices : []}
+              choices={problem.type == 'MCQ' ? problem.choices : []}
             />
           }
         </Grid>

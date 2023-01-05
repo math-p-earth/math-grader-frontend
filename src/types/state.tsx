@@ -1,5 +1,5 @@
 export interface SubmissionStatus {
-  problemId: number
+  problemId: string
   userId: number
   currentAnswer: string
   correctAnswer?: string

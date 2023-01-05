@@ -76,6 +76,7 @@ export function Choices({
       {choiceList.map((choice, idx) => {
         return (
           <Choice
+            key={idx}
             choiceNo={idx + 1}
             caption={choice}
             choiceStyling={choiceStyleList[idx]}
@@ -88,11 +89,13 @@ export function Choices({
 }
 
 function Choice({
+  key,
   choiceNo,
   caption,
   choiceStyling,
   toggleAnswer,
 }: {
+  key: number
   choiceNo: number
   caption: string
   choiceStyling: ChoiceStyle
@@ -119,14 +122,14 @@ function Choice({
         <Paper
           elevation={1}
           sx={{
-            width: '300px',
+            minWidth: '500px',
             pt: '1px',
             pb: '1px',
             pl: '10px',
             pr: '10px',
           }}
         >
-          <Markdown content={caption} />
+          <Markdown content={caption} variant="body2" />
         </Paper>
       </Grid>
     </Grid>

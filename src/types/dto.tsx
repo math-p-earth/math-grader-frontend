@@ -1,20 +1,7 @@
-export interface TagDto {
-  id: number
-  name: string
-  tagType: TagType
-  description: string
-  examType?: ExamType
-  timeLimit?: number
-  datePublished?: Date
-
-  problemList: ProblemDto[]
-}
-
 export interface ProblemDto {
-  id: number
-  problemType: ProblemType
+  id: string
+  type: ProblemType
   content: string
-  difficulty: number
   answer: string
   choices: string[]
   order?: number
@@ -22,6 +9,21 @@ export interface ProblemDto {
   source?: string
 }
 
+export interface SourceDto {
+  id: string
+  name: string
+  description: string
+  type: SourceType
+  book: {
+    author: string
+    isbn: string
+  }
+  paper: {
+    timeLimit: number
+    datePublished: Date
+  }
+  length: number
+}
+
 export type ProblemType = 'MCQ' | 'SHORT' | 'TF' | 'PROOF'
-export type TagType = 'PASTPAPER' | 'TOPIC' | 'DRILL'
-export type ExamType = 'PAPER' | 'SIM'
+export type SourceType = 'BOOK' | 'PAPER'

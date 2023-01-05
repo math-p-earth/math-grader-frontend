@@ -4,9 +4,11 @@ import Image from 'next/image'
 import styles from '../styles/Home.module.css'
 
 export default function Home(props: any) {
-  // const { data } = useSWR()
-  return (
-    <div className={styles.container}>
+  return <></>
+}
+
+{
+  /* <div className={styles.container}>
       <p>Hi {props.name}!</p>
       <Head>
         <title>Create Next App</title>
@@ -64,5 +66,5 @@ export default function Home(props: any) {
         </a>
       </footer>
     </div>
-  )
+  ) */
 }

@@ -123,9 +123,9 @@ export function NavigatorMenu({ menuWidth, open }: { menuWidth: number; open: bo
         <Grid item>
           <MenuList />
         </Grid>
-        <Grid item>
+        {/* <Grid item>
           <Profile />
-        </Grid>
+        </Grid> */}
       </Grid>
     </Drawer>
   )
