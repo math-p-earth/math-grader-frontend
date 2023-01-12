@@ -3,7 +3,6 @@ import { useRouter } from 'next/router'
 import { Grid, Typography } from '@mui/material'
 
 import { ProblemCard } from '../../components/problems/ProblemCard'
-import { useProblem } from '../../hooks/useProblem'
 import { useSource } from '../../hooks/useSource'
 
 export default function Paper() {
@@ -21,7 +20,7 @@ export default function Paper() {
           problems.map((problem: any, idx: number) => {
             return (
               <Grid item alignSelf="center" key={idx}>
-                <ProblemCard problem={problem} />
+                <ProblemCard problem={problem} variant="COMPACT" />
               </Grid>
             )
           })}

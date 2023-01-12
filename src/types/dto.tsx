@@ -25,5 +25,14 @@ export interface SourceDto {
   length: number
 }
 
+export interface ProblemListDto {
+  id: string
+  name: string
+  description: string
+  type: ProblemListType
+  length: number
+}
+
 export type ProblemType = 'MCQ' | 'SHORT' | 'TF' | 'PROOF'
 export type SourceType = 'BOOK' | 'PAPER'
+export type ProblemListType = 'DRILL' | 'LECTURE_PROBLEM' | 'COLLECTION' | 'CHALLENGE'
