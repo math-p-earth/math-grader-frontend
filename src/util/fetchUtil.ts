@@ -19,8 +19,8 @@ export function sourceFetchResponse(data: any) {
     description: data?.description,
     type: data?.type,
     book: { author: data?.book?.author, isbn: data?.book?.isbn },
-    paper: { timeLimit: data?.paper?.timeLimit, datePublished: new Date(data?.paper?.datePublished)},
-    length: data?.problems.length
+    paper: { timeLimit: data?.paper?.timeLimit, datePublished: new Date(data?.paper?.datePublished) },
+    length: 0
   }
 }
 
