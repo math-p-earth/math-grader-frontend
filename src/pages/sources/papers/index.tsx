@@ -1,10 +1,10 @@
 import { Grid } from '@mui/material'
 
-import { SourceCard } from '../../components/cards/SourceCard'
-import { useSourceList } from '../../hooks/useSourceList'
+import { SourceCard } from '../../../components/cards/SourceCard'
+import { useSourceList } from '../../../hooks/useSourceList'
 
 export default function Source(props: any) {
-  const { sources, error } = useSourceList()
+  const { sources, error } = useSourceList('PAPER')
 
   return (
     <Grid container direction="column" alignContent="center">

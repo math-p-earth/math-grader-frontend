@@ -1,21 +1,32 @@
 import { useRouter } from 'next/router'
 
-import { Grid, Typography } from '@mui/material'
+import { Grid, Paper, Typography } from '@mui/material'
 
 import { ProblemCard } from '../../components/problems/ProblemCard'
 import { useSource } from '../../hooks/useSource'
 
-export default function Paper() {
+export default function Source() {
   const router = useRouter()
   const { id } = router.query
   const { source, problems } = useSource(id?.toString())
 
   return (
-    <Grid container direction="column" alignContent="center">
+    <Grid container direction="column" alignContent="center" spacing={2}>
       <Grid item>
-        sourceId: {source.id}, datePublished: {source.paper.datePublished.toDateString()}
+        <Paper
+          sx={{
+            p: '15px',
+          }}
+          elevation={3}
+        >
+          <Typography variant="caption">ID: {source.id}</Typography>
+          <Typography variant="h3">{source.name}</Typography>
+          <Typography variant="caption">
+            Examination Date: {source.paper.datePublished.toDateString()}
+          </Typography>
+        </Paper>
       </Grid>
-      <Grid container direction="column" spacing={2}>
+      <Grid item container direction="column" spacing={2}>
         {problems &&
           problems.map((problem: any, idx: number) => {
             return (
