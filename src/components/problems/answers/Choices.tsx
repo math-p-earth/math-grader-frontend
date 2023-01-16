@@ -69,7 +69,7 @@ export function Choices({
 
   React.useEffect(() => {
     choiceStyling(submissionStatus, choiceStyleList, setChoiceStyleList)
-  }, [submissionStatus])
+  }, [submissionStatus, choiceStyleList])
 
   return (
     <Grid container spacing={1}>
