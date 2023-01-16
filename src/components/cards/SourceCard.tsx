@@ -86,7 +86,7 @@ export function SourceCard({ source }: { source: SourceDto }) {
               </IconButton>
             </Grid>
             <Grid item>
-              <Button variant="contained" href={'/' + source.id}>
+              <Button variant="contained" href={'/sources/' + source.id}>
                 See more
               </Button>
             </Grid>

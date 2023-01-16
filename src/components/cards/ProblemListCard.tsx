@@ -64,7 +64,9 @@ export function ProblemListCard({ problemList }: { problemList: ProblemListDto }
           }}
         >
           <Grid container direction="row" spacing={1} sx={{ alignSelf: 'end' }}>
-            <Grid item>{ProblemListChip(problemList.type)}</Grid>
+            <Grid item alignSelf="center">
+              {ProblemListChip(problemList.type)}
+            </Grid>
             <Grid item xs />
             <Grid item>
               <IconButton>
@@ -72,12 +74,7 @@ export function ProblemListCard({ problemList }: { problemList: ProblemListDto }
               </IconButton>
             </Grid>
             <Grid item>
-              <Button
-                variant="contained"
-                onClick={() => {
-                  console.log('Clicked')
-                }}
-              >
+              <Button variant="contained" href={'/problem-lists/' + problemList.id}>
                 See more
               </Button>
             </Grid>
@@ -92,7 +89,7 @@ export function ProblemListChip(type: ProblemListType) {
   const LectureProblemChip = (
     <Chip
       size="small"
-      label="Lecture Problem"
+      label="LECTURE"
       sx={{
         bgcolor: theme.colorcode.green,
         color: 'black',
@@ -103,7 +100,7 @@ export function ProblemListChip(type: ProblemListType) {
   const DrillChip = (
     <Chip
       size="small"
-      label="Drill"
+      label="DRILL"
       sx={{
         bgcolor: theme.colorcode.yellow,
         color: 'black',
@@ -114,7 +111,7 @@ export function ProblemListChip(type: ProblemListType) {
   const CollectionChip = (
     <Chip
       size="small"
-      label="Drill"
+      label="COLLECTION"
       sx={{
         bgcolor: theme.colorcode.blue,
         color: 'black',
@@ -125,7 +122,7 @@ export function ProblemListChip(type: ProblemListType) {
   const ChallengeChip = (
     <Chip
       size="small"
-      label="Drill"
+      label="CHALLENGE"
       sx={{
         bgcolor: theme.colorcode.red,
         color: 'black',

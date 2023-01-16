@@ -4,7 +4,7 @@ import { ProblemListCard } from '../../../components/cards/ProblemListCard'
 import { useProblemListList } from '../../../hooks/useProblemListList'
 
 export default function ProblemList(props: any) {
-  const { problemListList } = useProblemListList('LECTURE_PROBLEM')
+  const { problemListList } = useProblemListList('DRILL')
 
   return (
     <Grid container direction="column" alignContent="center">
