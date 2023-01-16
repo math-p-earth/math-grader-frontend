@@ -39,7 +39,7 @@ export function ProblemListCard({ problemList }: { problemList: ProblemListDto }
         <Divider />
         <Grid item xs={4} alignItems="center" display="flex">
           <Grid container direction="row" height="100%">
-            <Grid item xs={4}>
+            <Grid item xs={4} padding={1}>
               <Typography variant="h4" textAlign="center">
                 {problemList.length}
               </Typography>
@@ -48,8 +48,8 @@ export function ProblemListCard({ problemList }: { problemList: ProblemListDto }
               </Typography>
             </Grid>
             <Divider orientation="vertical" variant="middle" flexItem sx={{ mr: '-1px' }} />
-            <Grid item xs={8}>
-              <Typography variant="body1" textAlign="center">
+            <Grid item xs={8} padding={1}>
+              <Typography variant="body1" textAlign="left">
                 {problemList.description}
               </Typography>
             </Grid>
@@ -94,10 +94,46 @@ export function ProblemListChip(type: ProblemListType) {
       size="small"
       label="Lecture Problem"
       sx={{
-        bgcolor: theme.colorcode.red,
+        bgcolor: theme.colorcode.green,
+        color: 'black',
       }}
     />
   )
 
-  return LectureProblemChip
+  const DrillChip = (
+    <Chip
+      size="small"
+      label="Drill"
+      sx={{
+        bgcolor: theme.colorcode.yellow,
+        color: 'black',
+      }}
+    />
+  )
+
+  const CollectionChip = (
+    <Chip
+      size="small"
+      label="Drill"
+      sx={{
+        bgcolor: theme.colorcode.blue,
+        color: 'black',
+      }}
+    />
+  )
+
+  const ChallengeChip = (
+    <Chip
+      size="small"
+      label="Drill"
+      sx={{
+        bgcolor: theme.colorcode.red,
+        color: 'black',
+      }}
+    />
+  )
+  if (type === 'LECTURE_PROBLEM') return LectureProblemChip
+  else if (type === 'DRILL') return DrillChip
+  else if (type === 'COLLECTION') return CollectionChip
+  else if (type === 'CHALLENGE') return ChallengeChip
 }

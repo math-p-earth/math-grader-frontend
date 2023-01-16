@@ -78,9 +78,7 @@ export function SourceCard({ source }: { source: SourceDto }) {
           }}
         >
           <Grid container direction="row" spacing={1} sx={{ alignSelf: 'end' }}>
-            <Grid item>
-              <Chip size="small" label="Important" />
-            </Grid>
+            <Grid item></Grid>
             <Grid item xs />
             <Grid item>
               <IconButton>
@@ -88,12 +86,7 @@ export function SourceCard({ source }: { source: SourceDto }) {
               </IconButton>
             </Grid>
             <Grid item>
-              <Button
-                variant="contained"
-                onClick={() => {
-                  console.log('Clicked')
-                }}
-              >
+              <Button variant="contained" href={'/' + source.id}>
                 See more
               </Button>
             </Grid>
