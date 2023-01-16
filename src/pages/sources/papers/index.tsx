@@ -1,4 +1,4 @@
-import { Grid } from '@mui/material'
+import { Divider, Grid, Typography } from '@mui/material'
 
 import { SourceCard } from '../../../components/cards/SourceCard'
 import { useSourceList } from '../../../hooks/useSourceList'
@@ -7,8 +7,14 @@ export default function Source(props: any) {
   const { sources, error } = useSourceList('PAPER')
 
   return (
-    <Grid container direction="column" alignContent="center">
-      <Grid container direction="column" spacing={2}>
+    <Grid container direction="column" spacing={1}>
+      <Grid item>
+        <Typography variant="h2" color="white">
+          Past Papers
+        </Typography>
+      </Grid>
+      <Divider />
+      <Grid item container direction="row" spacing={2}>
         {sources &&
           sources.map((source: any, idx: number) => {
             return (
