@@ -2,7 +2,7 @@ import axios from 'axios'
 
 export const httpClient = axios.create({
   withCredentials: true,
-  baseURL: process.env.REACT_APP_BACKEND_URL,
+  baseURL: process.env.NEXT_PUBLIC_BACKEND_URL,
 })
 
 export async function swrFetcher(path: string, params?: unknown) {
