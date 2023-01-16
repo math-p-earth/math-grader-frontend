@@ -1,16 +1,16 @@
 import { Divider, Grid, Typography } from '@mui/material'
 
-import { SourceCard } from '../../components/cards/SourceCard'
-import { useSourceList } from '../../hooks/useSourceList'
+import { SourceCard } from '../../../components/cards/SourceCard'
+import { useSourceList } from '../../../hooks/useSourceList'
 
 export default function Source(props: any) {
-  const { sources, error } = useSourceList()
+  const { sources, error } = useSourceList('PAPER')
 
   return (
     <Grid container direction="column" spacing={1}>
       <Grid item>
         <Typography variant="h2" color="white">
-          Sources
+          Past Papers
         </Typography>
       </Grid>
       <Divider />

@@ -3,15 +3,15 @@ import { useRouter } from 'next/router'
 import { Grid, Paper, Typography } from '@mui/material'
 
 import { ProblemCard } from '../../components/problems/ProblemCard'
-import { useSource } from '../../hooks/useSource'
+import { useProblemList } from '../../hooks/useProblemList'
 
-export default function Source() {
+export default function ProblemList() {
   const router = useRouter()
   const { id } = router.query
-  const { source, problems } = useSource(id?.toString())
+  const { problemList, problems } = useProblemList(id?.toString())
 
   return (
-    <Grid container direction="column" alignContent="center" spacing={2}>
+    <Grid container direction="column" justifyContent="center" alignContent="center" spacing={2}>
       <Grid item>
         <Paper
           sx={{
@@ -19,11 +19,8 @@ export default function Source() {
           }}
           elevation={3}
         >
-          <Typography variant="caption">ID: {source.id}</Typography>
-          <Typography variant="h3">{source.name}</Typography>
-          <Typography variant="caption">
-            Examination Date: {source.paper.datePublished.toDateString()}
-          </Typography>
+          <Typography variant="caption">ID: {problemList.id}</Typography>
+          <Typography variant="h3">{problemList.name}</Typography>
         </Paper>
       </Grid>
       <Grid item container direction="column" spacing={2}>

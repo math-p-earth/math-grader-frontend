@@ -24,7 +24,15 @@ export function sourceFetchResponse(data: any) {
   }
 }
 
-
+export function problemListFetchResponse(data: any) {
+  return {
+    id: data?.id,
+    name: data?.name,
+    description: data?.description,
+    type: data?.type,
+    length: data?.problems.length
+  }
+}
 
 // export interface SourceDto {
 //   id: string

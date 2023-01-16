@@ -11,9 +11,10 @@ import {
   Typography,
 } from '@mui/material'
 
-import { SourceDto } from '../../types/dto'
+import { theme } from '../../configs/theme'
+import { ProblemListDto, ProblemListType } from '../../types/dto'
 
-export function SourceCard({ source }: { source: SourceDto }) {
+export function ProblemListCard({ problemList }: { problemList: ProblemListDto }) {
   const boxSize = '350px'
 
   return (
@@ -30,41 +31,26 @@ export function SourceCard({ source }: { source: SourceDto }) {
           <Grid container justifyContent="space-between">
             <Grid item>
               <Typography variant="h5" textAlign="left">
-                {source.name}
+                {problemList.name}
               </Typography>
-            </Grid>
-            <Grid item>
-              <Chip size="small" label="Paper" />
             </Grid>
           </Grid>
         </Grid>
         <Divider />
         <Grid item xs={4} alignItems="center" display="flex">
           <Grid container direction="row" height="100%">
-            <Grid item xs={4}>
+            <Grid item xs={4} padding={1}>
               <Typography variant="h4" textAlign="center">
-                {source.length}
+                {problemList.length}
               </Typography>
               <Typography variant="body1" textAlign="center">
                 Problems
               </Typography>
             </Grid>
             <Divider orientation="vertical" variant="middle" flexItem sx={{ mr: '-1px' }} />
-            <Grid item xs={4}>
-              <Typography variant="h4" textAlign="center">
-                -
-              </Typography>
-              <Typography variant="body1" textAlign="center">
-                Total score
-              </Typography>
-            </Grid>
-            <Divider orientation="vertical" variant="middle" flexItem sx={{ mr: '-1px' }} />
-            <Grid item xs={4}>
-              <Typography variant="h4" textAlign="center">
-                {source.paper.timeLimit}
-              </Typography>
-              <Typography variant="body1" textAlign="center">
-                mins
+            <Grid item xs={8} padding={1}>
+              <Typography variant="body1" textAlign="left">
+                {problemList.description}
               </Typography>
             </Grid>
           </Grid>
@@ -78,7 +64,9 @@ export function SourceCard({ source }: { source: SourceDto }) {
           }}
         >
           <Grid container direction="row" spacing={1} sx={{ alignSelf: 'end' }}>
-            <Grid item></Grid>
+            <Grid item alignSelf="center">
+              {ProblemListChip(problemList.type)}
+            </Grid>
             <Grid item xs />
             <Grid item>
               <IconButton>
@@ -86,7 +74,7 @@ export function SourceCard({ source }: { source: SourceDto }) {
               </IconButton>
             </Grid>
             <Grid item>
-              <Button variant="contained" href={'/sources/' + source.id}>
+              <Button variant="contained" href={'/problem-lists/' + problemList.id}>
                 See more
               </Button>
             </Grid>
@@ -95,4 +83,54 @@ export function SourceCard({ source }: { source: SourceDto }) {
       </Grid>
     </Paper>
   )
+}
+
+export function ProblemListChip(type: ProblemListType) {
+  const LectureProblemChip = (
+    <Chip
+      size="small"
+      label="LECTURE"
+      sx={{
+        bgcolor: theme.colorcode.green,
+        color: 'black',
+      }}
+    />
+  )
+
+  const DrillChip = (
+    <Chip
+      size="small"
+      label="DRILL"
+      sx={{
+        bgcolor: theme.colorcode.yellow,
+        color: 'black',
+      }}
+    />
+  )
+
+  const CollectionChip = (
+    <Chip
+      size="small"
+      label="COLLECTION"
+      sx={{
+        bgcolor: theme.colorcode.blue,
+        color: 'black',
+      }}
+    />
+  )
+
+  const ChallengeChip = (
+    <Chip
+      size="small"
+      label="CHALLENGE"
+      sx={{
+        bgcolor: theme.colorcode.red,
+        color: 'black',
+      }}
+    />
+  )
+  if (type === 'LECTURE_PROBLEM') return LectureProblemChip
+  else if (type === 'DRILL') return DrillChip
+  else if (type === 'COLLECTION') return CollectionChip
+  else if (type === 'CHALLENGE') return ChallengeChip
 }

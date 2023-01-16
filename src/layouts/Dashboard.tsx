@@ -31,10 +31,16 @@ export function Dashboard({ children }: { children: JSX.Element }) {
   const [open, setOpen] = React.useState<boolean>(true)
 
   return (
-    <Box sx={{ display: 'flex' }}>
+    <Box sx={{ display: 'flex', height: 'inherit' }}>
       <ApplicationBar menuWidth={menuWidth} open={open} setOpen={setOpen} />
       <NavigatorMenu menuWidth={menuWidth} open={open} />
-      <Main open={open}>
+      <Main
+        open={open}
+        sx={{
+          bgcolor: 'black',
+          height: '100%',
+        }}
+      >
         <Box
           display="flex"
           alignItems="center"

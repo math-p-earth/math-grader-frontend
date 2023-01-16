@@ -1,25 +1,25 @@
 import { Divider, Grid, Typography } from '@mui/material'
 
-import { SourceCard } from '../../components/cards/SourceCard'
-import { useSourceList } from '../../hooks/useSourceList'
+import { ProblemListCard } from '../../../components/cards/ProblemListCard'
+import { useProblemListList } from '../../../hooks/useProblemListList'
 
-export default function Source(props: any) {
-  const { sources, error } = useSourceList()
+export default function ProblemList(props: any) {
+  const { problemListList } = useProblemListList('DRILL')
 
   return (
     <Grid container direction="column" spacing={1}>
       <Grid item>
         <Typography variant="h2" color="white">
-          Sources
+          Drills
         </Typography>
       </Grid>
       <Divider />
       <Grid item container direction="row" spacing={2}>
-        {sources &&
-          sources.map((source: any, idx: number) => {
+        {problemListList &&
+          problemListList.map((problemList: any, idx: number) => {
             return (
               <Grid item alignSelf="center" key={idx}>
-                <SourceCard source={source} />
+                <ProblemListCard problemList={problemList} />
               </Grid>
             )
           })}

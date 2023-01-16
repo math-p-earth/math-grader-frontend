@@ -1,3 +1,5 @@
+import Link from 'next/link'
+
 import DescriptionIcon from '@mui/icons-material/Description'
 import HomeIcon from '@mui/icons-material/Home'
 import ListAltIcon from '@mui/icons-material/ListAlt'
@@ -29,43 +31,43 @@ const menuListArr = [
     {
       icon: <HomeIcon />,
       label: 'Home',
+      link: '/',
     },
     {
       icon: <MenuBookIcon />,
-      label: 'Lecture Problem',
+      label: 'Lecture Problems',
+      link: '/problem-lists/lectureproblems',
     },
-    {
-      icon: <ListAltIcon />,
-      label: 'Problem Set',
-    },
+    // {
+    //   icon: <ListAltIcon />,
+    //   label: 'Problem Set',
+    // },
     {
       icon: <DescriptionIcon />,
-      label: 'Past Paper',
+      label: 'Past Papers',
+      link: '/sources/papers',
     },
   ],
-  [
-    {
-      icon: <div />,
-      label: 'Training System',
-    },
-  ],
+  [],
 ] as MenuListInterface[][]
 
 function MenuList() {
   const MenuMap = (arr: MenuListInterface[]) => {
     return arr.map((item) => {
       return (
-        <ListItem key={item.label}>
-          <ListItemButton
-            component={Paper}
-            style={{
-              borderRadius: '5px',
-            }}
-          >
-            <ListItemIcon>{item.icon}</ListItemIcon>
-            <ListItemText>{item.label}</ListItemText>
-          </ListItemButton>
-        </ListItem>
+        <Link href={item.link} key={item.label}>
+          <ListItem key={item.label}>
+            <ListItemButton
+              component={Paper}
+              style={{
+                borderRadius: '5px',
+              }}
+            >
+              <ListItemIcon>{item.icon}</ListItemIcon>
+              <ListItemText>{item.label}</ListItemText>
+            </ListItemButton>
+          </ListItem>
+        </Link>
       )
     })
   }
