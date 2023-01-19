@@ -1,15 +1,5 @@
 import PrintIcon from '@mui/icons-material/Print'
-import {
-  Button,
-  Chip,
-  Divider,
-  Grid,
-  IconButton,
-  Paper,
-  Rating,
-  Skeleton,
-  Typography,
-} from '@mui/material'
+import { Button, Chip, Divider, Grid, IconButton, Paper, Typography } from '@mui/material'
 
 import { SourceDto } from '../../types/dto'
 

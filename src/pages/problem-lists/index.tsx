@@ -1,3 +1,5 @@
+import { useRouter } from 'next/router'
+
 import { Divider, Grid, Typography } from '@mui/material'
 
 import { ProblemListCard } from '../../components/cards/ProblemListCard'

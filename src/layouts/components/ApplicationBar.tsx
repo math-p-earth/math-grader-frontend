@@ -1,3 +1,5 @@
+import { Dispatch, SetStateAction } from 'react'
+
 import MenuIcon from '@mui/icons-material/Menu'
 import { IconButton, Toolbar, styled } from '@mui/material'
 import MuiAppBar, { AppBarProps as MuiAppBarProps } from '@mui/material/AppBar'
@@ -31,7 +33,7 @@ export function ApplicationBar({
 }: {
   menuWidth: number
   open: boolean
-  setOpen: Function
+  setOpen: Dispatch<SetStateAction<boolean>>
 }) {
   return (
     <AppBar position="fixed" menuWidth={menuWidth} open={open}>

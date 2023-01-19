@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { Dispatch, SetStateAction } from 'react'
 
 import { Button, Grid, Paper, Typography } from '@mui/material'
 
@@ -54,7 +54,7 @@ export function Choices({
 }: {
   choiceList: string[]
   submissionStatus: SubmissionStatus
-  setSubmissionStatus: Function
+  setSubmissionStatus: Dispatch<SetStateAction<SubmissionStatus>>
 }) {
   const [choiceStyleList, setChoiceStyleList] = React.useState<ChoiceStyle[]>(
     Array(choiceList.length).fill(choiceStyle.NORMAL)
@@ -99,7 +99,7 @@ function Choice({
   choiceNo: number
   caption: string
   choiceStyling: ChoiceStyle
-  toggleAnswer: Function
+  toggleAnswer: (val: string) => void
 }) {
   return (
     <Grid item container spacing={1}>
@@ -139,15 +139,11 @@ function Choice({
 function choiceStyling(
   submissionStatus: SubmissionStatus,
   choiceStyleList: ChoiceStyle[],
-  setChoiceStyleList: Function
+  setChoiceStyleList: Dispatch<React.SetStateAction<ChoiceStyle[]>>
 ) {
-  // For Debugging
-
-  console.log(submissionStatus)
-
   if (submissionStatus.status == 'NOATTEMPT' || submissionStatus.status == 'INCORRECT') {
-    let newChoiceStyle = []
-    for (var i = 1; i <= choiceStyleList.length; i++) {
+    const newChoiceStyle = []
+    for (let i = 1; i <= choiceStyleList.length; i++) {
       const idx = i.toString()
       if (submissionStatus.wrongAnswer.includes(idx)) {
         newChoiceStyle.push(choiceStyle.WRONG)
@@ -160,8 +156,8 @@ function choiceStyling(
 
     setChoiceStyleList(newChoiceStyle)
   } else if (submissionStatus.status == 'CORRECT' || submissionStatus.status == 'COMPLETE') {
-    let newChoiceStyle = []
-    for (var i = 1; i <= choiceStyleList.length; i++) {
+    const newChoiceStyle = []
+    for (let i = 1; i <= choiceStyleList.length; i++) {
       const idx = i.toString()
       if (submissionStatus.wrongAnswer.includes(idx)) {
         newChoiceStyle.push(choiceStyle.WRONG)

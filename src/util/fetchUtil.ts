@@ -19,8 +19,11 @@ export function sourceFetchResponse(data: any) {
     description: data?.description,
     type: data?.type,
     book: { author: data?.book?.author, isbn: data?.book?.isbn },
-    paper: { timeLimit: data?.paper?.timeLimit, datePublished: new Date(data?.paper?.datePublished) },
-    length: 0
+    paper: {
+      timeLimit: data?.paper?.timeLimit,
+      datePublished: new Date(data?.paper?.datePublished),
+    },
+    length: 0,
   }
 }
 
@@ -30,7 +33,7 @@ export function problemListFetchResponse(data: any) {
     name: data?.name,
     description: data?.description,
     type: data?.type,
-    length: data?.problems.length
+    length: data?.problems.length,
   }
 }
 

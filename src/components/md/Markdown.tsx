@@ -7,13 +7,9 @@ import remarkFrontmatter from 'remark-frontmatter'
 import remarkGfm from 'remark-gfm'
 import remarkMath from 'remark-math'
 
-export function Markdown({
-  content,
-  align = 'left',
-  variant = 'body1',
-}: {
+interface MarkdownProps {
   content: string
-  align?: 'left' | 'right' | 'inherit' | 'center' | 'justify' | undefined
+  align?: 'left' | 'right' | 'inherit' | 'center' | 'justify'
   variant?:
     | 'inherit'
     | 'body1'
@@ -29,8 +25,9 @@ export function Markdown({
     | 'caption'
     | 'button'
     | 'overline'
-    | undefined
-}) {
+}
+
+export function Markdown({ content, align = 'left', variant = 'body1' }: MarkdownProps) {
   return (
     <Typography variant={variant} align={align} fontFamily="'Sarabun', san-serif">
       <ReactMarkdown

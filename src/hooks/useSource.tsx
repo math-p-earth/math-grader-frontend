@@ -1,6 +1,5 @@
 import useSWR from 'swr'
 
-import { ProblemDto } from '../types/dto'
 import { problemFetchResponse, sourceFetchResponse } from '../util/fetchUtil'
 
 export function useSource(sourceId: string | undefined) {

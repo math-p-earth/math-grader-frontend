@@ -1,4 +1,4 @@
-import { Avatar, Divider, Grid, Paper, Typography } from '@mui/material'
+import { Avatar, Divider, Grid, Paper } from '@mui/material'
 
 import { ProblemDto } from '../../types/dto'
 import { Markdown } from '../md/Markdown'
@@ -45,7 +45,6 @@ export function ProblemCard({
               <Answer
                 id={problem.id}
                 type={problem.type}
-                answer={problem.answer}
                 choices={problem.type == 'MCQ' ? problem.choices : []}
               />
             }

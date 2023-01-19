@@ -1,4 +1,4 @@
-import React from 'react'
+import { useState } from 'react'
 
 import { Button, Divider, Grid } from '@mui/material'
 
@@ -10,16 +10,14 @@ import { ShortAnswer } from './ShortAnswer'
 
 export function Answer({
   type,
-  answer,
   choices,
   id,
 }: {
   type: ProblemType
-  answer: string
   choices: string[]
   id: string
 }) {
-  const [submissionStatus, setSubmissionStatus] = React.useState<SubmissionStatus>({
+  const [submissionStatus, setSubmissionStatus] = useState<SubmissionStatus>({
     problemId: id,
     userId: 0,
     currentAnswer: '',
@@ -29,7 +27,6 @@ export function Answer({
   })
 
   const onClear = () => {
-    console.log(submissionStatus)
     setSubmissionStatus((prev) => ({ ...prev, currentAnswer: '' }))
   }
 
@@ -39,11 +36,9 @@ export function Answer({
       return
     }
 
-    const newSubmissionStatus = (
-      await httpClient.post('/submission', {
-        ...submissionStatus,
-      })
-    ).data as SubmissionStatus
+    const { data: newSubmissionStatus } = await httpClient.post<SubmissionStatus>('/submission', {
+      ...submissionStatus,
+    })
 
     setSubmissionStatus(newSubmissionStatus)
   }
@@ -51,24 +46,18 @@ export function Answer({
   return (
     <Grid container direction="row" spacing={2}>
       <Grid item alignSelf="center" xs={9}>
-        {(() => {
-          if (type == 'MCQ') {
-            return (
-              <Choices
-                choiceList={choices}
-                submissionStatus={submissionStatus}
-                setSubmissionStatus={setSubmissionStatus}
-              />
-            )
-          } else if (type == 'SHORT') {
-            return (
-              <ShortAnswer
-                submissionStatus={submissionStatus}
-                setSubmissionStatus={setSubmissionStatus}
-              />
-            )
-          }
-        })()}
+        {type == 'MCQ' ? (
+          <Choices
+            choiceList={choices}
+            submissionStatus={submissionStatus}
+            setSubmissionStatus={setSubmissionStatus}
+          />
+        ) : type == 'SHORT' ? (
+          <ShortAnswer
+            submissionStatus={submissionStatus}
+            setSubmissionStatus={setSubmissionStatus}
+          />
+        ) : null}
       </Grid>
       <Grid item xs={1}>
         <Divider orientation="vertical" />

@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { Dispatch, SetStateAction } from 'react'
 
 import { TextField } from '@mui/material'
 
@@ -9,14 +9,14 @@ export function ShortAnswer({
   setSubmissionStatus,
 }: {
   submissionStatus: SubmissionStatus
-  setSubmissionStatus: Function
+  setSubmissionStatus: Dispatch<SetStateAction<SubmissionStatus>>
 }) {
   const [helperWrong, setHelperWrong] = React.useState<string>('')
 
   React.useEffect(() => {
     let str = 'You have answered the following: '
     const wrongAnswer = submissionStatus.wrongAnswer
-    for (var i = 0; i < wrongAnswer.length; i++) {
+    for (let i = 0; i < wrongAnswer.length; i++) {
       str += wrongAnswer[i]
       if (i != wrongAnswer.length - 1) {
         str += ', '
@@ -25,9 +25,7 @@ export function ShortAnswer({
     setHelperWrong(str)
   }, [submissionStatus])
 
-  const onChange = (e: any) => {
-    console.log(submissionStatus)
-
+  const onChange: React.ChangeEventHandler<HTMLInputElement> = (e) => {
     setSubmissionStatus((prev: SubmissionStatus) => ({
       ...prev,
       currentAnswer: e.target.value,

@@ -1,20 +1,14 @@
 import PrintIcon from '@mui/icons-material/Print'
-import {
-  Button,
-  Chip,
-  Divider,
-  Grid,
-  IconButton,
-  Paper,
-  Rating,
-  Skeleton,
-  Typography,
-} from '@mui/material'
+import { Button, Chip, Divider, Grid, IconButton, Paper, Typography } from '@mui/material'
 
 import { theme } from '../../configs/theme'
 import { ProblemListDto, ProblemListType } from '../../types/dto'
 
-export function ProblemListCard({ problemList }: { problemList: ProblemListDto }) {
+interface ProblemListCardProps {
+  problemList: ProblemListDto
+}
+
+export function ProblemListCard({ problemList }: ProblemListCardProps) {
   const boxSize = '350px'
 
   return (
