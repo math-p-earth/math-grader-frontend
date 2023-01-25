@@ -4,6 +4,7 @@ import { Grid, Paper, Typography } from '@mui/material'
 
 import { ProblemCard } from '../../components/problems/ProblemCard'
 import { useSource } from '../../hooks/useSource'
+import { ProblemDto } from '../../types/dto'
 
 export default function Source() {
   const router = useRouter()
@@ -28,7 +29,7 @@ export default function Source() {
       </Grid>
       <Grid item container direction="column" spacing={2}>
         {problems &&
-          problems.map((problem: any, idx: number) => {
+          problems.map((problem: ProblemDto, idx: number) => {
             return (
               <Grid item alignSelf="center" key={idx}>
                 <ProblemCard problem={problem} variant="COMPACT" />
