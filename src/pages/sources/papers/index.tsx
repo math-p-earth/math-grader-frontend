@@ -5,7 +5,7 @@ import { useSourceList } from '../../../hooks/useSourceList'
 import { SourceDto } from '../../../types/dto'
 
 export default function Source() {
-  const { sources } = useSourceList('PAPER')
+  const { sources } = useSourceList()
 
   return (
     <Grid container direction="column" spacing={1}>

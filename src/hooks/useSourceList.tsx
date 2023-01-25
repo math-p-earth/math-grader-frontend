@@ -1,13 +1,12 @@
 import useSWR from 'swr'
 
-import { SourceType } from '../types/dto'
-import { sourceFetchResponse } from '../util/fetchUtil'
+import { SourceResponseInterface, sourceFetchResponse } from '../util/fetchUtil'
 
-export function useSourceList(type?: SourceType) {
+export function useSourceList() {
   const { data, error } = useSWR(['/sources'])
 
   return {
-    sources: data?.docs.map((s: any) => sourceFetchResponse(s)),
+    sources: data?.docs.map((s: SourceResponseInterface) => sourceFetchResponse(s)),
     isLoading: !data && !error,
     error: error,
   }
