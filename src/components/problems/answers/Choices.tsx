@@ -102,7 +102,7 @@ function Choice({
   toggleAnswer: (val: string) => void
 }) {
   return (
-    <Grid item container spacing={1}>
+    <Grid item key={key} container spacing={1}>
       <Grid item alignSelf="center">
         <Button
           {...choiceStyling}
