@@ -1,7 +1,6 @@
 import useSWR from 'swr'
 
-import { ProblemListType } from '../types/dto'
-import { ProblemListResponseInterface, problemListFetchResponse } from '../util/fetchUtil'
+import { ProblemList, ProblemListType } from '../types/dto'
 
 // TODO: for the love of god, please rename this
 export function useProblemListList(type?: ProblemListType) {
@@ -9,9 +8,7 @@ export function useProblemListList(type?: ProblemListType) {
     type ? '/problem-lists?where[type][equals]=' + type : '/problem-lists',
   ])
   return {
-    problemListList: data?.docs.map((s: ProblemListResponseInterface) =>
-      problemListFetchResponse(s)
-    ),
+    problemListList: data?.docs as ProblemList[],
     isLoading: !data && !error,
     error: error,
   }

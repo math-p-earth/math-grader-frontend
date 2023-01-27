@@ -8,15 +8,12 @@ import { httpClient } from '../../../util/httpClient'
 import { Choices } from './Choices'
 import { ShortAnswer } from './ShortAnswer'
 
-export function Answer({
-  type,
-  choices,
-  id,
-}: {
+interface AnswerProps {
   type: ProblemType
-  choices: string[]
+  choices: { id?: string; choice?: string }[]
   id: string
-}) {
+}
+export function Answer({ type, choices, id }: AnswerProps) {
   const [submissionStatus, setSubmissionStatus] = useState<SubmissionStatus>({
     problemId: id,
     userId: 0,
@@ -45,13 +42,9 @@ export function Answer({
 
   return (
     <Grid container direction="row" spacing={2}>
-      <Grid item alignSelf="center" xs={9}>
+      <Grid item alignSelf="center" xs={8}>
         {type == 'MCQ' ? (
-          <Choices
-            choiceList={choices}
-            submissionStatus={submissionStatus}
-            setSubmissionStatus={setSubmissionStatus}
-          />
+          <Choices choiceList={choices} />
         ) : type == 'SHORT' ? (
           <ShortAnswer
             submissionStatus={submissionStatus}
@@ -62,7 +55,7 @@ export function Answer({
       <Grid item xs={1}>
         <Divider orientation="vertical" />
       </Grid>
-      <Grid item xs={2} container direction="column" justifyContent="end" spacing={1}>
+      <Grid item xs={3} container direction="column" justifyContent="end" spacing={1}>
         <Grid item>
           <Button onClick={onClear}>Clear</Button>
         </Grid>

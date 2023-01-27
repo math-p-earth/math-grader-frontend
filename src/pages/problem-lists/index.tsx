@@ -1,8 +1,7 @@
 import { Divider, Grid, Typography } from '@mui/material'
 
-import { ProblemListCard } from '../../components/cards/ProblemListCard'
+import { ProblemListCardList } from '../../components/card-lists/ProblemListCardList'
 import { useProblemListList } from '../../hooks/useProblemListList'
-import { ProblemListDto } from '../../types/dto'
 
 export default function ProblemList() {
   const { problemListList } = useProblemListList()
@@ -15,16 +14,7 @@ export default function ProblemList() {
         </Typography>
       </Grid>
       <Divider />
-      <Grid item container direction="row" spacing={2}>
-        {problemListList &&
-          problemListList.map((problemList: ProblemListDto, idx: number) => {
-            return (
-              <Grid item alignSelf="center" key={idx}>
-                <ProblemListCard problemList={problemList} />
-              </Grid>
-            )
-          })}
-      </Grid>
+      <Grid item>{problemListList && <ProblemListCardList problemLists={problemListList} />}</Grid>
     </Grid>
   )
 }

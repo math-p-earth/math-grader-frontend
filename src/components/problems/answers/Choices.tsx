@@ -1,8 +1,7 @@
-import React, { Dispatch, SetStateAction } from 'react'
+import React from 'react'
 
 import { Button, Grid, Paper, Typography } from '@mui/material'
 
-import { SubmissionStatus } from '../../../types/state'
 import { Markdown } from '../../md/Markdown'
 
 const buttonSize = '40px'
@@ -47,60 +46,29 @@ const choiceStyle = {
   } as ChoiceStyle,
 }
 
-export function Choices({
-  choiceList,
-  submissionStatus,
-  setSubmissionStatus,
-}: {
-  choiceList: string[]
-  submissionStatus: SubmissionStatus
-  setSubmissionStatus: Dispatch<SetStateAction<SubmissionStatus>>
-}) {
-  const [choiceStyleList, setChoiceStyleList] = React.useState<ChoiceStyle[]>(
-    Array(choiceList.length).fill(choiceStyle.NORMAL)
-  )
+interface ChoicesProps {
+  choiceList: { id?: string; choice?: string }[]
+}
 
-  const toggleAnswer = (val: string) => {
-    setSubmissionStatus((prev: SubmissionStatus) => ({
-      ...prev,
-      currentAnswer: val,
-    }))
-  }
-
-  React.useEffect(() => {
-    choiceStyling(submissionStatus, choiceStyleList, setChoiceStyleList)
-  }, [submissionStatus, choiceStyleList])
+export function Choices({ choiceList }: ChoicesProps) {
+  const choiceStyleList = choiceList.map(() => choiceStyle.DISABLED)
 
   return (
     <Grid container spacing={1}>
       {choiceList.map((choice, idx) => {
-        return (
-          <Choice
-            key={idx}
-            choiceNo={idx + 1}
-            caption={choice}
-            choiceStyling={choiceStyleList[idx]}
-            toggleAnswer={toggleAnswer}
-          />
-        )
+        return <Choice key={idx + 1} caption={choice.choice} choiceStyling={choiceStyleList[idx]} />
       })}
     </Grid>
   )
 }
 
-function Choice({
-  key,
-  choiceNo,
-  caption,
-  choiceStyling,
-  toggleAnswer,
-}: {
+interface ChoiceProps {
   key: number
-  choiceNo: number
-  caption: string
+  caption?: string
   choiceStyling: ChoiceStyle
-  toggleAnswer: (val: string) => void
-}) {
+}
+
+function Choice({ key, caption, choiceStyling }: ChoiceProps) {
   return (
     <Grid item key={key} container spacing={1}>
       <Grid item alignSelf="center">
@@ -111,11 +79,8 @@ function Choice({
             minWidth: buttonSize,
             height: buttonSize,
           }}
-          onClick={() => {
-            if (choiceStyling == choiceStyle.NORMAL) toggleAnswer(choiceNo.toString())
-          }}
         >
-          <Typography variant="h6">{choiceNo}</Typography>
+          <Typography variant="h6">{key}</Typography>
         </Button>
       </Grid>
       <Grid item alignSelf="center">
@@ -129,52 +94,9 @@ function Choice({
             pr: '10px',
           }}
         >
-          <Markdown content={caption} variant="body2" />
+          <Markdown content={caption ? caption : ''} variant="body2" />
         </Paper>
       </Grid>
     </Grid>
   )
 }
-
-function choiceStyling(
-  submissionStatus: SubmissionStatus,
-  choiceStyleList: ChoiceStyle[],
-  setChoiceStyleList: Dispatch<React.SetStateAction<ChoiceStyle[]>>
-) {
-  if (submissionStatus.status == 'NOATTEMPT' || submissionStatus.status == 'INCORRECT') {
-    const newChoiceStyle = []
-    for (let i = 1; i <= choiceStyleList.length; i++) {
-      const idx = i.toString()
-      if (submissionStatus.wrongAnswer.includes(idx)) {
-        newChoiceStyle.push(choiceStyle.WRONG)
-      } else if (idx == submissionStatus.currentAnswer) {
-        newChoiceStyle.push(choiceStyle.SELECTED)
-      } else {
-        newChoiceStyle.push(choiceStyle.NORMAL)
-      }
-    }
-
-    setChoiceStyleList(newChoiceStyle)
-  } else if (submissionStatus.status == 'CORRECT' || submissionStatus.status == 'COMPLETE') {
-    const newChoiceStyle = []
-    for (let i = 1; i <= choiceStyleList.length; i++) {
-      const idx = i.toString()
-      if (submissionStatus.wrongAnswer.includes(idx)) {
-        newChoiceStyle.push(choiceStyle.WRONG)
-      } else if (idx == submissionStatus.correctAnswer) {
-        newChoiceStyle.push(choiceStyle.CORRECT)
-      } else {
-        newChoiceStyle.push(choiceStyle.DISABLED)
-      }
-    }
-
-    setChoiceStyleList(newChoiceStyle)
-  }
-}
-
-// SubmissionStatus {
-//     currentAnswer: string | undefined;
-//     correctAnswer: string;
-//     wrongAnswer: string[];
-//     submissionStatus: "ANSWERING" | "ANSWERED";
-// }
