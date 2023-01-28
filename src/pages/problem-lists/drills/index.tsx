@@ -4,7 +4,7 @@ import { ProblemListCardList } from '../../../components/card-lists/ProblemListC
 import { useProblemLists } from '../../../hooks/useProblemLists'
 
 export default function ProblemList() {
-  const { problemListList } = useProblemLists('DRILL')
+  const { problemLists } = useProblemLists('DRILL')
 
   return (
     <Grid container direction="column" spacing={1}>
@@ -14,7 +14,7 @@ export default function ProblemList() {
         </Typography>
       </Grid>
       <Divider />
-      <Grid item>{problemListList && <ProblemListCardList problemLists={problemListList} />}</Grid>
+      <Grid item>{problemLists && <ProblemListCardList problemLists={problemLists} />}</Grid>
     </Grid>
   )
 }

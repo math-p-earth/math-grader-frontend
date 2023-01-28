@@ -11,7 +11,7 @@ export function useProblemLists(type?: ProblemListType) {
     type ? '/problem-lists?where[type][equals]=' + type : '/problem-lists',
   ])
   return {
-    problemListList: data?.docs,
+    problemLists: data?.docs,
     isLoading: !data && !error,
     error: error,
   }
