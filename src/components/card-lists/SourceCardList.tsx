@@ -9,7 +9,7 @@ interface SourceCardListProps {
 
 export function SourceCardList({ sources }: SourceCardListProps) {
   return (
-    <Grid container direction="row" spacing={2}>
+    <Grid container direction="row" justifyContent="center" spacing={2}>
       {sources &&
         sources.map((source: Source, idx: number) => {
           return (

@@ -8,10 +8,8 @@ interface ProblemListCardListProps {
 }
 
 export function ProblemListCardList({ problemLists }: ProblemListCardListProps) {
-  console.log(problemLists)
   return (
-    <Grid container direction="row" spacing={2}>
-      {problemLists.toString()}
+    <Grid container direction="row" justifyContent="center" spacing={2}>
       {problemLists &&
         problemLists.map((problemList: ProblemList, idx: number) => {
           return (
