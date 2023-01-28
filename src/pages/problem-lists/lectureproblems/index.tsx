@@ -1,10 +1,10 @@
 import { Divider, Grid, Typography } from '@mui/material'
 
 import { ProblemListCardList } from '../../../components/card-lists/ProblemListCardList'
-import { useProblemListList } from '../../../hooks/useProblemListList'
+import { useProblemLists } from '../../../hooks/useProblemLists'
 
 export default function ProblemList() {
-  const { problemListList } = useProblemListList('LECTURE_PROBLEM')
+  const { problemListList } = useProblemLists('LECTURE_PROBLEM')
 
   return (
     <Grid container direction="column" spacing={1}>

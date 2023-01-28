@@ -2,7 +2,7 @@ import useSWR from 'swr'
 
 import { Source } from '../types/dto'
 
-export function useSourceList() {
+export function useSources() {
   const { data, error } = useSWR(['/sources'])
 
   return {

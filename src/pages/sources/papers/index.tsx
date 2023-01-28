@@ -1,10 +1,10 @@
 import { Divider, Grid, Typography } from '@mui/material'
 
 import { SourceCardList } from '../../../components/card-lists/SourceCardList'
-import { useSourceList } from '../../../hooks/useSourceList'
+import { useSources } from '../../../hooks/useSources'
 
 export default function Source() {
-  const { sources } = useSourceList()
+  const { sources } = useSources()
 
   return (
     <Grid container direction="column" spacing={1}>
