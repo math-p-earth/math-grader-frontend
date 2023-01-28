@@ -2,7 +2,6 @@ import Link from 'next/link'
 
 import DescriptionIcon from '@mui/icons-material/Description'
 import HomeIcon from '@mui/icons-material/Home'
-import ListAltIcon from '@mui/icons-material/ListAlt'
 import MenuBookIcon from '@mui/icons-material/MenuBook'
 import {
   Box,
@@ -17,8 +16,6 @@ import {
   Paper,
   useTheme,
 } from '@mui/material'
-
-import { Profile } from './Profile'
 
 interface MenuListInterface {
   icon: JSX.Element
@@ -48,46 +45,37 @@ const menuListArr = [
       link: '/sources/papers',
     },
   ],
-  [],
 ] as MenuListInterface[][]
 
 function MenuList() {
-  const MenuMap = (arr: MenuListInterface[]) => {
-    return arr.map((item) => {
-      return (
-        <Link href={item.link} key={item.label}>
-          <ListItem key={item.label}>
-            <ListItemButton
-              component={Paper}
-              style={{
-                borderRadius: '5px',
-              }}
-            >
-              <ListItemIcon>{item.icon}</ListItemIcon>
-              <ListItemText>{item.label}</ListItemText>
-            </ListItemButton>
-          </ListItem>
-        </Link>
-      )
-    })
-  }
-
   return (
     <List dense>
-      {MenuMap(menuListArr[0])}
-      <Divider variant="middle" sx={{ pt: '6px', pb: '6px' }} />
-      {MenuMap(menuListArr[1])}
+      {menuListArr.map((menuList, index) => (
+        <div key={index}>
+          {index > 0 && <Divider variant="middle" sx={{ pt: '6px', pb: '6px' }} />}
+          {menuList.map((item) => (
+            <Link href={item.link} key={item.label}>
+              <ListItem key={item.label}>
+                <ListItemButton
+                  component={Paper}
+                  style={{
+                    borderRadius: '5px',
+                  }}
+                >
+                  <ListItemIcon>{item.icon}</ListItemIcon>
+                  <ListItemText>{item.label}</ListItemText>
+                </ListItemButton>
+              </ListItem>
+            </Link>
+          ))}
+        </div>
+      ))}
     </List>
   )
 }
 
-// Home
-// Drill
-// Past Paper Collection
-
 export function NavigatorMenu({ menuWidth, open }: { menuWidth: number; open: boolean }) {
   const theme = useTheme()
-  console.log(theme.palette.primary.main)
   return (
     <Drawer
       variant="persistent"

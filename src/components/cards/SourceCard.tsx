@@ -1,19 +1,13 @@
 import PrintIcon from '@mui/icons-material/Print'
-import {
-  Button,
-  Chip,
-  Divider,
-  Grid,
-  IconButton,
-  Paper,
-  Rating,
-  Skeleton,
-  Typography,
-} from '@mui/material'
+import { Button, Chip, Divider, Grid, IconButton, Paper, Typography } from '@mui/material'
 
-import { SourceDto } from '../../types/dto'
+import { Source } from '../../types/dto'
 
-export function SourceCard({ source }: { source: SourceDto }) {
+interface SourceCardProps {
+  source: Source
+}
+
+export function SourceCard({ source }: SourceCardProps) {
   const boxSize = '350px'
 
   return (
@@ -43,7 +37,7 @@ export function SourceCard({ source }: { source: SourceDto }) {
           <Grid container direction="row" height="100%">
             <Grid item xs={4}>
               <Typography variant="h4" textAlign="center">
-                {source.length}
+                {source.problems ? source.problems.length : '-'}
               </Typography>
               <Typography variant="body1" textAlign="center">
                 Problems

@@ -1,20 +1,14 @@
 import PrintIcon from '@mui/icons-material/Print'
-import {
-  Button,
-  Chip,
-  Divider,
-  Grid,
-  IconButton,
-  Paper,
-  Rating,
-  Skeleton,
-  Typography,
-} from '@mui/material'
+import { Button, Chip, Divider, Grid, IconButton, Paper, Typography } from '@mui/material'
 
 import { theme } from '../../configs/theme'
-import { ProblemListDto, ProblemListType } from '../../types/dto'
+import { ProblemList, ProblemListType } from '../../types/dto'
 
-export function ProblemListCard({ problemList }: { problemList: ProblemListDto }) {
+interface ProblemListCardProps {
+  problemList: ProblemList
+}
+
+export function ProblemListCard({ problemList }: ProblemListCardProps) {
   const boxSize = '350px'
 
   return (
@@ -41,7 +35,7 @@ export function ProblemListCard({ problemList }: { problemList: ProblemListDto }
           <Grid container direction="row" height="100%">
             <Grid item xs={4} padding={1}>
               <Typography variant="h4" textAlign="center">
-                {problemList.length}
+                {problemList.problems ? problemList.problems.length : '-'}
               </Typography>
               <Typography variant="body1" textAlign="center">
                 Problems
@@ -85,7 +79,7 @@ export function ProblemListCard({ problemList }: { problemList: ProblemListDto }
   )
 }
 
-export function ProblemListChip(type: ProblemListType) {
+export function ProblemListChip(type: ProblemListType | undefined) {
   const LectureProblemChip = (
     <Chip
       size="small"

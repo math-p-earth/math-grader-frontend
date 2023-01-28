@@ -1,24 +1,24 @@
+import { PaletteOptions, colors, createTheme } from '@mui/material'
+
 declare module '@mui/material/styles' {
   interface Theme {
     colorcode: {
-      red: string;
-      yellow: string;
-      green: string;
-      blue: string;
-    };
+      red: string
+      yellow: string
+      green: string
+      blue: string
+    }
   }
   // allow configuration using `createTheme`
   interface ThemeOptions {
     colorcode?: {
-      red?: string;
-      yellow?: string;
-      green?: string;
-      blue?: string;
-    };
+      red?: string
+      yellow?: string
+      green?: string
+      blue?: string
+    }
   }
 }
-
-import { PaletteOptions, colors, createTheme } from '@mui/material'
 
 export const palette: PaletteOptions = {
   primary: {
@@ -28,7 +28,7 @@ export const palette: PaletteOptions = {
     main: colors.orange[500],
   },
   background: {
-    default: colors.grey[400]
+    default: colors.grey[400],
   },
   mode: 'dark',
 }
@@ -39,6 +39,6 @@ export const theme = createTheme({
     red: '#FF6B6B',
     yellow: '#FFD93D',
     green: '#6BCB77',
-    blue: '#4D96FF'
-  }
+    blue: '#4D96FF',
+  },
 })

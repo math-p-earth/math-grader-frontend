@@ -1,18 +1,12 @@
 import useSWR from 'swr'
 
-import { ProblemListType } from '../types/dto'
-import { problemFetchResponse, problemListFetchResponse } from '../util/fetchUtil'
+import { ProblemList } from '../types/dto'
 
 export function useProblemList(id: string | undefined) {
-  const { data, error } = useSWR(['/problem-lists/' + id])
-
-  console.log(data)
+  const { data, error } = useSWR<ProblemList>(['/problem-lists/' + id])
 
   return {
-    problemList: problemListFetchResponse(data),
-    problems: data?.problems.map((p: any, index: number) =>
-      problemFetchResponse({ ...p, order: index + 1 })
-    ),
+    problemList: data,
     isLoading: !data && !error,
     error: error,
   }

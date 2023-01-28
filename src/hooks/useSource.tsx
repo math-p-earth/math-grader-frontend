@@ -1,16 +1,12 @@
 import useSWR from 'swr'
 
-import { ProblemDto } from '../types/dto'
-import { problemFetchResponse, sourceFetchResponse } from '../util/fetchUtil'
+import { Source } from '../types/dto'
 
 export function useSource(sourceId: string | undefined) {
-  const { data, error } = useSWR(['/sources/' + sourceId])
+  const { data, error } = useSWR<Source>(['/sources/' + sourceId])
 
   return {
-    source: sourceFetchResponse(data),
-    problems: data?.problems.map((p: any, index: number) =>
-      problemFetchResponse({ ...p, order: index + 1 })
-    ),
+    source: data,
     isLoading: !data && !error,
     error: error,
   }

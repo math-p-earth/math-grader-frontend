@@ -1,10 +1,10 @@
 import { Divider, Grid, Typography } from '@mui/material'
 
-import { SourceCard } from '../../../components/cards/SourceCard'
-import { useSourceList } from '../../../hooks/useSourceList'
+import { SourceCardList } from '../../../components/card-lists/SourceCardList'
+import { useSources } from '../../../hooks/useSources'
 
-export default function Source(props: any) {
-  const { sources, error } = useSourceList('PAPER')
+export default function Source() {
+  const { sources } = useSources()
 
   return (
     <Grid container direction="column" spacing={1}>
@@ -14,15 +14,8 @@ export default function Source(props: any) {
         </Typography>
       </Grid>
       <Divider />
-      <Grid item container direction="row" spacing={2}>
-        {sources &&
-          sources.map((source: any, idx: number) => {
-            return (
-              <Grid item alignSelf="center" key={idx}>
-                <SourceCard source={source} />
-              </Grid>
-            )
-          })}
+      <Grid item>
+        <SourceCardList sources={sources} />
       </Grid>
     </Grid>
   )
