@@ -2,13 +2,16 @@ import useSWR from 'swr'
 
 import { ProblemList, ProblemListType } from '../types/dto'
 
-// TODO: for the love of god, please rename this
+interface ProblemListsResponse {
+  docs: ProblemList[]
+}
+
 export function useProblemLists(type?: ProblemListType) {
-  const { data, error } = useSWR([
+  const { data, error } = useSWR<ProblemListsResponse>([
     type ? '/problem-lists?where[type][equals]=' + type : '/problem-lists',
   ])
   return {
-    problemListList: data?.docs as ProblemList[],
+    problemListList: data?.docs,
     isLoading: !data && !error,
     error: error,
   }
