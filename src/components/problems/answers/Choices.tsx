@@ -56,21 +56,28 @@ export function Choices({ choiceList }: ChoicesProps) {
   return (
     <Grid container spacing={1}>
       {choiceList.map((choice, idx) => {
-        return <Choice key={idx + 1} caption={choice.choice} choiceStyling={choiceStyleList[idx]} />
+        return (
+          <Choice
+            key={idx}
+            idx={idx + 1}
+            caption={choice.choice}
+            choiceStyling={choiceStyleList[idx]}
+          />
+        )
       })}
     </Grid>
   )
 }
 
 interface ChoiceProps {
-  key: number
+  idx: number
   caption?: string
   choiceStyling: ChoiceStyle
 }
 
-function Choice({ key, caption, choiceStyling }: ChoiceProps) {
+function Choice({ idx, caption, choiceStyling }: ChoiceProps) {
   return (
-    <Grid item key={key} container spacing={1}>
+    <Grid item key={idx} container direction="row" spacing={1}>
       <Grid item alignSelf="center">
         <Button
           {...choiceStyling}
@@ -80,7 +87,7 @@ function Choice({ key, caption, choiceStyling }: ChoiceProps) {
             height: buttonSize,
           }}
         >
-          <Typography variant="h6">{key}</Typography>
+          <Typography variant="h6">{idx}</Typography>
         </Button>
       </Grid>
       <Grid item alignSelf="center">

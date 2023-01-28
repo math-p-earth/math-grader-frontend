@@ -44,13 +44,7 @@ export function ProblemCard({ problem, order, variant = 'DEFAULT' }: ProblemCard
               ml: '80px',
             }}
           >
-            {
-              <Answer
-                id={problem.id}
-                type={problem.type}
-                choices={problem.type == 'MCQ' ? problem.choices : []}
-              />
-            }
+            {<Answer type={problem.type} choices={problem.type == 'MCQ' ? problem.choices : []} />}
           </Grid>
         )}
       </Grid>
