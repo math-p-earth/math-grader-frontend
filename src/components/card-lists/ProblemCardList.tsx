@@ -12,10 +12,10 @@ export function ProblemCardList({ problems, variant = 'DEFAULT' }: ProblemCardLi
   return (
     <Grid container direction="column" spacing={2}>
       {problems &&
-        problems.map((problem: Problem | string, idx: number) => {
+        problems.map((problem: Problem | string, index: number) => {
           return (
-            <Grid item alignSelf="center" key={idx}>
-              <ProblemCard problem={problem} variant={variant} />
+            <Grid item alignSelf="center" key={index + 1}>
+              <ProblemCard problem={problem} order={index + 1} variant={variant} />
             </Grid>
           )
         })}

@@ -1,4 +1,4 @@
-import { Divider, Grid, Paper } from '@mui/material'
+import { Avatar, Divider, Grid, Paper } from '@mui/material'
 
 import { Problem } from '../../types/dto'
 import { Markdown } from '../md/Markdown'
@@ -8,10 +8,11 @@ export type ProblemCardVariant = 'DEFAULT' | 'COMPACT' | 'VIEWONLY'
 
 interface ProblemCardProps {
   problem: Problem | string
+  order?: number
   variant?: ProblemCardVariant
 }
 
-export function ProblemCard({ problem, variant = 'DEFAULT' }: ProblemCardProps) {
+export function ProblemCard({ problem, order, variant = 'DEFAULT' }: ProblemCardProps) {
   // in case that the datatype is 'string'
   if (typeof problem === 'string') return <>{problem}</>
 
@@ -25,7 +26,9 @@ export function ProblemCard({ problem, variant = 'DEFAULT' }: ProblemCardProps) 
     >
       <Grid container direction="column" spacing={0} padding="10px">
         <Grid item container>
-          <Grid item>{/* <Avatar variant="rounded">{order}</Avatar> */}</Grid>
+          <Grid item>
+            <Avatar variant="rounded">{order?.toString()}</Avatar>
+          </Grid>
           <Grid item></Grid>
         </Grid>
         <Grid item>
