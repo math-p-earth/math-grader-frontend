@@ -1,10 +1,13 @@
 import { GoogleLogin } from '@react-oauth/google'
 
+import { BACKEND_URL } from '../env'
 import { useUser } from '../hooks/useUser'
+import { errorIsStatus } from '../util/axios/error'
 import { httpClient } from '../util/httpClient'
 
 export default function Home() {
   const { user, mutateUser } = useUser()
+
   return (
     <>
       {user ? (
@@ -29,10 +32,21 @@ export default function Home() {
       ) : (
         <GoogleLogin
           onSuccess={async (response) => {
-            await httpClient.post('auth/google/verify', {
-              idToken: response.credential,
-            })
-            mutateUser()
+            try {
+              await httpClient.post('auth/google/verify', {
+                idToken: response.credential,
+              })
+              mutateUser()
+            } catch (err) {
+              // 404 means new users
+              if (errorIsStatus(err, 404)) {
+                const url = new URL('/admin/students/register', BACKEND_URL)
+                url.searchParams.set('idToken', response.credential)
+                url.searchParams.set('redirectUrl', window.location.href)
+                window.location.href = url.toString()
+              }
+              // TODO: handle other errors (notification)
+            }
           }}
           useOneTap
           cancel_on_tap_outside
