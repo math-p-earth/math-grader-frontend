@@ -1,4 +1,6 @@
-import React from 'react'
+import { useState } from 'react'
+
+import { useRouter } from 'next/router'
 
 import { Box, styled, useTheme } from '@mui/material'
 
@@ -26,9 +28,17 @@ const Main = styled('main', { shouldForwardProp: (prop) => prop !== 'open' })<{
   }),
 }))
 
+const excludedRoutes = ['/login']
+
 export function Dashboard({ children }: { children: JSX.Element }) {
   const theme = useTheme()
-  const [open, setOpen] = React.useState<boolean>(true)
+  const [open, setOpen] = useState<boolean>(true)
+  const router = useRouter()
+
+  // TODO: temporary hack. Will move to layouts in app directory later
+  if (excludedRoutes.includes(router.pathname)) {
+    return children
+  }
 
   return (
     <Box sx={{ display: 'flex', height: 'inherit' }}>
@@ -37,7 +47,7 @@ export function Dashboard({ children }: { children: JSX.Element }) {
       <Main
         open={open}
         sx={{
-          bgcolor: 'black',
+          bgcolor: '#121212',
           height: '100%',
         }}
       >
