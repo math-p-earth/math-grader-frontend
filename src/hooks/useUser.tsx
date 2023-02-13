@@ -1,7 +1,4 @@
-import { useGoogleOneTapLogin } from '@react-oauth/google'
 import useSWR from 'swr'
-
-import { httpClient } from '../util/httpClient'
 
 export interface User {
   id: string
