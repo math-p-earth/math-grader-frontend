@@ -1,5 +1,7 @@
 import useSWR from 'swr'
 
+import { httpClient } from '../util/httpClient'
+
 export interface User {
   id: string
   nickname: string
@@ -28,11 +30,17 @@ interface UserResponse {
 export function useUser() {
   const { data, error, mutate } = useSWR<UserResponse>(['/students/me'])
 
+  const signOut = async () => {
+    await httpClient.post('students/logout')
+    mutate()
+  }
+
   return {
     user: data?.user,
     token: data?.token,
     isLoading: !data && !error,
     error: error,
     mutateUser: mutate,
+    signOut,
   }
 }
