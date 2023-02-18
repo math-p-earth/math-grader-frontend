@@ -28,7 +28,7 @@ const Main = styled('main', { shouldForwardProp: (prop) => prop !== 'open' })<{
   }),
 }))
 
-const excludedRoutes = ['/login']
+const excludedRoutes = ['/login', '/user/pending-approval', '/user/register-success']
 
 export function Dashboard({ children }: { children: JSX.Element }) {
   const theme = useTheme()

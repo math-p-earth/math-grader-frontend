@@ -45,12 +45,16 @@ export default function LoginPage() {
                 if (errorIsStatus(err, 404)) {
                   const url = new URL('/admin/students/register', BACKEND_URL)
                   url.searchParams.set('idToken', response.credential)
-                  url.searchParams.set('redirectUrl', window.location.href)
+                  url.searchParams.set(
+                    'redirectUrl',
+                    `${window.location.origin}/user/register-success`
+                  )
                   window.location.href = url.toString()
                 }
                 // TODO: handle other errors (notification)
               }
             }}
+            auto_select
             size="large"
             useOneTap={!user}
             cancel_on_tap_outside

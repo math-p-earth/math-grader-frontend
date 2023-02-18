@@ -6,7 +6,7 @@ interface ProtectedRoutesProps {
   children: JSX.Element
 }
 
-const unprotectedRoutes = ['/login']
+const unprotectedRoutes = ['/login', '/user/pending-approval', '/user/register-success']
 
 export const ProtectedRoutes: React.FC<ProtectedRoutesProps> = ({ children }) => {
   const { user, isLoading } = useUser()
@@ -14,9 +14,16 @@ export const ProtectedRoutes: React.FC<ProtectedRoutesProps> = ({ children }) =>
   if (isLoading) {
     return null
   }
-  if (!user && !unprotectedRoutes.includes(router.pathname)) {
-    router.push('/login')
-    return null
+
+  if (!unprotectedRoutes.includes(router.pathname)) {
+    if (!user) {
+      router.push('/login')
+      return null
+    }
+    if (user.status !== 'APPROVED') {
+      router.push('/user/pending-approval')
+      return null
+    }
   }
   return children
 }

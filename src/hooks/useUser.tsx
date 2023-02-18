@@ -20,6 +20,7 @@ export interface User {
     id: string
     name: string
   }[]
+  status: 'PENDING' | 'APPROVED'
 }
 interface UserResponse {
   user: User | null
