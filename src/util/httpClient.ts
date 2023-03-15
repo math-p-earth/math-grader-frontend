@@ -1,8 +1,10 @@
 import axios from 'axios'
 
+import { BACKEND_URL } from '../env'
+
 export const httpClient = axios.create({
   withCredentials: true,
-  baseURL: process.env.NEXT_PUBLIC_BACKEND_URL,
+  baseURL: `${BACKEND_URL}/api`,
 })
 
 export async function swrFetcher(path: string, params?: unknown) {

@@ -6,6 +6,7 @@ specifiers:
   '@mui/icons-material': ^5.10.16
   '@mui/joy': 5.0.0-alpha.56
   '@mui/material': ^5.10.16
+  '@react-oauth/google': ^0.7.0
   '@trivago/prettier-plugin-sort-imports': ^4.0.0
   '@types/node': 18.11.10
   '@types/react': 18.0.26
@@ -36,6 +37,7 @@ dependencies:
   '@mui/icons-material': 5.11.0_opvl3545z7gwg2zc727ydbz55m
   '@mui/joy': 5.0.0-alpha.56_lskpmcsdi7ipu6qpuapyu56ihm
   '@mui/material': 5.11.6_lskpmcsdi7ipu6qpuapyu56ihm
+  '@react-oauth/google': 0.7.0_biqbaboplfbrettd7655fr4n2y
   axios: 1.2.5
   next: 13.0.6_pjwopsidmaokadturxaafygjp4
   react: 18.2.0
@@ -941,6 +943,16 @@ packages:
     resolution: {integrity: sha512-50/17A98tWUfQ176raKiOGXuYpLyyVMkxxG6oylzL3BPOlA6ADGdK7EYunSa4I064xerltq9TGXs8HmOk5E+vw==}
     dev: false
 
+  /@react-oauth/google/0.7.0_biqbaboplfbrettd7655fr4n2y:
+    resolution: {integrity: sha512-KLLYlLYYpXf1zmcrsJPAxImvoq2b0Rs0Pi/6GYfdwjmTh66Pf6jkZ4fpO10tuJuUPWvEeqloPEC/i4BySgbYVQ==}
+    peerDependencies:
+      react: '>=16.8.0'
+      react-dom: '>=16.8.0'
+    dependencies:
+      react: 18.2.0
+      react-dom: 18.2.0_react@18.2.0
+    dev: false
+
   /@rushstack/eslint-patch/1.2.0:
     resolution: {integrity: sha512-sXo/qW2/pAcmT43VoRKOJbDOfV3cYpq3szSVfIThQXNt+E4DfKj361vaAt3c88U5tPUxzEswam7GW48PJqtKAg==}
     dev: true
@@ -1760,7 +1772,7 @@ packages:
       eslint: 8.29.0
       eslint-import-resolver-node: 0.3.7
       eslint-import-resolver-typescript: 3.5.3_vxas42t2ljmgdq66uut5smywfu
-      eslint-plugin-import: 2.27.5_x5x2cfm7ws2idaa4tnlwqhjdre
+      eslint-plugin-import: 2.27.5_oymxw4tui3scnxw227jg6xbs7e
       eslint-plugin-jsx-a11y: 6.7.1_eslint@8.29.0
       eslint-plugin-react: 7.32.1_eslint@8.29.0
       eslint-plugin-react-hooks: 4.6.0_eslint@8.29.0
@@ -1799,7 +1811,7 @@ packages:
       debug: 4.3.4
       enhanced-resolve: 5.12.0
       eslint: 8.29.0
-      eslint-plugin-import: 2.27.5_x5x2cfm7ws2idaa4tnlwqhjdre
+      eslint-plugin-import: 2.27.5_oymxw4tui3scnxw227jg6xbs7e
       get-tsconfig: 4.3.0
       globby: 13.1.3
       is-core-module: 2.11.0
@@ -1809,7 +1821,7 @@ packages:
       - supports-color
     dev: true
 
-  /eslint-module-utils/2.7.4_mm3cy3t7rv3ympzvwyzyjfz6oe:
+  /eslint-module-utils/2.7.4_y2n2lic7vpmgvbmksuokjaleuq:
     resolution: {integrity: sha512-j4GT+rqzCoRKHwURX7pddtIPGySnX9Si/cgMI5ztrcqOPtk5dDEeZ34CQVPphnqkJytlc97Vuk05Um2mJ3gEQA==}
     engines: {node: '>=4'}
     peerDependencies:
@@ -1834,12 +1846,11 @@ packages:
       debug: 3.2.7
       eslint: 8.29.0
       eslint-import-resolver-node: 0.3.7
-      eslint-import-resolver-typescript: 3.5.3_vxas42t2ljmgdq66uut5smywfu
     transitivePeerDependencies:
       - supports-color
     dev: true
 
-  /eslint-plugin-import/2.27.5_x5x2cfm7ws2idaa4tnlwqhjdre:
+  /eslint-plugin-import/2.27.5_oymxw4tui3scnxw227jg6xbs7e:
     resolution: {integrity: sha512-LmEt3GVofgiGuiE+ORpnvP+kAm3h6MLZJ4Q5HCyHADofsb4VzXFsRiWj3c0OFiV+3DWFh0qg3v9gcPlfc3zRow==}
     engines: {node: '>=4'}
     peerDependencies:
@@ -1857,7 +1868,7 @@ packages:
       doctrine: 2.1.0
       eslint: 8.29.0
       eslint-import-resolver-node: 0.3.7
-      eslint-module-utils: 2.7.4_mm3cy3t7rv3ympzvwyzyjfz6oe
+      eslint-module-utils: 2.7.4_y2n2lic7vpmgvbmksuokjaleuq
       has: 1.0.3
       is-core-module: 2.11.0
       is-glob: 4.0.3
