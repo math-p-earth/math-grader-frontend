@@ -1,16 +1,27 @@
 import Image from 'next/image'
 import { useRouter } from 'next/router'
 
-import { Box, Typography } from '@mui/material'
+import { Box, Paper, Typography, styled } from '@mui/material'
 
 import { GoogleLogin } from '@react-oauth/google'
 
 import appLogo from '../../assets/logos/app.png'
+import { PageContainer } from '../../components/containers/PageContainer'
 import { BACKEND_URL } from '../../env'
 import { useUser } from '../../hooks/useUser'
 import { errorIsStatus } from '../../util/axios/error'
 import { httpClient } from '../../util/httpClient'
-import { LoginContainer, PageContainer } from './styled'
+
+const LoginContainer = styled(Paper)`
+  width: fit-content;
+  margin: auto;
+
+  padding: ${({ theme }) => theme.spacing(4)};
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+`
 
 export default function LoginPage() {
   const { user, mutateUser } = useUser()

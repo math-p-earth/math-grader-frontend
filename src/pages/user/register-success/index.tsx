@@ -1,9 +1,20 @@
 import { useRouter } from 'next/router'
 
-import { Button, Typography } from '@mui/material'
+import { Button, Paper, Typography, styled } from '@mui/material'
 
+import { PageContainer } from '../../../components/containers/PageContainer'
 import { useUser } from '../../../hooks/useUser'
-import { FlexContainer, PageContainer } from './styled'
+
+const FlexContainer = styled(Paper)`
+  margin: auto;
+
+  padding: ${({ theme }) => theme.spacing(4)};
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: ${({ theme }) => theme.spacing(2)};
+`
 
 export default function RegisterSuccessPage() {
   const { user, signOut } = useUser()
