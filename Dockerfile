@@ -37,6 +37,5 @@ COPY --from=builder /app/.next/standalone ./
 COPY --from=builder /app/public ./public
 COPY --from=builder /app/.next/static ./.next/static
 
-ENV PORT 4200
-
+EXPOSE 4200
 CMD node server.js
