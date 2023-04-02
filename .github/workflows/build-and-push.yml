@@ -1,4 +1,4 @@
-name: Build and Push
+name: Build and Push (Production)
 
 on:
   push:
@@ -41,6 +41,10 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ github.token }}
 
+      - name: Set frontend env (production)
+        run: |
+            mv .env.production .env
+
       - name: Build and Push
         uses: docker/build-push-action@v3
         with:
@@ -74,7 +78,6 @@ jobs:
 
             # Replace placeholder variables
             sed -i "s|{{IMAGE_TAG}}|$IMAGE_TAG|g" docker-compose.yml
-            sed -i "s|{{ENV_FILE}}|env/production.env|g" docker-compose.yml
 
             # Up compose file
             docker compose pull
