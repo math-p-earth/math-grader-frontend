@@ -8,7 +8,7 @@ import { useProblemList } from '../../hooks/useProblemList'
 export default function ProblemList() {
   const router = useRouter()
   const { id } = router.query
-  const { problemList } = useProblemList(id?.toString())
+  const { problemList } = useProblemList(id.toString())
 
   return (
     <>

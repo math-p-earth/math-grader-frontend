@@ -8,7 +8,7 @@ import { useSource } from '../../hooks/useSource'
 export default function Source() {
   const router = useRouter()
   const { id } = router.query
-  const { source } = useSource(id?.toString())
+  const { source } = useSource(id.toString())
 
   return (
     <>
