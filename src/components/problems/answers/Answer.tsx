@@ -1,6 +1,6 @@
 import { Grid } from '@mui/material'
 
-import { ProblemType } from '../../../types/dto'
+import { ProblemType } from '../../../types/payload-types'
 import { Choices } from './Choices'
 
 interface AnswerProps {

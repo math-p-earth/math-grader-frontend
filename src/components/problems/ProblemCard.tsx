@@ -1,6 +1,6 @@
 import { Avatar, Divider, Grid, Paper } from '@mui/material'
 
-import { Problem } from '../../types/dto'
+import { Problem } from '../../types/payload-types'
 import { Markdown } from '../md/Markdown'
 import { Answer } from './answers/Answer'
 

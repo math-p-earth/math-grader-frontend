@@ -1,6 +1,6 @@
 import { Grid } from '@mui/material'
 
-import { Source } from '../../types/dto'
+import { Source } from '../../types/payload-types'
 import { SourceCard } from '../cards/SourceCard'
 
 interface SourceCardListProps {

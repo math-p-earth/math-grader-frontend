@@ -1,6 +1,6 @@
 import useSWR from 'swr'
 
-import { ProblemList } from '../../types/dto'
+import { ProblemList } from '../../types/payload-types'
 
 export function useProblemList(problemListId: string) {
   const { data, error } = useSWR<ProblemList>([`/problem-lists/${problemListId}`])

@@ -1,6 +1,6 @@
 import useSWR from 'swr'
 
-import { Source } from '../../types/dto'
+import { Source } from '../../types/payload-types'
 
 export function useSource(sourceId: string) {
   const { data, error } = useSWR<Source>([`/sources/${sourceId}`])

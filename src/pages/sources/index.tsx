@@ -4,7 +4,7 @@ import { CircularProgress, Divider, Grid, Typography } from '@mui/material'
 
 import { SourceCardList } from '../../components/card-lists/SourceCardList'
 import { useSearchSources } from '../../hooks/fetchers/useSearchSources'
-import { SourceType } from '../../types/dto'
+import { SourceType } from '../../types/payload-types'
 
 interface SourcesQuery {
   type: SourceType

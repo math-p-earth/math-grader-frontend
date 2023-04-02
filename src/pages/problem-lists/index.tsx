@@ -4,7 +4,7 @@ import { CircularProgress, Divider, Grid, Typography } from '@mui/material'
 
 import { ProblemListCardList } from '../../components/card-lists/ProblemListCardList'
 import { useSearchProblemLists } from '../../hooks/fetchers/useSearchProblemLists'
-import { ProblemListType } from '../../types/dto'
+import { ProblemListType } from '../../types/payload-types'
 
 interface ProblemListsQuery {
   type: ProblemListType

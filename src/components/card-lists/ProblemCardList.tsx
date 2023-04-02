@@ -1,6 +1,6 @@
 import { Grid } from '@mui/material'
 
-import { Problem } from '../../types/dto'
+import { Problem } from '../../types/payload-types'
 import { ProblemCard, ProblemCardVariant } from '../problems/ProblemCard'
 
 interface ProblemCardListProps {

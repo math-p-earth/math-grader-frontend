@@ -1,7 +1,7 @@
 import PrintIcon from '@mui/icons-material/Print'
 import { Button, Chip, Divider, Grid, IconButton, Paper, Typography } from '@mui/material'
 
-import { Source } from '../../types/dto'
+import { Source } from '../../types/payload-types'
 
 interface SourceCardProps {
   source: Source

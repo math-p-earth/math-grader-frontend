@@ -1,7 +1,7 @@
 import qs from 'qs'
 import useSWR from 'swr'
 
-import { Source, SourceType } from '../../types/dto'
+import { Source, SourceType } from '../../types/payload-types'
 
 interface SearchSourcesOptions {
   type?: SourceType

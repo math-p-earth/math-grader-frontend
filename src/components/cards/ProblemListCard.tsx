@@ -2,7 +2,7 @@ import PrintIcon from '@mui/icons-material/Print'
 import { Button, Chip, Divider, Grid, IconButton, Paper, Typography } from '@mui/material'
 
 import { theme } from '../../configs/theme'
-import { ProblemList, ProblemListType } from '../../types/dto'
+import { ProblemList, ProblemListType } from '../../types/payload-types'
 
 interface ProblemListCardProps {
   problemList: ProblemList

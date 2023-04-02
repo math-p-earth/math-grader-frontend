@@ -1,7 +1,7 @@
 import qs from 'qs'
 import useSWR from 'swr'
 
-import { ProblemList, ProblemListType } from '../../types/dto'
+import { ProblemList, ProblemListType } from '../../types/payload-types'
 
 interface SearchProblemListsOptions {
   type?: ProblemListType
