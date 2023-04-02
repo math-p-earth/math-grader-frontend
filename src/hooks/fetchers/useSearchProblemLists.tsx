@@ -3,10 +3,6 @@ import useSWR from 'swr'
 
 import { ProblemList, ProblemListType } from '../../types/dto'
 
-interface ProblemListsResponse {
-  docs: ProblemList[]
-}
-
 interface SearchProblemListsOptions {
   type?: ProblemListType
 }
@@ -17,6 +13,10 @@ interface SearchProblemListsQueryParams {
       equals: ProblemListType
     }
   }
+}
+
+interface SearchProblemListsResponse {
+  docs: ProblemList[]
 }
 
 export function useSearchProblemLists(options?: SearchProblemListsOptions) {
@@ -30,9 +30,9 @@ export function useSearchProblemLists(options?: SearchProblemListsOptions) {
       },
     }
   }
-  const queryString = qs.stringify(query)
-  console.log(queryString)
-  const { data, error } = useSWR<ProblemListsResponse>([`/problem-lists?${queryString}`])
+  const { data, error } = useSWR<SearchProblemListsResponse>([
+    `/problem-lists?${qs.stringify(query)}`,
+  ])
   return {
     problemLists: data?.docs,
     isLoading: !data && !error,

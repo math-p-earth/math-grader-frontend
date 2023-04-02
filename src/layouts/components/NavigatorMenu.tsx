@@ -35,16 +35,18 @@ const menuListArr = [
     {
       icon: <MenuBookIcon />,
       label: 'Lecture Problems',
-      link: '/problem-lists/lectureproblems',
+      link: {
+        pathname: '/problem-lists',
+        query: { type: 'LECTURE_PROBLEM' },
+      },
     },
-    // {
-    //   icon: <ListAltIcon />,
-    //   label: 'Problem Set',
-    // },
     {
       icon: <DescriptionIcon />,
       label: 'Past Papers',
-      link: '/sources/papers',
+      link: {
+        pathname: '/sources',
+        query: { type: 'PAPER' },
+      },
     },
   ],
 ] as MenuListInterface[][]
