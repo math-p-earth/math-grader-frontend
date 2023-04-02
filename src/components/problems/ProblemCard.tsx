@@ -4,18 +4,16 @@ import { Problem } from '../../types/dto'
 import { Markdown } from '../md/Markdown'
 import { Answer } from './answers/Answer'
 
+// TODO: implement compact and viewonly variants
 export type ProblemCardVariant = 'DEFAULT' | 'COMPACT' | 'VIEWONLY'
 
 interface ProblemCardProps {
-  problem: Problem | string
+  problem: Problem
   order?: number
   variant?: ProblemCardVariant
 }
 
 export function ProblemCard({ problem, order, variant = 'DEFAULT' }: ProblemCardProps) {
-  // in case that the datatype is 'string'
-  if (typeof problem === 'string') return <>{problem}</>
-
   return (
     <Paper
       sx={{

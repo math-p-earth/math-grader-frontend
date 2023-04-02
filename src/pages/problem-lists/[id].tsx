@@ -3,7 +3,7 @@ import { useRouter } from 'next/router'
 import { Grid, Paper, Typography } from '@mui/material'
 
 import { ProblemCardList } from '../../components/card-lists/ProblemCardList'
-import { useProblemList } from '../../hooks/useProblemList'
+import { useProblemList } from '../../hooks/fetchers/useProblemList'
 
 export default function ProblemList() {
   const router = useRouter()

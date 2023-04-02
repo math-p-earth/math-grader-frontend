@@ -1,12 +1,12 @@
 import useSWR from 'swr'
 
-import { Source } from '../types/dto'
+import { Source } from '../../types/dto'
 
 interface SourcesResponse {
   docs: Source[]
 }
 
-export function useSources() {
+export function useSearchSources() {
   const { data, error } = useSWR<SourcesResponse>(['/sources'])
 
   return {

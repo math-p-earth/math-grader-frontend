@@ -20,7 +20,7 @@ export function SourceCard({ source }: SourceCardProps) {
       elevation={3}
     >
       <Grid container direction="column">
-        <Grid item p={1} direction="row" xs={3}>
+        <Grid item p={1} xs={3}>
           <Grid container justifyContent="space-between">
             <Grid item>
               <Typography variant="h5" textAlign="left">
@@ -37,7 +37,7 @@ export function SourceCard({ source }: SourceCardProps) {
           <Grid container direction="row" height="100%">
             <Grid item xs={4}>
               <Typography variant="h4" textAlign="center">
-                {source.problems ? source.problems.length : '-'}
+                {source.problems.length}
               </Typography>
               <Typography variant="body1" textAlign="center">
                 Problems
@@ -46,7 +46,7 @@ export function SourceCard({ source }: SourceCardProps) {
             <Divider orientation="vertical" variant="middle" flexItem sx={{ mr: '-1px' }} />
             <Grid item xs={4}>
               <Typography variant="h4" textAlign="center">
-                -
+                - {/* TODO: implement total score */}
               </Typography>
               <Typography variant="body1" textAlign="center">
                 Total score

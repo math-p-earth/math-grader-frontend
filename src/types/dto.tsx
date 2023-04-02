@@ -25,7 +25,7 @@ export interface Problem {
     id?: string
   }[]
   answer?: string
-  tags?: string[] | Tag[]
+  tags?: Tag[]
   createdAt: string
   updatedAt: string
 }
@@ -48,7 +48,7 @@ export interface ProblemList {
   name: string
   description?: string
   type?: 'DRILL' | 'LECTURE_PROBLEM' | 'COLLECTION' | 'CHALLENGE'
-  problems?: string[] | Problem[]
+  problems?: Problem[]
   createdAt: string
   updatedAt: string
 }
@@ -61,7 +61,7 @@ export interface Source {
   name: string
   description?: string
   type: 'GENERIC' | 'BOOK' | 'PAPER'
-  problems?: string[] | Problem[]
+  problems?: Problem[]
   book: {
     author?: string
     isbn?: string

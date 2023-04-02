@@ -21,28 +21,24 @@ export function ProblemListCard({ problemList }: ProblemListCardProps) {
       elevation={3}
     >
       <Grid container direction="column">
-        <Grid item p={1} direction="row" xs={3}>
-          <Grid container justifyContent="space-between">
-            <Grid item>
-              <Typography variant="h5" textAlign="left">
-                {problemList.name}
-              </Typography>
-            </Grid>
-          </Grid>
+        <Grid item p={1} xs={3}>
+          <Typography variant="h5" textAlign="left">
+            {problemList.name}
+          </Typography>
         </Grid>
         <Divider />
-        <Grid item xs={4} alignItems="center" display="flex">
+        <Grid item alignItems="center" display="flex">
           <Grid container direction="row" height="100%">
             <Grid item xs={4} padding={1}>
               <Typography variant="h4" textAlign="center">
-                {problemList.problems ? problemList.problems.length : '-'}
+                {problemList.problems.length}
               </Typography>
               <Typography variant="body1" textAlign="center">
                 Problems
               </Typography>
             </Grid>
             <Divider orientation="vertical" variant="middle" flexItem sx={{ mr: '-1px' }} />
-            <Grid item xs={8} padding={1}>
+            <Grid item xs padding={1}>
               <Typography variant="body1" textAlign="left">
                 {problemList.description}
               </Typography>
@@ -50,14 +46,8 @@ export function ProblemListCard({ problemList }: ProblemListCardProps) {
           </Grid>
         </Grid>
         <Divider />
-        <Grid
-          item
-          p={1}
-          sx={{
-            justifySelf: 'end',
-          }}
-        >
-          <Grid container direction="row" spacing={1} sx={{ alignSelf: 'end' }}>
+        <Grid item p={1}>
+          <Grid container direction="row" spacing={1}>
             <Grid item alignSelf="center">
               {ProblemListChip(problemList.type)}
             </Grid>

@@ -1,10 +1,10 @@
-import { Divider, Grid, Typography } from '@mui/material'
+import { CircularProgress, Divider, Grid, Typography } from '@mui/material'
 
 import { SourceCardList } from '../../components/card-lists/SourceCardList'
-import { useSources } from '../../hooks/useSources'
+import { useSearchSources } from '../../hooks/fetchers/useSearchSources'
 
 export default function Source() {
-  const { sources } = useSources()
+  const { sources, isLoading } = useSearchSources()
 
   return (
     <Grid container direction="column" spacing={1}>
@@ -14,9 +14,12 @@ export default function Source() {
         </Typography>
       </Grid>
       <Divider />
-      <Grid item>
-        <SourceCardList sources={sources} />
-      </Grid>
+      {isLoading && <CircularProgress />}
+      {sources && (
+        <Grid item>
+          <SourceCardList sources={sources} />
+        </Grid>
+      )}
     </Grid>
   )
 }

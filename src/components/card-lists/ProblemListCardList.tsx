@@ -10,14 +10,13 @@ interface ProblemListCardListProps {
 export function ProblemListCardList({ problemLists }: ProblemListCardListProps) {
   return (
     <Grid container direction="row" justifyContent="center" spacing={2}>
-      {problemLists &&
-        problemLists.map((problemList: ProblemList, idx: number) => {
-          return (
-            <Grid item alignSelf="center" key={idx}>
-              <ProblemListCard problemList={problemList} />
-            </Grid>
-          )
-        })}
+      {problemLists.map((problemList: ProblemList) => {
+        return (
+          <Grid item alignSelf="center" key={problemList.id}>
+            <ProblemListCard problemList={problemList} />
+          </Grid>
+        )
+      })}
     </Grid>
   )
 }

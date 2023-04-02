@@ -1,10 +1,10 @@
-import { Divider, Grid, Typography } from '@mui/material'
+import { CircularProgress, Divider, Grid, Typography } from '@mui/material'
 
 import { ProblemListCardList } from '../../components/card-lists/ProblemListCardList'
-import { useProblemLists } from '../../hooks/useProblemLists'
+import { useSearchProblemLists } from '../../hooks/fetchers/useSearchProblemLists'
 
 export default function ProblemList() {
-  const { problemLists } = useProblemLists()
+  const { problemLists, isLoading } = useSearchProblemLists()
 
   return (
     <Grid container direction="column" spacing={1}>
@@ -14,7 +14,12 @@ export default function ProblemList() {
         </Typography>
       </Grid>
       <Divider />
-      <Grid item>{problemLists && <ProblemListCardList problemLists={problemLists} />}</Grid>
+      {isLoading && <CircularProgress />}
+      {problemLists && (
+        <Grid item>
+          <ProblemListCardList problemLists={problemLists} />
+        </Grid>
+      )}
     </Grid>
   )
 }
