@@ -1,5 +1,3 @@
-import { useEffect } from 'react'
-
 import { useRouter } from 'next/router'
 
 import { useUser } from '../hooks/useUser'
@@ -13,22 +11,19 @@ const unprotectedRoutes = ['/login', '/user/pending-approval', '/user/register-s
 export const ProtectedRoutes: React.FC<ProtectedRoutesProps> = ({ children }) => {
   const { user, isLoading } = useUser()
   const router = useRouter()
+  if (isLoading) {
+    return null
+  }
 
-  useEffect(() => {
-    if (isLoading) {
-      return
+  if (!unprotectedRoutes.includes(router.pathname)) {
+    if (!user) {
+      router.push('/login')
+      return null
     }
-    if (!unprotectedRoutes.includes(router.pathname)) {
-      if (!user) {
-        router.push('/login')
-        return
-      }
-      if (user.status !== 'APPROVED') {
-        router.push('/user/pending-approval')
-        return
-      }
+    if (user.status !== 'APPROVED') {
+      router.push('/user/pending-approval')
+      return null
     }
-  }, [isLoading, router, user])
-
+  }
   return children
 }
