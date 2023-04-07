@@ -34,10 +34,9 @@ const menuListArr = [
     },
     {
       icon: <MenuBookIcon />,
-      label: 'Lecture Problems',
+      label: 'Problem Lists',
       link: {
         pathname: '/problem-lists',
-        query: { type: 'LECTURE_PROBLEM' },
       },
     },
     {
