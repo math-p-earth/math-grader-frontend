@@ -10,18 +10,25 @@ interface SourcesQuery {
   type: SourceType
 }
 
+const sourceTypeTitle: Record<SourceType, string> = {
+  PAPER: 'Past Papers',
+  BOOK: 'Books',
+  GENERIC: 'Generic Sources',
+}
+
 export default function Sources() {
   const router = useRouter()
   const { type } = router.query as unknown as SourcesQuery
   const { sources, isLoading } = useSearchSources({
     type,
   })
+  const title = type ? sourceTypeTitle[type] : 'Sources'
 
   return (
     <Grid container direction="column" spacing={1}>
       <Grid item>
         <Typography variant="h2" color="white">
-          Sources
+          {title}
         </Typography>
       </Grid>
       <Divider />
