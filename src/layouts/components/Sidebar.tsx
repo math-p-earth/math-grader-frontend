@@ -1,12 +1,11 @@
+import Image from 'next/image'
 import Link from 'next/link'
 
 import DescriptionIcon from '@mui/icons-material/Description'
 import HomeIcon from '@mui/icons-material/Home'
 import MenuBookIcon from '@mui/icons-material/MenuBook'
 import {
-  Box,
   Divider,
-  Drawer,
   Grid,
   List,
   ListItem,
@@ -14,7 +13,6 @@ import {
   ListItemIcon,
   ListItemText,
   Paper,
-  useTheme,
 } from '@mui/material'
 
 import { Profile } from './Profile'
@@ -77,34 +75,21 @@ function MenuList() {
   )
 }
 
-export function NavigatorMenu({ menuWidth, open }: { menuWidth: number; open: boolean }) {
-  const theme = useTheme()
+export function Sidebar() {
   return (
-    <Drawer
-      variant="persistent"
-      sx={{
-        width: menuWidth,
-        flexShrink: 0,
-        '& .MuiDrawer-paper': {
-          width: menuWidth,
-          boxSizing: 'border-box',
-        },
-      }}
-      anchor="left"
-      open={open}
-    >
-      <Paper elevation={4}>
-        <Box
-          display="flex"
-          alignItems="center"
-          justifyContent="flex-end"
-          padding={theme.spacing(0, 1)}
-          sx={{
-            ...theme.mixins.toolbar,
-            backgroundColor: theme.palette.primary.main,
-          }}
-        />
-      </Paper>
+    <div className="fixed left-0 top-0 h-screen w-64 bg-primary p-8 dark:bg-zinc-800">
+      <div className="flex flex-col space-y-2">
+        <div className="flex items-center space-x-4">
+          <Image
+            src="/images/logos/app.png"
+            alt="logo"
+            width={40}
+            height={40}
+            className="rounded-xl"
+          />
+          <span className="text-primary-foreground">Math P' Earth</span>
+        </div>
+      </div>
       <Grid
         container
         direction="column"
@@ -120,6 +105,6 @@ export function NavigatorMenu({ menuWidth, open }: { menuWidth: number; open: bo
           <Profile />
         </Grid>
       </Grid>
-    </Drawer>
+    </div>
   )
 }
