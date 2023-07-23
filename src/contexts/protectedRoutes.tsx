@@ -1,6 +1,6 @@
 import { useRouter } from 'next/router'
 
-import { useUser } from '../hooks/useUser'
+import { useUserLegacy } from '../hooks/useUserLegacy'
 
 interface ProtectedRoutesProps {
   children: JSX.Element
@@ -9,7 +9,7 @@ interface ProtectedRoutesProps {
 const unprotectedRoutes = ['/login', '/user/pending-approval', '/user/register-success']
 
 export const ProtectedRoutes: React.FC<ProtectedRoutesProps> = ({ children }) => {
-  const { user, isLoading } = useUser()
+  const { user, isLoading } = useUserLegacy()
   const router = useRouter()
   if (isLoading) {
     return null

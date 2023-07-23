@@ -3,7 +3,7 @@ import { useRouter } from 'next/router'
 import { Button, Paper, Typography, styled } from '@mui/material'
 
 import { PageContainer } from '../../../components/containers/PageContainer'
-import { useUser } from '../../../hooks/useUser'
+import { useUserLegacy } from '../../../hooks/useUserLegacy'
 
 const FlexContainer = styled(Paper)`
   margin: auto;
@@ -17,7 +17,7 @@ const FlexContainer = styled(Paper)`
 `
 
 export default function RegisterSuccessPage() {
-  const { user, signOut } = useUser()
+  const { user, signOut } = useUserLegacy()
   const router = useRouter()
   if (!user) {
     router.push('/login')

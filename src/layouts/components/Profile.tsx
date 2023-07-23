@@ -1,9 +1,9 @@
 import { Button, Grid, Typography } from '@mui/material'
 
-import { useUser } from '../../hooks/useUser'
+import { useUserLegacy } from '../../hooks/useUserLegacy'
 
 export function Profile() {
-  const { user, signOut } = useUser()
+  const { user, signOut } = useUserLegacy()
 
   if (!user) {
     return null

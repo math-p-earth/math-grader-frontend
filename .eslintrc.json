@@ -6,7 +6,7 @@
     "prettier"
   ],
   "parser": "@typescript-eslint/parser",
-  "plugins": ["@typescript-eslint", "prettier", "unused-imports", "query"],
+  "plugins": ["@typescript-eslint", "prettier", "unused-imports", "@tanstack/eslint-plugin-query"],
   "rules": {
     "@typescript-eslint/no-unused-vars": "off",
     "@typescript-eslint/no-explicit-any": "error",

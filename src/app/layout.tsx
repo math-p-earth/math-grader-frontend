@@ -19,7 +19,7 @@ export default function RootLayout({
         />
         <link rel="stylesheet" href="https://rsms.me/inter/inter.css" />
       </head>
-      <body>
+      <body className="h-screen w-full">
         <Providers>{children}</Providers>
       </body>
     </html>

@@ -1,10 +1,9 @@
 import axios from 'axios'
-
-import { BACKEND_URL } from '../env'
+import { env } from '~/env.mjs'
 
 export const httpClient = axios.create({
   withCredentials: true,
-  baseURL: `${BACKEND_URL}/api`,
+  baseURL: `${env.NEXT_PUBLIC_BACKEND_URL}/api`,
 })
 
 export async function swrFetcher(path: string, params?: unknown) {
