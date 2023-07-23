@@ -1,7 +1,5 @@
-import ReactMarkdown from 'react-markdown'
-
 import { Typography } from '@mui/material'
-
+import ReactMarkdown from 'react-markdown'
 import rehypeKatex from 'rehype-katex'
 import remarkFrontmatter from 'remark-frontmatter'
 import remarkGfm from 'remark-gfm'

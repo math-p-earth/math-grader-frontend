@@ -4,9 +4,9 @@ const _excludedRoutes = ['/login', '/user/pending-approval', '/user/register-suc
 
 export function Layout({ children }: { children: JSX.Element }) {
   return (
-    <div className="flex w-full h-full">
+    <div className="flex h-full w-full">
       <Sidebar />
-      <main className="bg-zinc-700 flex-grow p-12 pl-72">{children}</main>
+      <main className="flex-grow bg-zinc-700 p-12 pl-72">{children}</main>
     </div>
   )
 }

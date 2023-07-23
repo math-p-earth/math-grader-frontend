@@ -2,7 +2,6 @@ import Image from 'next/image'
 import { useRouter } from 'next/router'
 
 import { Box, Paper, Typography, styled } from '@mui/material'
-
 import { GoogleLogin } from '@react-oauth/google'
 import { env } from '~/env.mjs'
 

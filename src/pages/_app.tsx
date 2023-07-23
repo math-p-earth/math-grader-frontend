@@ -1,7 +1,6 @@
 import type { AppProps } from 'next/app'
 
 import { ThemeProvider } from '@mui/material'
-
 import { GoogleOAuthProvider } from '@react-oauth/google'
 import { SWRConfig } from 'swr'
 

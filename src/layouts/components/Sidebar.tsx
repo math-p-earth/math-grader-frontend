@@ -77,7 +77,7 @@ function MenuList() {
 
 export function Sidebar() {
   return (
-    <div className="fixed left-0 top-0 h-screen w-64 bg-primary p-8 dark:bg-zinc-800">
+    <div className="bg-primary fixed left-0 top-0 h-screen w-64 p-8 dark:bg-zinc-800">
       <div className="flex flex-col space-y-2">
         <div className="flex items-center space-x-4">
           <Image

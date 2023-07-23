@@ -4,12 +4,9 @@ module.exports = {
   printWidth: 100,
   tabWidth: 2, // TODO: switch to useTabs: true
   trailingComma: 'es5',
-  importOrder: ['^react*', '^next*', '^@mui*', '<THIRD_PARTY_MODULES>', '^[./]'],
+  importOrder: ['^react$', '^next/*', '<THIRD_PARTY_MODULES>', '^[./]'],
   importOrderSeparation: true,
   importOrderSortSpecifiers: true,
   importOrderParserPlugins: ['decorators-legacy', 'jsx', 'typescript'],
-  plugins: [
-    require.resolve('@trivago/prettier-plugin-sort-imports'),
-    require.resolve('prettier-plugin-tailwindcss'),
-  ],
+  plugins: ['@trivago/prettier-plugin-sort-imports', 'prettier-plugin-tailwindcss'],
 }
