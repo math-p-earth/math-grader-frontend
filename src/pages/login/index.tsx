@@ -4,10 +4,10 @@ import { useRouter } from 'next/router'
 import { Box, Paper, Typography, styled } from '@mui/material'
 
 import { GoogleLogin } from '@react-oauth/google'
+import { env } from '~/env.mjs'
 
 import appLogo from '../../assets/logos/app.png'
 import { PageContainer } from '../../components/containers/PageContainer'
-import { BACKEND_URL } from '../../env'
 import { useUser } from '../../hooks/useUser'
 import { errorIsStatus } from '../../util/axios/error'
 import { httpClient } from '../../util/httpClient'
@@ -54,7 +54,7 @@ export default function LoginPage() {
               } catch (err) {
                 // 404 means new users
                 if (errorIsStatus(err, 404)) {
-                  const url = new URL('/admin/students/register', BACKEND_URL)
+                  const url = new URL('/admin/students/register', env.NEXT_PUBLIC_BACKEND_URL)
                   url.searchParams.set('idToken', response.credential)
                   url.searchParams.set(
                     'redirectUrl',
