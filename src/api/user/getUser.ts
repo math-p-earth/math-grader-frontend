@@ -37,6 +37,9 @@ export async function getUser(token: string): Promise<User | null> {
       Authorization: `JWT ${token}`,
     },
   })
+  if (res.status === 401) {
+    return null // unauthorized
+  }
   const data = await handleResponse<UserResponse>(res)
   return data.user
 }
