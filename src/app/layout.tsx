@@ -19,8 +19,10 @@ export default function RootLayout({
         />
         <link rel="stylesheet" href="https://rsms.me/inter/inter.css" />
       </head>
-      <body className="h-screen w-full">
-        <Providers>{children}</Providers>
+      <body className="bg-zinc-50 dark:bg-zinc-900">
+        <Providers>
+          <div>{children}</div>
+        </Providers>
       </body>
     </html>
   )
