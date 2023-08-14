@@ -1,7 +1,7 @@
 import { env } from '~/env.mjs'
 
-import { handleResponse } from '..'
-import { getPayloadToken } from '../auth/getPayloadToken'
+import { getPayloadToken } from '../auth/auth'
+import { handleResponse } from '../handleResponse'
 
 export interface User {
   id: string
