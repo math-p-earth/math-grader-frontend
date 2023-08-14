@@ -19,11 +19,12 @@ export default async function RegisterSuccessPage() {
         <Image src="/images/logos/app.png" alt="App logo" width={100} height={100} />
         <span className="text-3xl font-semibold text-zinc-900">Math P' Earth</span>
       </div>
-      <p className="text-2xl font-bold">✅ Success!</p>
+      <p className="text-2xl font-bold">
+        You are logged in as {user.firstName} {user.lastName}.
+      </p>
       <p>
-        Your account,
-        <span className="font-semibold">{` ${user.firstName} ${user.lastName}`}</span>, has been
-        created. Please contact an administrator to approve your account.
+        However, your account has not been approved yet. Please contact an administrator to gain
+        access.
       </p>
       <SignOutButton />
     </div>
