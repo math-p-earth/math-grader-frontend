@@ -3,35 +3,9 @@
 import { useRouter } from 'next/navigation'
 
 import { useQuery } from '@tanstack/react-query'
+import { UserResponse } from '~/api/user/getUser'
 
 import { httpClient } from '../util/httpClient'
-
-export interface User {
-  id: string
-  nickname: string
-  gender: 'MALE' | 'FEMALE' | 'OTHER' | 'RATHER NOT SAY'
-  firstName: string
-  lastName: string
-  grade: 'M4' | 'M5' | 'M6'
-  email: string
-  school: string
-  contact: {
-    phone?: string
-    discord?: string
-    line?: string
-  }
-  courses: {
-    id: string
-    name: string
-  }[]
-  status: 'PENDING' | 'APPROVED'
-}
-interface UserResponse {
-  user: User | null
-  token?: string
-  exp?: number
-  collection: 'student'
-}
 
 export function useUser() {
   const router = useRouter()
