@@ -19,7 +19,7 @@ export default function RootLayout({
         />
         <link rel="stylesheet" href="https://rsms.me/inter/inter.css" />
       </head>
-      <body className="bg-zinc-50 dark:bg-zinc-900">
+      <body className="bg-zinc-50 text-zinc-900 dark:bg-zinc-900 dark:text-zinc-100">
         <Providers>
           <div>{children}</div>
         </Providers>
