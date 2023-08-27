@@ -19,8 +19,8 @@ export default async function RegisterSuccessPage() {
         <Image src="/images/logos/app.png" alt="App logo" width={100} height={100} />
         <span className="text-3xl font-semibold text-zinc-900">Math P' Earth</span>
       </div>
-      <p className="text-2xl font-bold">✅ Success!</p>
-      <p>
+      <p className="text-2xl font-bold text-zinc-900 dark:text-zinc-100">✅ Success!</p>
+      <p className="text-zinc-900 dark:text-zinc-100">
         Your account,
         <span className="font-semibold">{` ${user.firstName} ${user.lastName}`}</span>, has been
         created. Please contact an administrator to approve your account.
