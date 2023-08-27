@@ -25,7 +25,7 @@ const pages: Page[] = [
   },
 ]
 
-export async function PageList() {
+export function PageList() {
   const pathname = usePathname()
 
   return (
