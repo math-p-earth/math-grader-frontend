@@ -21,7 +21,7 @@ export async function signOut(): Promise<void> {
     return
   }
 
-  const res = await fetch(`${env.NEXT_PUBLIC_BACKEND_URL}/api/students/logout`, {
+  const res = await fetch(`${env.BACKEND_INTERNAL_URL}/api/students/logout`, {
     method: 'GET',
     headers: {
       Authorization: `JWT ${token}`,

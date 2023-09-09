@@ -1,16 +1,18 @@
 'use client'
 
-import { useRouter } from 'next/router'
+import { redirect } from 'next/navigation'
 
 import { Button } from '@/components/ui/button'
 import { useUser } from '~/hooks/useUser'
 
 export function SignOutButton() {
   const { signOut } = useUser()
-  const router = useRouter()
+
   const handleSignOut = async () => {
+    console.log('LOGGING OUT')
     await signOut()
-    router.push('/login')
+    console.log('REDIRECTING')
+    redirect('/login')
   }
   return (
     <Button asChild variant="destructive" onClick={handleSignOut}>

@@ -1,8 +1,16 @@
 import Image from 'next/image'
+import { redirect } from 'next/navigation'
+
+import { getUser } from '~/api/user/getUser'
 
 import { GoogleLoginButton } from './GoogleLogin'
 
-export default function LoginPage() {
+export default async function LoginPage() {
+  const user = await getUser()
+  console.log('LOGIN PAGE', user)
+  if (user) {
+    redirect('/')
+  }
   return (
     <div className="flex h-screen flex-col items-center justify-center gap-4">
       <div className="flex items-center gap-4">

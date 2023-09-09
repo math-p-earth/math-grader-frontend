@@ -1,11 +1,11 @@
 import Image from 'next/image'
 import { redirect } from 'next/navigation'
 
-import { getLoggedInUser } from '~/api/user/getUser'
+import { getUser } from '~/api/user/getUser'
 import { SignOutButton } from '~/components/SignOutButton'
 
 export default async function RegisterSuccessPage() {
-  const user = await getLoggedInUser()
+  const user = await getUser()
   if (!user) {
     redirect('/login')
   }

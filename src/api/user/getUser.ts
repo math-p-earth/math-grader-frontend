@@ -1,53 +1,36 @@
-import { env } from '~/env.mjs'
+import jwt from 'jsonwebtoken'
+import z from 'zod'
 
-import { getPayloadToken } from '../auth'
-import { handleResponse } from '../handleResponse'
+import { getPayloadToken, signOut } from '../auth'
 
-export interface User {
-  id: string
-  nickname: string
-  gender: 'MALE' | 'FEMALE' | 'OTHER' | 'RATHER NOT SAY'
-  firstName: string
-  lastName: string
-  grade: 'M4' | 'M5' | 'M6'
-  email: string
-  school: string
-  contact: {
-    phone?: string
-    discord?: string
-    line?: string
-  }
-  courses: {
-    id: string
-    name: string
-  }[]
-  status: 'PENDING' | 'APPROVED'
-}
-export interface UserResponse {
-  user: User | null
-  token?: string
-  exp?: number
-  collection: 'student'
-}
+const jwtPayloadSchema = z.object({
+  email: z.string(),
+  id: z.string(),
+  status: z.enum(['PENDING', 'APPROVED']),
+  nickname: z.string(),
+  firstName: z.string(),
+  lastName: z.string(),
+  collection: z.enum(['students']),
+  iat: z.number(),
+  exp: z.number(),
+})
+export type JwtPayload = z.infer<typeof jwtPayloadSchema>
 
-export async function getUser(token: string): Promise<User | null> {
-  const res = await fetch(`${env.BACKEND_INTERNAL_URL}/api/students/me`, {
-    method: 'GET',
-    headers: {
-      Authorization: `JWT ${token}`,
-    },
-  })
-  if (res.status === 401) {
-    return null // unauthorized
-  }
-  const data = await handleResponse<UserResponse>(res)
-  return data.user
-}
-
-export async function getLoggedInUser(): Promise<User | null> {
+export async function getUser(): Promise<JwtPayload | null> {
   const token = getPayloadToken()
   if (!token) {
     return null
   }
-  return getUser(token)
+
+  try {
+    const payload = jwtPayloadSchema.parse(jwt.decode(token))
+    return payload
+  } catch (e) {
+    await signOut()
+    if (e instanceof jwt.TokenExpiredError) {
+      return null
+    }
+    console.error('Error parsing JWT payload: ', e)
+    return null
+  }
 }

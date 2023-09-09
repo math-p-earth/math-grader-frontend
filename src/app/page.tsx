@@ -1,9 +1,9 @@
 import { redirect } from 'next/navigation'
 
-import { getLoggedInUser } from '~/api/user/getUser'
+import { getUser } from '~/api/user/getUser'
 
 export default async function IndexPage() {
-  const user = await getLoggedInUser()
+  const user = await getUser()
   if (!user) {
     redirect('/login')
   }
