@@ -2,6 +2,7 @@ import React from 'react'
 
 import Image from 'next/image'
 
+import { mustAuthenticated } from '~/api/auth/must-authenticated'
 import { SignOutButton } from '~/components/SignOutButton'
 
 import { PageList } from './PageList'
@@ -15,7 +16,8 @@ function SidebarHeader() {
   )
 }
 
-export default function DashboardLayout({ children }) {
+export default async function DashboardLayout({ children }) {
+  await mustAuthenticated()
   return (
     <React.Fragment>
       <div className="fixed bottom-0 top-0 flex w-64 flex-col gap-8 overflow-y-auto bg-zinc-800 p-6">

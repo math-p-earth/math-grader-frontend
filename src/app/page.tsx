@@ -1,14 +1,8 @@
 import { redirect } from 'next/navigation'
 
-import { getUser } from '~/api/user/getUser'
+import { mustAuthenticated } from '~/api/auth/must-authenticated'
 
 export default async function IndexPage() {
-  const user = await getUser()
-  if (!user) {
-    redirect('/login')
-  }
-  if (user.status !== 'APPROVED') {
-    redirect('/user/pending-approval')
-  }
+  mustAuthenticated()
   redirect('/dashboard/problem-lists')
 }
