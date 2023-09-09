@@ -24,18 +24,18 @@ export interface Config {
 }
 export interface Course {
   id: string
-  name?: string
-  problemLists?: ProblemList[]
-  sources?: Source[]
+  name: string
+  problemLists: ProblemList[]
+  sources: Source[]
   createdAt: string
   updatedAt: string
 }
 export interface ProblemList {
   id: string
   name: string
-  description?: string
-  type?: 'DRILL' | 'LECTURE_PROBLEM' | 'COLLECTION' | 'CHALLENGE'
-  problems?: Problem[]
+  description: string
+  type: 'DRILL' | 'LECTURE_PROBLEM' | 'COLLECTION' | 'CHALLENGE'
+  problems: Problem[]
   createdAt: string
   updatedAt: string
 }
@@ -44,17 +44,17 @@ export interface Problem {
   content: string
   type: 'MCQ' | 'SHORT' | 'TF' | 'PROOF'
   choices: {
-    choice?: string
-    id?: string
+    choice: string
+    id: string
   }[]
-  answer?: string
-  tags?: Tag[]
+  answer: string
+  tags: Tag[]
   createdAt: string
   updatedAt: string
 }
 export interface Tag {
   id: string
-  name?: string
+  name: string
   createdAt: string
   updatedAt: string
 }
@@ -63,14 +63,14 @@ export interface Source {
   name: string
   description?: string
   type: 'GENERIC' | 'BOOK' | 'PAPER'
-  problems?: Problem[]
+  problems: Problem[]
   book: {
-    author?: string
-    isbn?: string
+    author: string
+    isbn: string
   }
   paper: {
-    timeLimit?: number
-    datePublished?: string
+    timeLimit: number
+    datePublished: string
   }
   createdAt: string
   updatedAt: string
@@ -85,25 +85,25 @@ export interface Student {
   grade: 'M4' | 'M5' | 'M6'
   school: string
   contact: {
-    phone?: string
-    discord?: string
-    line?: string
+    phone: string
+    discord: string
+    line: string
   }
   status: 'PENDING' | 'APPROVED'
-  courses?: Course[]
-  googleId?: string
+  courses: Course[]
+  googleId: string
   createdAt: string
   updatedAt: string
 }
 export interface Submission {
   id: string
   problem: string | Problem
-  student?: string | Student
+  student: string | Student
   status: 'CORRECT_APPROVED' | 'CORRECT' | 'INCORRECT_APPROVED' | 'INCORRECT' | 'PENDING'
-  content?: string
-  file?: string | Upload
-  score?: number
-  comment?: string
+  content: string
+  file: string | Upload
+  score: number
+  comment: string
   createdAt: string
   updatedAt: string
 }
@@ -118,24 +118,24 @@ export interface Upload {
         value: string | Student
         relationTo: 'students'
       }
-  url?: string
-  filename?: string
-  mimeType?: string
-  filesize?: number
-  width?: number
-  height?: number
+  url: string
+  filename: string
+  mimeType: string
+  filesize: number
+  width: number
+  height: number
   createdAt: string
   updatedAt: string
 }
 export interface User {
   id: string
   roles: ('ADMIN' | 'EDITOR')[]
-  email?: string
-  resetPasswordToken?: string
-  resetPasswordExpiration?: string
-  loginAttempts?: number
-  lockUntil?: string
+  email: string
+  resetPasswordToken: string
+  resetPasswordExpiration: string
+  loginAttempts: number
+  lockUntil: string
   createdAt: string
   updatedAt: string
-  password?: string
+  password: string
 }

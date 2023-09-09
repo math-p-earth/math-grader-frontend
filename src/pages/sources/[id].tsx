@@ -7,7 +7,7 @@ import { useSource } from '../../hooks/fetchers/useSource'
 
 export default function Source() {
   const router = useRouter()
-  const { id } = router.query
+  const { id } = router.query as { id: string } // temp fix white we migrate to app dir
   const { source } = useSource(id.toString())
 
   return (

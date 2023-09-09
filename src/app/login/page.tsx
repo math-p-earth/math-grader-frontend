@@ -7,7 +7,6 @@ import { GoogleLoginButton } from './GoogleLogin'
 
 export default async function LoginPage() {
   const user = await getUser()
-  console.log('LOGIN PAGE', user)
   if (user) {
     redirect('/')
   }

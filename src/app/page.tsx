@@ -1,8 +1,8 @@
 import { redirect } from 'next/navigation'
 
-import { mustAuthenticated } from '~/api/auth/must-authenticated'
+// export const dynamic = 'force-dynamic'
 
 export default async function IndexPage() {
-  mustAuthenticated()
+  // mustAuthenticated()
   redirect('/dashboard/problem-lists')
 }

@@ -7,7 +7,7 @@ import { useProblemList } from '../../hooks/fetchers/useProblemList'
 
 export default function ProblemList() {
   const router = useRouter()
-  const { id } = router.query
+  const { id } = router.query as { id: string } // temp fix white we migrate to app dir
   const { problemList } = useProblemList(id.toString())
 
   return (
