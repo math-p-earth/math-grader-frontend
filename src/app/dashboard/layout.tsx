@@ -8,7 +8,7 @@ function SidebarHeader() {
   return (
     <div className="flex items-center gap-2.5">
       <Image src="/images/logos/app.png" alt="App logo" width={30} height={30} />
-      <span className="text-lg font-semibold">Math P' Earth</span>
+      <span className="text-lg font-semibold text-zinc-100">Math P' Earth</span>
     </div>
   )
 }

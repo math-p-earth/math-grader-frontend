@@ -8,5 +8,5 @@ export default async function IndexPage() {
   if (!res.ok) {
     redirect('/login')
   }
-  redirect('/problem-lists')
+  redirect('/dashboard/problem-lists')
 }
