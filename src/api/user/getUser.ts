@@ -31,7 +31,7 @@ export interface UserResponse {
 }
 
 export async function getUser(token: string): Promise<User | null> {
-  const res = await fetch(`${env.NEXT_PUBLIC_BACKEND_URL}/api/students/me`, {
+  const res = await fetch(`${env.BACKEND_INTERNAL_URL}/api/students/me`, {
     method: 'GET',
     headers: {
       Authorization: `JWT ${token}`,

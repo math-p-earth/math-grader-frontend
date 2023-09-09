@@ -4,7 +4,6 @@ import { getLoggedInUser } from '~/api/user/getUser'
 
 export default async function IndexPage() {
   const user = await getLoggedInUser()
-  console.log(user)
   if (!user) {
     redirect('/login')
   }
