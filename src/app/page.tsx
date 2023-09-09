@@ -1,12 +1,15 @@
 import { redirect } from 'next/navigation'
 
-import { env } from '~/env.mjs'
+import { getLoggedInUser } from '~/api/user/getUser'
 
 export default async function IndexPage() {
-  const res = await fetch(`${env.NEXT_PUBLIC_BACKEND_URL}/api/students/me`, { cache: 'no-store' })
-  console.log(`${env.NEXT_PUBLIC_BACKEND_URL}/api/students/me`, res.status)
-  if (!res.ok) {
+  const user = await getLoggedInUser()
+  console.log(user)
+  if (!user) {
     redirect('/login')
+  }
+  if (user.status !== 'APPROVED') {
+    redirect('/user/pending-approval')
   }
   redirect('/dashboard/problem-lists')
 }

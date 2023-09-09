@@ -2,6 +2,8 @@ import React from 'react'
 
 import Image from 'next/image'
 
+import { SignOutButton } from '~/components/SignOutButton'
+
 import { PageList } from './PageList'
 
 function SidebarHeader() {
@@ -19,6 +21,8 @@ export default function DashboardLayout({ children }) {
       <div className="fixed bottom-0 top-0 flex w-64 flex-col gap-8 overflow-y-auto bg-zinc-800 p-6">
         <SidebarHeader />
         <PageList />
+        <div className="flex-1" />
+        <SignOutButton />
       </div>
       <div className="ml-64">{children}</div>
     </React.Fragment>
