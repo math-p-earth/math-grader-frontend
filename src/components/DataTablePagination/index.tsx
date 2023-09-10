@@ -16,11 +16,21 @@ import { Table } from '@tanstack/react-table'
 
 interface DataTablePaginationProps<TData> {
   table: Table<TData>
+  enableSelect?: boolean
 }
 
-export function DataTablePagination<TData>({ table }: DataTablePaginationProps<TData>) {
+export function DataTablePagination<TData>({
+  table,
+  enableSelect,
+}: DataTablePaginationProps<TData>) {
   return (
     <div className="mt-2 flex items-center justify-end px-2">
+      {enableSelect && (
+        <div className="text-muted-foreground flex-1 text-sm">
+          {table.getFilteredSelectedRowModel().rows.length} of{' '}
+          {table.getFilteredRowModel().rows.length} row(s) selected.
+        </div>
+      )}
       <div className="flex items-center space-x-4">
         <div className="flex items-center space-x-2">
           <p className="text-sm font-medium">Rows per page</p>
