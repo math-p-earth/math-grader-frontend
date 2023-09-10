@@ -14,7 +14,7 @@ export const columns: ColumnDef<ProblemList>[] = [
       row.original
       const { id, name } = row.original
       return (
-        <Link href={`/problem-lists/${id}`} className="font-semibold underline">
+        <Link href={`/dashboard/problem-lists/${id}`} className="font-semibold underline">
           {name}
         </Link>
       )
