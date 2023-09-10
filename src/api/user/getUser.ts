@@ -14,9 +14,9 @@ const jwtPayloadSchema = z.object({
   iat: z.number(),
   exp: z.number(),
 })
-export type JwtPayload = z.infer<typeof jwtPayloadSchema>
+export type MePayload = z.infer<typeof jwtPayloadSchema>
 
-export async function getUser(): Promise<JwtPayload | null> {
+export async function getUser(): Promise<MePayload | null> {
   const token = getPayloadToken()
   if (!token) {
     return null
