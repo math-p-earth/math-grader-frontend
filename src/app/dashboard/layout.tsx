@@ -11,6 +11,8 @@ import { SignOutButton } from '~/components/SignOutButton'
 import { DarkModeSwitch } from './DarkModeSwitch'
 import { PageList } from './PageList'
 
+export const dynamic = 'force-dynamic'
+
 interface ProfileProps {
   user: MePayload
 }
