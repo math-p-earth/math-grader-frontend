@@ -28,7 +28,11 @@ export async function getProblemLists(): Promise<GetProblemListsResponse> {
     headers: {
       Authorization: `JWT ${token}`,
     },
+    next: {
+      revalidate: 60, // 1 min
+    },
   })
 
-  return await handleResponse<GetProblemListsResponse>(res)
+  const data = await handleResponse<GetProblemListsResponse>(res)
+  return data
 }
