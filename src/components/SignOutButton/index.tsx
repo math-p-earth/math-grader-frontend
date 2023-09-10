@@ -5,7 +5,11 @@ import { useRouter } from 'next/navigation'
 import { Button } from '@/components/ui/button'
 import { useUser } from '~/hooks/useUser'
 
-export function SignOutButton() {
+interface SignOutButtonProps {
+  className?: string
+}
+
+export function SignOutButton({ className }: SignOutButtonProps) {
   const { signOut } = useUser()
   const router = useRouter()
   const handleSignOut = async () => {
@@ -14,7 +18,7 @@ export function SignOutButton() {
   }
 
   return (
-    <Button variant="destructive" onClick={handleSignOut}>
+    <Button variant="destructive" onClick={handleSignOut} className={className}>
       Sign Out
     </Button>
   )

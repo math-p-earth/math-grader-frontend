@@ -8,16 +8,8 @@ import { mustAuthenticated } from '~/api/auth/must-authenticated'
 import { MePayload } from '~/api/user/getUser'
 import { SignOutButton } from '~/components/SignOutButton'
 
+import { DarkModeSwitch } from './DarkModeSwitch'
 import { PageList } from './PageList'
-
-function AppHeader() {
-  return (
-    <Link href="/" className="flex items-center gap-2.5">
-      <Image src="/images/logos/app.png" alt="App logo" width={30} height={30} />
-      <span className="text-lg font-semibold text-zinc-100">Math P' Earth</span>
-    </Link>
-  )
-}
 
 interface ProfileProps {
   user: MePayload
@@ -52,12 +44,18 @@ function _HeaderBar() {
 async function Sidebar() {
   const user = await mustAuthenticated()
   return (
-    <div className="sticky top-0 flex h-screen w-64 shrink-0 flex-col gap-8 overflow-y-auto bg-zinc-800 p-6">
-      <AppHeader />
+    <div className="sticky top-0 flex h-screen w-64 shrink-0 flex-col gap-8 overflow-y-auto bg-zinc-800 p-6 text-zinc-100">
+      <Link href="/" className="flex items-center gap-4">
+        <Image src="/images/logos/app.png" alt="App logo" width={30} height={30} />
+        <span className="text-lg font-semibold ">Math P' Earth</span>
+      </Link>
       <PageList />
       <div className="flex-1" />
       <Profile user={user} />
-      <SignOutButton />
+      <div className="flex w-full items-center gap-4">
+        <DarkModeSwitch />
+        <SignOutButton className="flex-1" />
+      </div>
     </div>
   )
 }
