@@ -4,7 +4,7 @@ interface ProblemNumberIconProps {
 
 export function ProblemNumberIcon({ children }: ProblemNumberIconProps) {
   return (
-    <div className="flex h-8 w-8 items-center justify-center rounded-full bg-accent text-accent-foreground">
+    <div className="flex h-8 w-8 items-center justify-center rounded-full  bg-orange-300 text-zinc-900 dark:bg-orange-700/90 dark:text-zinc-100">
       {children}
     </div>
   )
