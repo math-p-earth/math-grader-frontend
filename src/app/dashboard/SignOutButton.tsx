@@ -9,9 +9,7 @@ export function SignOutButton() {
   const { signOut } = useUser()
 
   const handleSignOut = async () => {
-    console.log('LOGGING OUT')
     await signOut()
-    console.log('REDIRECTING')
     redirect('/login')
   }
   return (
