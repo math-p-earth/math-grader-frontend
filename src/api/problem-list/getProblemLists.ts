@@ -5,7 +5,7 @@ import { getPayloadToken } from '../auth'
 import { handleResponse } from '../handleResponse'
 import { PayloadListResponse } from '../types'
 
-interface ProblemList {
+export interface ProblemList {
   id: string
   name: string
   description: string
