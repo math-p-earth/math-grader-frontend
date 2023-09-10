@@ -26,7 +26,13 @@ export async function getUser(): Promise<JwtPayload | null> {
     const payload = jwtPayloadSchema.parse(jwt.decode(token))
     return payload
   } catch (e) {
-    await signOut()
+    // attempt to sign out and catch errors
+    try {
+      await signOut()
+    } catch (signOutError) {
+      console.error('Error while signing out: ', signOutError)
+    }
+
     if (e instanceof jwt.TokenExpiredError) {
       return null
     }
