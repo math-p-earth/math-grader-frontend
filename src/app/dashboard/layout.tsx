@@ -1,6 +1,7 @@
 import React from 'react'
 
 import Image from 'next/image'
+import Link from 'next/link'
 
 import { Avatar, AvatarFallback } from '@/components/ui/avatar'
 import { mustAuthenticated } from '~/api/auth/must-authenticated'
@@ -9,12 +10,12 @@ import { SignOutButton } from '~/components/SignOutButton'
 
 import { PageList } from './PageList'
 
-function SidebarHeader() {
+function AppHeader() {
   return (
-    <div className="flex items-center gap-2.5">
+    <Link href="/" className="flex items-center gap-2.5">
       <Image src="/images/logos/app.png" alt="App logo" width={30} height={30} />
       <span className="text-lg font-semibold text-zinc-100">Math P' Earth</span>
-    </div>
+    </Link>
   )
 }
 
@@ -37,19 +38,41 @@ function Profile({ user }: ProfileProps) {
   )
 }
 
-export default async function DashboardLayout({ children }) {
+// hide for now, no use case
+function _HeaderBar() {
+  return (
+    <header className="supports-backdrop-blur:bg-background/60 sticky top-0 z-50 w-full border-b border-border bg-background/90 backdrop-blur">
+      <div className="container flex h-14 items-center">
+        <div className="flex flex-1 items-center justify-end gap-4"></div>
+      </div>
+    </header>
+  )
+}
+
+async function Sidebar() {
   const user = await mustAuthenticated()
   return (
+    <div className="sticky top-0 flex h-screen w-64 shrink-0 flex-col gap-8 overflow-y-auto bg-zinc-800 p-6">
+      <AppHeader />
+      <PageList />
+      <div className="flex-1" />
+      <Profile user={user} />
+      <SignOutButton />
+    </div>
+  )
+}
+
+export default async function DashboardLayout({ children }) {
+  mustAuthenticated()
+  return (
     <React.Fragment>
-      {/* Sidebar */}
-      <div className="fixed bottom-0 top-0 flex w-64 flex-col gap-8 overflow-y-auto bg-zinc-800 p-6">
-        <SidebarHeader />
-        <PageList />
-        <div className="flex-1" />
-        <Profile user={user} />
-        <SignOutButton />
+      <div className="flex items-start">
+        <Sidebar />
+        <div className="container">
+          {/* <HeaderBar /> */}
+          <div className="flex-1">{children}</div>
+        </div>
       </div>
-      <div className="ml-64">{children}</div>
     </React.Fragment>
   )
 }
