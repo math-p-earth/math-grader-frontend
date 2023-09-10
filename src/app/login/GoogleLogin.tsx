@@ -22,7 +22,7 @@ export function GoogleLoginButton() {
               idToken: response.credential,
             })
             await query.refetch()
-            redirect('/')
+            window.location.href = '/' // use window.location.href to trigger a server-side rerender
           } catch (err) {
             // 404 means new users
             if (errorIsStatus(err, 404)) {
