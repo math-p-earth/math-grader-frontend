@@ -1,5 +1,7 @@
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
+import { Card, CardContent, CardHeader } from '@/components/ui/card'
 import { MathMarkdown } from '~/components/MathMarkdown'
+
+import { ProblemNumberIcon } from './ProblemNumberIcon'
 
 interface ProblemCardProps {
   content: string
@@ -14,7 +16,7 @@ export function ProblemCard({ content, choices, order }: ProblemCardProps) {
   return (
     <Card>
       <CardHeader>
-        <CardTitle>{order}.</CardTitle> {/* TODO: replace this with more fancy numeric icon */}
+        <ProblemNumberIcon>{order}</ProblemNumberIcon>
       </CardHeader>
       <CardContent className="prose text-zinc-200 dark:prose-invert">
         <MathMarkdown>{content}</MathMarkdown>
