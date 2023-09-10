@@ -1,4 +1,3 @@
-import qs from 'qs'
 import { env } from '~/env.mjs'
 import { Problem } from '~/types/payload-types'
 
@@ -17,11 +16,8 @@ export interface ProblemList {
 
 export async function getProblemListById(id: string): Promise<ProblemList> {
   const token = getPayloadToken()
-  const query = qs.stringify({
-    depth: 0,
-  })
 
-  const res = await fetch(`${env.BACKEND_INTERNAL_URL}/api/problem-lists/${id}?${query}`, {
+  const res = await fetch(`${env.BACKEND_INTERNAL_URL}/api/problem-lists/${id}`, {
     method: 'GET',
     headers: {
       Authorization: `JWT ${token}`,
