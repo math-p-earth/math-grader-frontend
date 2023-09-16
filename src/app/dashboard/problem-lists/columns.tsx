@@ -3,15 +3,17 @@
 import Link from 'next/link'
 
 import { ColumnDef } from '@tanstack/react-table'
+import { ChevronRight } from 'lucide-react'
 import { ProblemList } from '~/api/problem-list/getProblemLists'
 
-export const columns: ColumnDef<ProblemList>[] = [
+type ProblemListRow = ProblemList & { href: string }
+
+export const columns: ColumnDef<ProblemListRow>[] = [
   {
     id: 'name',
     header: 'Name',
     accessorKey: 'name',
     cell: ({ row }) => {
-      row.original
       const { id, name } = row.original
       return (
         <Link href={`/dashboard/problem-lists/${id}`} className="font-semibold underline">
@@ -34,5 +36,11 @@ export const columns: ColumnDef<ProblemList>[] = [
     id: 'problems',
     header: 'Problems',
     accessorFn: (row) => row.problems.length,
+  },
+  {
+    id: 'chevron',
+    cell: () => {
+      return <ChevronRight strokeWidth={1.5} />
+    },
   },
 ]

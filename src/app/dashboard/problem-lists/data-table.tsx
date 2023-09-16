@@ -1,5 +1,7 @@
 'use client'
 
+import { useRouter } from 'next/navigation'
+
 import {
   Table,
   TableBody,
@@ -8,8 +10,10 @@ import {
   TableHeader,
   TableRow,
 } from '@/components/ui/table'
+import { cn } from '@/lib/utils'
 import {
   ColumnDef,
+  Row,
   flexRender,
   getCoreRowModel,
   getPaginationRowModel,
@@ -18,18 +22,42 @@ import {
 
 import { DataTablePagination } from '../../../components/DataTablePagination'
 
+interface RowData {
+  href?: string
+}
+
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[]
   data: TData[]
 }
 
-export function DataTable<TData, TValue>({ columns, data }: DataTableProps<TData, TValue>) {
+export function DataTable<TData extends RowData, TValue>({
+  columns,
+  data,
+}: DataTableProps<TData, TValue>) {
+  const router = useRouter()
   const table = useReactTable({
     data,
     columns,
     getCoreRowModel: getCoreRowModel(),
     getPaginationRowModel: getPaginationRowModel(),
   })
+
+  const renderCells = (row: Row<TData>) =>
+    row
+      .getVisibleCells()
+      .map((cell) => (
+        <TableCell key={cell.id}>
+          {flexRender(cell.column.columnDef.cell, cell.getContext())}
+        </TableCell>
+      ))
+
+  const handleRowOnClick = (row: Row<TData>) => {
+    const href = row.original.href
+    if (href) {
+      router.push(href)
+    }
+  }
 
   return (
     <div>
@@ -53,7 +81,14 @@ export function DataTable<TData, TValue>({ columns, data }: DataTableProps<TData
           <TableBody>
             {table.getRowModel().rows?.length ? (
               table.getRowModel().rows.map((row) => (
-                <TableRow key={row.id} data-state={row.getIsSelected() && 'selected'}>
+                <TableRow
+                  key={row.id}
+                  data-state={row.getIsSelected() && 'selected'}
+                  onClick={() => handleRowOnClick(row)}
+                  className={cn({
+                    'cursor-pointer': !!row.original.href,
+                  })}
+                >
                   {row.getVisibleCells().map((cell) => (
                     <TableCell key={cell.id}>
                       {flexRender(cell.column.columnDef.cell, cell.getContext())}
