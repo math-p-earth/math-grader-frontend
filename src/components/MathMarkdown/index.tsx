@@ -6,13 +6,15 @@ import remarkMath from 'remark-math'
 
 interface MathMarkdownProps {
   children: string
+  className?: string
 }
 
-export function MathMarkdown({ children }: MathMarkdownProps) {
+export function MathMarkdown({ children, className }: MathMarkdownProps) {
   return (
     <ReactMarkdown
       remarkPlugins={[remarkMath, remarkGfm, remarkFrontmatter]}
       rehypePlugins={[rehypeKatex]}
+      className={className}
     >
       {children}
     </ReactMarkdown>

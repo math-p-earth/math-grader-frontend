@@ -1,6 +1,7 @@
 import { Card, CardContent, CardHeader } from '@/components/ui/card'
 import { MathMarkdown } from '~/components/MathMarkdown'
 
+import { ChoiceNumberIcon } from './ChoiceNumberIcon'
 import { ProblemNumberIcon } from './ProblemNumberIcon'
 
 interface ProblemCardProps {
@@ -21,13 +22,14 @@ export function ProblemCard({ content, choices, order }: ProblemCardProps) {
       <CardContent className="prose max-w-none dark:prose-invert dark:text-foreground">
         <MathMarkdown>{content}</MathMarkdown>
         {choices && choices.length > 0 && (
-          <ol className="px-4">
-            {choices.map(({ id, choice }) => (
-              <li key={id}>
-                <MathMarkdown>{choice}</MathMarkdown>
-              </li>
+          <div className="flex flex-col gap-0 pl-16">
+            {choices.map(({ id, choice }, index) => (
+              <div key={id} className="flex items-start gap-4">
+                <ChoiceNumberIcon>{index + 1}</ChoiceNumberIcon>
+                <MathMarkdown className="-mt-5">{choice}</MathMarkdown>
+              </div>
             ))}
-          </ol>
+          </div>
         )}
       </CardContent>
     </Card>
