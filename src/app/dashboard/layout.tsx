@@ -63,7 +63,7 @@ async function Sidebar() {
 }
 
 export default async function DashboardLayout({ children }) {
-  mustAuthenticated()
+  await mustAuthenticated()
   return (
     <React.Fragment>
       <div className="flex items-start">
