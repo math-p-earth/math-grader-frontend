@@ -4,6 +4,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 
 import { Avatar, AvatarFallback } from '@/components/ui/avatar'
+import { cn } from '@/lib/utils'
 import { mustAuthenticated } from '~/api/auth/must-authenticated'
 import { MePayload } from '~/api/user/getUser'
 import { SignOutButton } from '~/components/SignOutButton'
@@ -62,15 +63,39 @@ async function Sidebar() {
   )
 }
 
+interface FooterProps {
+  className?: string
+}
+
+function Footer({ className }: FooterProps) {
+  return (
+    <footer className={cn('py-8 text-center text-xs text-zinc-400', className)}>
+      Made with ❤️ by{' '}
+      <a href="https://github.com/bombnp" className="font-bold underline">
+        @bombnp
+      </a>
+      . Sources available on{' '}
+      <a
+        href="https://github.com/math-p-earth/math-grader-frontend"
+        className="font-bold underline"
+      >
+        GitHub
+      </a>
+      .
+    </footer>
+  )
+}
+
 export default async function DashboardLayout({ children }) {
   await mustAuthenticated()
   return (
     <React.Fragment>
       <div className="flex items-start">
         <Sidebar />
-        <div className="container">
+        <div className="container flex min-h-screen flex-col">
           {/* <HeaderBar /> */}
-          <div className="flex-1">{children}</div>
+          <div className="flex-grow">{children}</div>
+          <Footer className="flex-shrink-0" />
         </div>
       </div>
     </React.Fragment>
