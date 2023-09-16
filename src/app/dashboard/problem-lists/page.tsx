@@ -1,7 +1,7 @@
 import { getProblemLists } from '~/api/problem-list/getProblemLists'
 
+import { DataTable } from '../../../components/DataTable'
 import { columns } from './columns'
-import { DataTable } from './data-table'
 
 export default async function ProblemListsPage() {
   const data = await getProblemLists()

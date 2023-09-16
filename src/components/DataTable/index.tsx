@@ -20,7 +20,7 @@ import {
   useReactTable,
 } from '@tanstack/react-table'
 
-import { DataTablePagination } from '../../../components/DataTablePagination'
+import { DataTablePagination } from './pagination'
 
 interface RowData {
   href?: string
