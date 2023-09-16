@@ -43,15 +43,6 @@ export function DataTable<TData extends RowData, TValue>({
     getPaginationRowModel: getPaginationRowModel(),
   })
 
-  const renderCells = (row: Row<TData>) =>
-    row
-      .getVisibleCells()
-      .map((cell) => (
-        <TableCell key={cell.id}>
-          {flexRender(cell.column.columnDef.cell, cell.getContext())}
-        </TableCell>
-      ))
-
   const handleRowOnClick = (row: Row<TData>) => {
     const href = row.original.href
     if (href) {
