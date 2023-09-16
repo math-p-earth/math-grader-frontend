@@ -69,7 +69,7 @@ interface FooterProps {
 
 function Footer({ className }: FooterProps) {
   return (
-    <footer className={cn('py-8 text-center text-xs text-zinc-400', className)}>
+    <footer className={cn('py-8 text-center text-xs text-zinc-400 dark:text-zinc-500', className)}>
       Made with ❤️ by{' '}
       <a href="https://github.com/bombnp" className="font-bold underline">
         @bombnp
