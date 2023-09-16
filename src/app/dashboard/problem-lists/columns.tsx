@@ -5,6 +5,7 @@ import Link from 'next/link'
 import { ColumnDef } from '@tanstack/react-table'
 import { ChevronRight } from 'lucide-react'
 import { ProblemList } from '~/api/problem-list/getProblemLists'
+import { ProblemListTypeBadge } from '~/components/ProblemListTypeBadge'
 
 type ProblemListRow = ProblemList & { href: string }
 
@@ -30,7 +31,10 @@ export const columns: ColumnDef<ProblemListRow>[] = [
   {
     id: 'type',
     header: 'Type',
-    accessorKey: 'type',
+    cell: ({ row }) => {
+      const { type } = row.original
+      return <ProblemListTypeBadge type={type} />
+    },
   },
   {
     id: 'problems',
