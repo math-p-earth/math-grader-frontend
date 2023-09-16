@@ -4,7 +4,7 @@ import { Breadcrumb, BreadcrumbItem, BreadcrumbLink } from '@/components/ui/brea
 import { getProblemListById } from '~/api/problem-list/getProblemListById'
 import { ProblemListTypeBadge } from '~/components/ProblemListTypeBadge'
 
-import { ProblemCard } from './ProblemCard'
+import { ProblemCard } from '../../../../components/ProblemCard'
 
 export default async function ProblemListByIdPage({ params }: { params: { id: string } }) {
   const { id } = params
