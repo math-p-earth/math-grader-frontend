@@ -2,12 +2,12 @@
 
 import { ColumnDef } from '@tanstack/react-table'
 import { ChevronRight } from 'lucide-react'
-import { ProblemList } from '~/api/problem-list/getProblemLists'
-import { ProblemListTypeBadge } from '~/components/badges/ProblemListTypeBadge'
+import { Source } from '~/api/source/getSources'
+import { SourceTypeBadge } from '~/components/badges/SourceTypeBadge'
 
-type ProblemListRow = ProblemList & { href: string }
+type SourceRow = Source & { href: string }
 
-export const columns: ColumnDef<ProblemListRow>[] = [
+export const columns: ColumnDef<SourceRow>[] = [
   {
     id: 'name',
     header: 'Name',
@@ -27,7 +27,7 @@ export const columns: ColumnDef<ProblemListRow>[] = [
     header: 'Type',
     cell: ({ row }) => {
       const { type } = row.original
-      return <ProblemListTypeBadge type={type} />
+      return <SourceTypeBadge type={type} />
     },
   },
   {
