@@ -20,11 +20,11 @@ export const columns: ColumnDef<ProblemList>[] = [
       )
     },
   },
-  // {
-  //   id: 'description',
-  //   header: 'Description',
-  //   accessorKey: 'description',
-  // },
+  {
+    id: 'description',
+    header: 'Description',
+    accessorKey: 'description',
+  },
   {
     id: 'type',
     header: 'Type',
