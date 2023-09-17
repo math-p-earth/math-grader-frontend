@@ -1,4 +1,8 @@
-import useSWR from 'swr'
+'use client'
+
+import { useRouter } from 'next/navigation'
+
+import { useQuery } from '@tanstack/react-query'
 
 import { httpClient } from '../util/httpClient'
 
@@ -22,26 +26,27 @@ export interface User {
   }[]
   status: 'PENDING' | 'APPROVED'
 }
-interface UserResponse {
+export interface UserResponse {
   user: User | null
   token?: string
   exp?: number
+  collection: 'student'
 }
-
 export function useUser() {
-  const { data, error, mutate } = useSWR<UserResponse>(['/students/me'])
+  const router = useRouter()
+  const query = useQuery<UserResponse>(['/students/me'], async () => {
+    const res = await httpClient.get<UserResponse>('/students/me')
+    return res.data
+  })
 
   const signOut = async () => {
     await httpClient.post('students/logout')
-    mutate()
+    await query.refetch()
+    router.push('/login')
   }
 
   return {
-    user: data?.user,
-    token: data?.token,
-    isLoading: !data && !error,
-    error: error,
-    mutateUser: mutate,
+    query,
     signOut,
   }
 }

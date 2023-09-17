@@ -17,8 +17,9 @@ WORKDIR /app
 COPY ["package.json", "pnpm-lock.yaml", "./"]
 RUN pnpm install --frozen-lockfile
 
-COPY ["tsconfig.json", "next.config.js", ".env", "./"]
+COPY ["tsconfig.json", "next.config.mjs", "tailwind.config.js", "postcss.config.js", ".env", "./"]
 COPY public ./public
+COPY @ ./@
 COPY src ./src
 RUN pnpm build
 
@@ -28,7 +29,7 @@ FROM node:18-alpine AS runner
 WORKDIR /app
 ENV NODE_ENV=production
 
-COPY --from=builder /app/next.config.js .
+COPY --from=builder /app/next.config.mjs .
 COPY --from=builder /app/package.json .
 
 # Automatically leverage output traces to reduce image size
