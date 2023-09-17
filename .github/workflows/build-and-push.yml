@@ -25,7 +25,7 @@ jobs:
   build-push:
     runs-on: ubuntu-latest
     needs:
-    - prepare
+      - prepare
     if: ${{ needs.prepare.outputs.tag }}
 
     steps:
@@ -43,7 +43,7 @@ jobs:
 
       - name: Set frontend env (production)
         run: |
-            mv .env.production .env
+          mv .env.production .env
 
       - name: Build and Push
         uses: docker/build-push-action@v3
@@ -53,7 +53,7 @@ jobs:
           tags: ${{ needs.prepare.outputs.image }}
           cache-from: type=registry,ref=ghcr.io/math-p-earth/math-grader-frontend:buildcache
           cache-to: type=registry,ref=ghcr.io/math-p-earth/math-grader-frontend:buildcache,mode=max
-  
+
   deploy:
     runs-on: ubuntu-latest
     needs:
@@ -78,6 +78,7 @@ jobs:
 
             # Replace placeholder variables
             sed -i "s|{{IMAGE_TAG}}|$IMAGE_TAG|g" docker-compose.yml
+            sed -i "s|{{ENV_FILE}}|env/production.env|g" docker-compose.yml
 
             # Up compose file
             docker compose pull
