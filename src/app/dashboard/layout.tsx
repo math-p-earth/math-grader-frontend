@@ -71,13 +71,20 @@ function Footer({ className }: FooterProps) {
   return (
     <footer className={cn('py-8 text-center text-xs text-zinc-400 dark:text-zinc-500', className)}>
       Made with ❤️ by{' '}
-      <a href="https://github.com/bombnp" className="font-bold underline">
+      <a
+        className="font-bold underline"
+        href="https://github.com/bombnp"
+        target="_blank"
+        rel="noreferrer"
+      >
         @bombnp
       </a>
       . Sources available on{' '}
       <a
-        href="https://github.com/math-p-earth/math-grader-frontend"
         className="font-bold underline"
+        href="https://github.com/math-p-earth/math-grader-frontend"
+        target="_blank"
+        rel="noreferrer"
       >
         GitHub
       </a>
