@@ -9,7 +9,7 @@ export interface PageButtonProps {
   children: React.ReactNode
 }
 
-export function PageButton({ href, isActive = false, children }) {
+export function PageButton({ href, isActive = false, children }: PageButtonProps) {
   return (
     <Button
       asChild
