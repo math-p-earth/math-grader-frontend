@@ -31,7 +31,7 @@ export const DiagramImage: React.FC<DiagramImageProps> = ({ diagram }) => {
         height={height}
         style={{ width, height }}
       />
-      {diagram.caption && <caption className="text-sm italic">{diagram.caption}</caption>}
+      {diagram.caption && <div className="text-sm italic">{diagram.caption}</div>}
     </div>
   )
 }
