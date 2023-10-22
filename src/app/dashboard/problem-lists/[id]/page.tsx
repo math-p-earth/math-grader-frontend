@@ -28,8 +28,8 @@ export default async function ProblemListByIdPage({ params }: { params: { id: st
       </div>
       {data.description && <div className="mt-4">{data.description}</div>}
       <div className="mt-8 flex flex-col gap-4 px-8">
-        {data.problems.map(({ id, content, choices }, index) => (
-          <ProblemCard key={id} content={content} choices={choices} order={index + 1} />
+        {data.problems.map((problem, index) => (
+          <ProblemCard key={problem.id} problem={problem} order={index + 1} />
         ))}
       </div>
     </div>
