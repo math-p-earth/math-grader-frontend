@@ -9,7 +9,7 @@ interface DiagramImageProps {
   diagram: DiagramImageBlock
 }
 
-export const DiagramImage: React.FC<DiagramImageProps> = async ({ diagram }) => {
+export async function DiagramImage({ diagram }: DiagramImageProps) {
   const image =
     typeof diagram.image === 'string' ? await getMediaById(diagram.image) : diagram.image
 
