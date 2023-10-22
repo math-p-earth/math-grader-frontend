@@ -93,7 +93,11 @@ function Footer({ className }: FooterProps) {
   )
 }
 
-export default async function DashboardLayout({ children }) {
+interface DashboardLayoutProps {
+  children: React.ReactNode
+}
+
+export default async function DashboardLayout({ children }: DashboardLayoutProps) {
   await mustAuthenticated()
   return (
     <React.Fragment>

@@ -2,30 +2,17 @@ import { NextRequest, NextResponse } from 'next/server'
 
 import { env } from '~/env.mjs'
 
-interface RouteRevalidateTime {
-  readonly [key: string]: number
-}
-
-const routeRevalidateTime: RouteRevalidateTime = {
-  '/students/me': 60, // 1 min
-}
-
 async function handleRoute(request: NextRequest) {
-  const endpoint = request.nextUrl.pathname.slice('/api'.length)
-  const revalidate = endpoint in routeRevalidateTime ? routeRevalidateTime[endpoint] : 0
+  const mediaPath = request.nextUrl.pathname.slice('/media'.length)
 
-  const resp = await fetch(`${env.BACKEND_INTERNAL_URL}/api${endpoint}`, {
+  const resp = await fetch(`${env.BACKEND_INTERNAL_URL}/media${mediaPath}`, {
     method: request.method,
-    body: request.body,
     duplex: 'half',
     headers: {
-      accept: 'application/json',
       cookie: request.headers.get('cookie') ?? '',
       'content-type': request.headers.get('content-type') || '',
     },
-    next: {
-      revalidate: revalidate,
-    },
+    cache: 'no-store',
   } as RequestInit & { duplex: 'half' })
   return new NextResponse(resp.body, {
     status: resp.status,
@@ -37,9 +24,5 @@ async function handleRoute(request: NextRequest) {
 }
 
 export async function GET(request: NextRequest) {
-  return handleRoute(request)
-}
-
-export async function POST(request: NextRequest) {
   return handleRoute(request)
 }
