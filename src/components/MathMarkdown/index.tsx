@@ -4,12 +4,12 @@ import remarkFrontmatter from 'remark-frontmatter'
 import remarkGfm from 'remark-gfm'
 import remarkMath from 'remark-math'
 
-interface MathMarkdownProps {
+interface LatexMarkdownProps {
   children: string
   className?: string
 }
 
-export function MathMarkdown({ children, className }: MathMarkdownProps) {
+export function LatexMarkdown({ children, className }: LatexMarkdownProps) {
   return (
     <ReactMarkdown
       remarkPlugins={[remarkMath, remarkGfm, remarkFrontmatter]}
