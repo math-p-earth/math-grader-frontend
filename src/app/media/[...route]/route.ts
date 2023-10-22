@@ -12,9 +12,7 @@ async function handleRoute(request: NextRequest) {
       cookie: request.headers.get('cookie') ?? '',
       'content-type': request.headers.get('content-type') || '',
     },
-    next: {
-      revalidate: 3600, // 1 hour
-    },
+    cache: 'no-store',
   } as RequestInit & { duplex: 'half' })
   return new NextResponse(resp.body, {
     status: resp.status,

@@ -11,7 +11,6 @@ interface ProblemCardProps {
 }
 
 export function ProblemCard({ problem, order }: ProblemCardProps) {
-  console.log({ problem, order })
   return (
     <Card>
       <CardHeader>
