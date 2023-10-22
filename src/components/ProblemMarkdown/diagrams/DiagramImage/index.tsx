@@ -37,7 +37,7 @@ function getComputedWidthHeight(image: Media, width?: number, height?: number): 
   const imageHeight = image.height ?? 400
 
   const aspectRatio = imageWidth / imageHeight
-  if (typeof width === 'undefined' && typeof height === 'undefined') {
+  if (typeof width !== 'number' && typeof height !== 'number') {
     return [imageWidth, imageHeight]
   } else if (typeof width === 'number' && typeof height === 'number') {
     return [width, height]
