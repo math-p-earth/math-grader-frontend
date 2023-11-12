@@ -25,14 +25,20 @@ export interface Source {
 
 export type GetSourcesResponse = PayloadListResponse<Source>
 
-export async function getSources(): Promise<GetSourcesResponse> {
-  const token = getPayloadToken()
-  const query = qs.stringify({
-    depth: 0,
-    limit: 99999999,
-  })
+interface GeSourcesOptions {
+  depth?: number
+  limit?: number
+}
 
-  const res = await fetch(`${env.BACKEND_INTERNAL_URL}/api/sources?${query}`, {
+export async function getSources(opt: GeSourcesOptions = {}): Promise<GetSourcesResponse> {
+  const { depth = 0, limit = 99999999 } = opt
+  const token = getPayloadToken()
+  const queryParams = {
+    depth,
+    limit,
+  }
+
+  const res = await fetch(`${env.BACKEND_INTERNAL_URL}/api/sources?${qs.stringify(queryParams)}`, {
     method: 'GET',
     headers: {
       Authorization: `JWT ${token}`,

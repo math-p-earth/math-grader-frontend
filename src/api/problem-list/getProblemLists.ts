@@ -17,22 +17,33 @@ export interface ProblemList {
 
 export type GetProblemListsResponse = PayloadListResponse<ProblemList>
 
-export async function getProblemLists(): Promise<GetProblemListsResponse> {
-  const token = getPayloadToken()
-  const query = qs.stringify({
-    depth: 0,
-    limit: 99999999,
-  })
+interface GetProblemListsOptions {
+  depth?: number
+  limit?: number
+}
 
-  const res = await fetch(`${env.BACKEND_INTERNAL_URL}/api/problem-lists?${query}`, {
-    method: 'GET',
-    headers: {
-      Authorization: `JWT ${token}`,
-    },
-    next: {
-      revalidate: 60, // 1 min
-    },
-  })
+export async function getProblemLists(
+  opt: GetProblemListsOptions = {}
+): Promise<GetProblemListsResponse> {
+  const { depth = 0, limit = 99999999 } = opt
+  const token = getPayloadToken()
+  const queryParams = {
+    depth,
+    limit,
+  }
+
+  const res = await fetch(
+    `${env.BACKEND_INTERNAL_URL}/api/problem-lists?${qs.stringify(queryParams)}`,
+    {
+      method: 'GET',
+      headers: {
+        Authorization: `JWT ${token}`,
+      },
+      next: {
+        revalidate: 60, // 1 min
+      },
+    }
+  )
 
   const data = await handleResponse<GetProblemListsResponse>(res)
   return data

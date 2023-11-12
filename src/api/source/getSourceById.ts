@@ -1,3 +1,4 @@
+import qs from 'qs'
 import { env } from '~/env.mjs'
 import { Problem } from '~/types/payload-types'
 
@@ -22,18 +23,30 @@ export interface Source {
   updatedAt: string
 }
 
-export async function getSourceById(id: string): Promise<Source> {
+interface GetSourceByIdOptions {
+  depth?: number
+}
+
+export async function getSourceById(id: string, opt: GetSourceByIdOptions = {}): Promise<Source> {
+  const { depth = 1 } = opt
   const token = getPayloadToken()
 
-  const res = await fetch(`${env.BACKEND_INTERNAL_URL}/api/sources/${id}`, {
-    method: 'GET',
-    headers: {
-      Authorization: `JWT ${token}`,
-    },
-    next: {
-      revalidate: 60, // 1 min
-    },
-  })
+  const queryParams = {
+    depth,
+  }
+
+  const res = await fetch(
+    `${env.BACKEND_INTERNAL_URL}/api/sources/${id}?${qs.stringify(queryParams)}`,
+    {
+      method: 'GET',
+      headers: {
+        Authorization: `JWT ${token}`,
+      },
+      next: {
+        revalidate: 60, // 1 min
+      },
+    }
+  )
 
   const data = await handleResponse<Source>(res)
   return data
