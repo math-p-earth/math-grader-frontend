@@ -23,7 +23,7 @@ export async function getProblemListById(
   id: string,
   opt: GetProblemListByIdOptions = {}
 ): Promise<ProblemList> {
-  const { depth = 1 } = opt
+  const { depth = 2 } = opt
   const token = getPayloadToken()
 
   const queryParams = {

@@ -1,5 +1,6 @@
 import qs from 'qs'
 import { env } from '~/env.mjs'
+import { Problem } from '~/types/payload-types'
 
 import { getPayloadToken } from '../auth'
 import { handleResponse } from '../handleResponse'
@@ -10,7 +11,7 @@ export interface Source {
   name: string
   description?: string
   type: 'GENERIC' | 'BOOK' | 'PAPER'
-  problems: string[] // problem id IF depth = 0
+  problems: string[] | Problem[]
   book: {
     author: string
     isbn: string

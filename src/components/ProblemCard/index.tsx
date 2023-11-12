@@ -1,3 +1,4 @@
+import { Badge } from '@/components/ui/badge'
 import { Card, CardContent, CardHeader } from '@/components/ui/card'
 import { Problem } from '~/types/payload-types'
 
@@ -14,7 +15,12 @@ export function ProblemCard({ problem, order }: ProblemCardProps) {
   return (
     <Card>
       <CardHeader>
-        <ProblemNumberIcon>{order}</ProblemNumberIcon>
+        <div className="flex flex-row items-center gap-4">
+          <ProblemNumberIcon>{order}</ProblemNumberIcon>
+          {typeof problem.source === 'object' && (
+            <Badge badgeColor="sky-light">{problem.source.name}</Badge>
+          )}
+        </div>
       </CardHeader>
       <CardContent className="max-w-none">
         <ProblemMarkdown className="pb-4" diagrams={problem.diagrams}>

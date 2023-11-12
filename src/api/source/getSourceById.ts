@@ -28,7 +28,7 @@ interface GetSourceByIdOptions {
 }
 
 export async function getSourceById(id: string, opt: GetSourceByIdOptions = {}): Promise<Source> {
-  const { depth = 1 } = opt
+  const { depth = 2 } = opt
   const token = getPayloadToken()
 
   const queryParams = {

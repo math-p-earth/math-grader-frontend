@@ -8,7 +8,7 @@ import { ProblemCard } from '../../../../components/ProblemCard'
 
 export default async function ProblemListByIdPage({ params }: { params: { id: string } }) {
   const { id } = params
-  const data = await getProblemListById(id)
+  const data = await getProblemListById(id, { depth: 2 })
   return (
     <div className="container p-8">
       <Breadcrumb>
