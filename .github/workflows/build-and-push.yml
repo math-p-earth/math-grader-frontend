@@ -71,7 +71,7 @@ jobs:
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           envs: IMAGE_TAG
           script: |
-            cd math-grader-frontend
+            cd deploy-configs/math-grader-frontend
 
             # Copy template compose file
             cp docker-compose.yml.tmpl docker-compose.yml
