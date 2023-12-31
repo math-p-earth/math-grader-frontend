@@ -1,9 +1,11 @@
 'use client'
 
+import { Button } from '@/components/ui/button'
 import { ColumnDef } from '@tanstack/react-table'
-import { ChevronRight } from 'lucide-react'
+import { Download } from 'lucide-react'
 import { ProblemList } from '~/api/problem-list/getProblemLists'
 import { ProblemListTypeBadge } from '~/components/badges/ProblemListTypeBadge'
+import { downloadFile } from '~/util/download'
 
 type ProblemListRow = ProblemList & { href: string }
 
@@ -36,9 +38,30 @@ export const columns: ColumnDef<ProblemListRow>[] = [
     accessorFn: (row) => row.problems.length,
   },
   {
-    id: 'chevron',
-    cell: () => {
-      return <ChevronRight strokeWidth={1.5} />
+    id: 'download',
+    cell: ({ row }) => {
+      const { id } = row.original
+      return (
+        <Button
+          className="-my-2 flex items-center"
+          size="icon"
+          variant="ghost"
+          onClick={(e) => {
+            e.stopPropagation()
+            downloadFile({
+              path: `/problem-lists/${id}/download`,
+            })
+          }}
+        >
+          <Download strokeWidth={1.25} />
+        </Button>
+      )
     },
   },
+  // {
+  //   id: 'chevron',
+  //   cell: () => {
+  //     return <ChevronRight strokeWidth={1.5} />
+  //   },
+  // },
 ]

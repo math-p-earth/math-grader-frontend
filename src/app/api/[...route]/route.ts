@@ -31,6 +31,7 @@ async function handleRoute(request: NextRequest) {
     status: resp.status,
     headers: {
       'content-type': resp.headers.get('content-type') || '',
+      'content-disposition': resp.headers.get('content-disposition') || '',
       'set-cookie': resp.headers.get('set-cookie') || '',
     },
   })

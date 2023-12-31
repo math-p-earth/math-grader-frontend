@@ -1,3 +1,5 @@
+import { Toaster } from 'sonner'
+
 import './globals.css'
 import { Providers } from './providers'
 
@@ -21,6 +23,7 @@ export default function RootLayout({
       </head>
       <body className="bg-background text-foreground">
         <Providers>
+          <Toaster position="top-right" richColors />
           <div>{children}</div>
         </Providers>
       </body>

@@ -5,6 +5,7 @@ import { getProblemListById } from '~/api/problem-list/getProblemListById'
 import { ProblemListTypeBadge } from '~/components/badges/ProblemListTypeBadge'
 
 import { ProblemCard } from '../../../../components/ProblemCard'
+import { DownloadProblemListButton } from './downloadProblemListButton'
 
 export default async function ProblemListByIdPage({ params }: { params: { id: string } }) {
   const { id } = params
@@ -23,8 +24,11 @@ export default async function ProblemListByIdPage({ params }: { params: { id: st
           </BreadcrumbLink>
         </BreadcrumbItem>
       </Breadcrumb>
-      <div className="mt-6 flex items-center gap-3 text-2xl font-semibold">
-        {data.name} <ProblemListTypeBadge type={data.type} />
+      <div className="mt-6 flex items-center gap-3 pr-8 text-2xl font-semibold">
+        <span>{data.name}</span>
+        <ProblemListTypeBadge type={data.type} />
+        <div className="grow" />
+        <DownloadProblemListButton problemListId={id} />
       </div>
       {data.description && <div className="mt-4">{data.description}</div>}
       <div className="mt-8 flex flex-col gap-4 px-8">
