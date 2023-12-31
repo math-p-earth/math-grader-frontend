@@ -45,7 +45,7 @@ export interface DownloadOptions {
   method?: 'GET' | 'POST'
 }
 
-export async function downloadFile({ path, method = 'GET' }: DownloadOptions) {
+export function downloadFile({ path, method = 'GET' }: DownloadOptions) {
   const promise = httpClient.request({
     url: path,
     method: method,
