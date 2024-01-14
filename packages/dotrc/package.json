@@ -1,0 +1,20 @@
+{
+	"name": "dotrc",
+	"version": "0.0.0",
+	"private": true,
+	"author": "WhatTheFar",
+	"license": "MIT",
+	"dependencies": {
+		"@trivago/prettier-plugin-sort-imports": "^4.2.0",
+		"@typescript-eslint/eslint-plugin": "^6.4.0",
+		"@typescript-eslint/parser": "^6.4.0",
+		"eslint-config-next": "^13.4.18",
+		"eslint-config-prettier": "^9.0.0",
+		"eslint-config-turbo": "^1.10.12",
+		"eslint-define-config": "^1.23.0",
+		"eslint-plugin-react": "^7.33.2",
+		"eslint-plugin-unused-imports": "^3.0.0",
+		"prettier-plugin-tailwindcss": "^0.5.3",
+		"typescript": "^5.2.2"
+	}
+}

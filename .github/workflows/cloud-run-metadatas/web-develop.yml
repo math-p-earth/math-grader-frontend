@@ -1,0 +1,28 @@
+apiVersion: serving.knative.dev/v1
+kind: Service
+metadata:
+  name: web-develop
+spec:
+  template:
+    metadata:
+      annotations:
+        autoscaling.knative.dev/maxScale: "1"
+        run.googleapis.com/execution-environment: gen2
+        run.googleapis.com/startup-cpu-boost: "true"
+    spec:
+      serviceAccountName: cloud-run-web@math-p-earth.iam.gserviceaccount.com
+      containers:
+        - image: ${IMAGE}
+          ports:
+            - containerPort: 8080
+          resources:
+            limits:
+              cpu: 1000m
+              memory: 512Mi
+          env:
+            - name: BACKEND_INTERNAL_URL
+              value: https://math-grader-cms-develop-s7hi2brqxa-as.a.run.app
+            - name: NEXT_PUBLIC_BACKEND_URL
+              value: https://math-grader-cms-develop-s7hi2brqxa-as.a.run.app
+            - name: NEXT_PUBLIC_GOOGLE_OAUTH_CLIENT_ID
+              value: 198474744222-5kt2eu0u69hjidj7mdlpiv7ejmvrp4fl.apps.googleusercontent.com
