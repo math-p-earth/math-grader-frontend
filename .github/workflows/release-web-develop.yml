@@ -3,7 +3,7 @@ name: Release math-worker Develop
 on:
   push:
     branches:
-      - develop
+      - deploy/develop
 
 permissions:
   contents: read
