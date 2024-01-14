@@ -18,10 +18,10 @@ export const ProblemMarkdown = ({ children: source, diagrams = [], className }: 
 			// if placeholder is found, replace it with the diagram
 			const [left, right] = source.split(getDiagramPlaceholder(index))
 			components.push(
-				<LatexMarkdown key={`content-${index}`}>{left}</LatexMarkdown>,
+				<LatexMarkdown key={`content-${index}`}>{left!}</LatexMarkdown>,
 				<ProblemDiagram key={`diagram-${index}`} diagram={diagram} />,
 			)
-			source = right
+			source = right ?? ''
 		} else {
 			// otherwise, add it to the end
 			afterContentDiagrams.push(<ProblemDiagram key={`after-content-diagram-${index}`} diagram={diagram} />)

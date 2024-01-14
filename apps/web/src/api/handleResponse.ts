@@ -19,7 +19,7 @@ export async function handleResponse<T>(response: Response): Promise<T> {
 	if (!response.ok) {
 		const result = errorSchema.safeParse(data)
 		if (result.success && result.data.errors.length > 0) {
-			throw new Error(result.data.errors[0].message)
+			throw new Error(result.data.errors[0]?.message)
 		}
 		if (typeof data === 'string') {
 			throw new Error(data)
