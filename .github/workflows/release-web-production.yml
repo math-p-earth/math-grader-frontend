@@ -1,4 +1,4 @@
-name: Release math-worker Production
+name: Release web Production
 
 on:
   push:

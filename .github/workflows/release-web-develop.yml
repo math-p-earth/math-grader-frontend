@@ -1,4 +1,4 @@
-name: Release math-worker Develop
+name: Release web Develop
 
 on:
   push:
