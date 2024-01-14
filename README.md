@@ -1,34 +1,42 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Math Grader
 
-## Getting Started
+This is a math grader system designed for [Math P' Earth](https://math-p-earth.com). The project is split into multiple packages:
+1. `web`: The frontend component used by students, implemented with Next.js and TailwindCSS.
+2. `cms`: The backend and content management system used by admins. Powered by [PayloadCMS](https://payloadcms.com) and MongoDB.
+3. `math-worker`: A python service that handles complex math calculations. Mostly stuffs that require python packages or CLIs. This is located in a separate private repository.
 
-First, run the development server:
+## Development
+### Prerequisites
+1. pnpm >= 8.6.1
+2. Node 18
+3. Docker for running mongo locally. You can also use a remote mongo instance.
 
+### Setup
+1. Clone the repository
 ```bash
-npm run dev
-# or
-yarn dev
+$ git clone git@github.com:math-p-earth/math-grader-frontend.git
 ```
+2. Install dependencies
+```bash
+$ pnpm install
+```
+3. Copy `.env.example` to `.env.local` and fill in the values.
+4. Run the project
+```bash
+$ pnpm dev
+``` 
+To run sepecific packages, use `pnpm dev --scope <package-name>`. For example, to run only the `web` package, use `pnpm dev --scope web`.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Deployment
+### Develop
+1. Merge your changes to `develop` branch.
+2. Rebase/fast-forward to deploy branch `deploy/<app>-develop`. For example, to deploy the `web` package, push to `deploy/web-develop`.
+3. This will trigger GitHub Actions to build and deploy the app to Google Cloud Run.
 
-You can start editing the page by modifying `pages/index.tsx`. The page auto-updates as you edit the file.
+### Production
+1. Merge your changes to `main` branch.
+2. Push tag to `<app>@v<version>`. For example, to deploy `web` version `1.0.0`, push tag `web@v1.0.0`.
+3. This will trigger GitHub Actions to build and deploy the app to production server.
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.ts`.
-
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+## Contact
+- [Math P' Earth page](https://www.facebook.com/MathPEarth)
