@@ -11,17 +11,24 @@ RUN npm install -g pnpm
 
 # --------------------------------------------------------
 
+FROM pnpm AS pruner
+WORKDIR /app
+RUN pnpm install -g turbo
+COPY . .
+RUN turbo prune --scope=web --docker
+
+# --------------------------------------------------------
+
 FROM pnpm AS builder
 WORKDIR /app
 
-COPY ["package.json", "pnpm-lock.yaml", "./"]
+COPY --from=pruner /app/out/json/ .
+COPY pnpm-lock.yaml ./pnpm-lock.yaml
 RUN pnpm install --frozen-lockfile
 
-COPY ["tsconfig.json", "next.config.mjs", "tailwind.config.js", "postcss.config.js", ".env", "./"]
-COPY public ./public
-COPY @ ./@
-COPY src ./src
-RUN pnpm build
+COPY --from=pruner /app/out/full/ .
+COPY turbo.json turbo.json
+RUN pnpm turbo run build --filter=web...
 
 # --------------------------------------------------------
 
@@ -29,14 +36,14 @@ FROM node:18-alpine AS runner
 WORKDIR /app
 ENV NODE_ENV=production
 
-COPY --from=builder /app/next.config.mjs .
-COPY --from=builder /app/package.json .
+COPY --from=builder /app/apps/web/next.config.mjs .
+COPY --from=builder /app/apps/web/package.json .
 
 # Automatically leverage output traces to reduce image size
 # https://nextjs.org/docs/advanced-features/output-file-tracing
-COPY --from=builder /app/.next/standalone ./
-COPY --from=builder /app/public ./public
-COPY --from=builder /app/.next/static ./.next/static
+COPY --from=builder /app/apps/web/.next/standalone ./
+COPY --from=builder /app/apps/web/public ./public
+COPY --from=builder /app/apps/web/.next/static ./.next/static
 
 EXPOSE 3000
 CMD node server.js
