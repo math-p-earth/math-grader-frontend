@@ -41,7 +41,7 @@ COPY --from=builder /app/apps/web/package.json .
 
 # Automatically leverage output traces to reduce image size
 # https://nextjs.org/docs/advanced-features/output-file-tracing
-COPY --from=builder /app/apps/web/.next/standalone ./apps/web/
+COPY --from=builder /app/apps/web/.next/standalone ./
 COPY --from=builder /app/apps/web/public ./apps/web/public
 COPY --from=builder /app/apps/web/.next/static ./apps/web/.next/static
 
