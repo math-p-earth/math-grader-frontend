@@ -1,1 +1,1 @@
-module.exports = require('dotrc/eslint/base')
+module.exports = require('dotrc/eslint/next')

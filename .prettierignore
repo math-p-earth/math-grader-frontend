@@ -3,4 +3,5 @@
 .next
 pnpm-lock.yaml
 
+apps/cms/src/admin/css/output.css
 packages/core/payload-types/generated.ts

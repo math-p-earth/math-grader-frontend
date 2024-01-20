@@ -1,10 +1,9 @@
-import React, { memo } from 'react'
+import React from 'react'
 
-import { type ClassValue } from 'clsx'
+import { cn } from 'ui/lib/utils'
 
-import { cn } from '../../../utils/cn'
-import './index.scss'
-
+// using dynamic import because these modules are ESM-only
+// TODO: do normal imports when we switch to Vite with ESNext target
 const ReactMarkdown = React.lazy(() => import('react-markdown'))
 
 let rehypeKatex: (typeof import('rehype-katex'))['default']
@@ -22,23 +21,21 @@ let remarkMath: (typeof import('remark-math'))['default']
 
 interface LatexMarkdownProps {
 	children: string
-	className?: ClassValue
+	className?: string
 	options?: {
 		disablePMarginBottom?: boolean
 	}
 }
 
-const baseClass = 'latex-markdown'
-
-export const LatexMarkdown = memo(({ children, className, options }: LatexMarkdownProps) => {
-	const featureClasses = [...(options?.disablePMarginBottom ? [] : [`${baseClass}_p-mb`])]
+export function LatexMarkdown({ children, className, options }: LatexMarkdownProps) {
+	const featureClasses = [...(options?.disablePMarginBottom ? ['[&_p]:pb-0'] : ['[&_p]:pb-4'])]
 	return (
-		<div className={cn(baseClass, ...featureClasses, className)}>
-			<ReactMarkdown
-				children={children}
-				remarkPlugins={[remarkMath, remarkGfm, remarkFrontmatter]}
-				rehypePlugins={[rehypeKatex]}
-			/>
-		</div>
+		<ReactMarkdown
+			className={cn('prose dark:prose-invert dark:text-foreground max-w-none', ...featureClasses, className)}
+			rehypePlugins={[rehypeKatex]}
+			remarkPlugins={[remarkMath, remarkGfm, remarkFrontmatter]}
+		>
+			{children}
+		</ReactMarkdown>
 	)
-})
+}

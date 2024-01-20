@@ -1,9 +1,9 @@
 import React from 'react'
 
+import { LatexMarkdown } from 'core/components/LatexMarkdown'
 import { DiagramListBlock } from 'core/payload-types'
 
 import { DiagramListOrderScheme } from '../../../../../collections/Problems/diagram-blocks/List'
-import { LatexMarkdown } from '../../../../fields/LatexField/LatexMarkdown'
 import { cn } from '../../../../utils/cn'
 
 interface DiagramListProps {

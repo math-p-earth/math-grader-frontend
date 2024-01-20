@@ -1,6 +1,7 @@
 import React, { ReactNode } from 'react'
 
-import { LatexMarkdown } from '../../fields/LatexField/LatexMarkdown'
+import { LatexMarkdown } from 'core/components/LatexMarkdown'
+
 import { DiagramBlock, ProblemDiagram, getDiagramPlaceholder, isDiagramPlaceholderExist } from './diagrams'
 
 interface ProblemMarkdownProps {
