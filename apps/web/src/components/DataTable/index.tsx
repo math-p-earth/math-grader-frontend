@@ -8,9 +8,10 @@ import {
 	getPaginationRowModel,
 	useReactTable,
 } from '@tanstack/react-table'
+import { useRouter } from 'next/navigation'
+
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from 'ui/components/ui/table'
 import { cn } from 'ui/lib/utils'
-import { useRouter } from 'next/navigation'
 
 import { DataTablePagination } from './pagination'
 

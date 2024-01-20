@@ -1,12 +1,13 @@
 import React from 'react'
 
-import { Avatar, AvatarFallback } from 'ui/components/ui/avatar'
-import { cn } from 'ui/lib/utils'
 import Image from 'next/image'
 import Link from 'next/link'
 import { mustAuthenticated } from '~/api/auth/must-authenticated'
 import { MePayload } from '~/api/user/getUser'
 import { SignOutButton } from '~/components/SignOutButton'
+
+import { Avatar, AvatarFallback } from 'ui/components/ui/avatar'
+import { cn } from 'ui/lib/utils'
 
 import { DarkModeSwitch } from './DarkModeSwitch'
 import { PageList } from './PageList'

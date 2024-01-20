@@ -7,13 +7,13 @@ import { isTypeUser } from '../../access/type'
  * @param value Value to force on create
  */
 export const forceValueOnCreate: (value: unknown) => FieldHook = (value) => {
-  return ({ operation, req: { user } }) => {
-    if (operation === 'create') {
-      // don't force value if user is admin
-      if (isTypeUser(user) && user.roles.includes('ADMIN')) {
-        return undefined
-      }
-      return value
-    }
-  }
+	return ({ operation, req: { user } }) => {
+		if (operation === 'create') {
+			// don't force value if user is admin
+			if (isTypeUser(user) && user.roles.includes('ADMIN')) {
+				return undefined
+			}
+			return value
+		}
+	}
 }

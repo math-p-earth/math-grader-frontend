@@ -1,6 +1,7 @@
+import { Problem } from '~/types/payload-types'
+
 import { Badge } from 'ui/components/ui/badge'
 import { Card, CardContent, CardHeader } from 'ui/components/ui/card'
-import { Problem } from '~/types/payload-types'
 
 import { ProblemMarkdown } from '../ProblemMarkdown'
 import { ChoiceNumberIcon } from './ChoiceNumberIcon'

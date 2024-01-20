@@ -1,5 +1,6 @@
 import { ChevronLeftIcon, ChevronRightIcon, DoubleArrowLeftIcon, DoubleArrowRightIcon } from '@radix-ui/react-icons'
 import { Table } from '@tanstack/react-table'
+
 import { Button } from 'ui/components/ui/button'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from 'ui/components/ui/select'
 
@@ -12,7 +13,7 @@ export function DataTablePagination<TData>({ table, enableSelect }: DataTablePag
 	return (
 		<div className="mt-2 flex items-center justify-end px-2">
 			{enableSelect && (
-				<div className="text-muted-foreground flex-1 text-sm">
+				<div className="flex-1 text-sm text-muted-foreground">
 					{table.getFilteredSelectedRowModel().rows.length} of {table.getFilteredRowModel().rows.length} row(s)
 					selected.
 				</div>

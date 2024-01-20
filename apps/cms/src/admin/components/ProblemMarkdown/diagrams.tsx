@@ -8,53 +8,53 @@ import { DiagramTable } from './diagrams/DiagramTable'
 
 // add future block types here
 const blockTypes = ['diagram-image', 'diagram-list', 'diagram-table'] as const
-type BlockType = typeof blockTypes[number]
+type BlockType = (typeof blockTypes)[number]
 
 export interface DiagramBlock {
-  blockType: BlockType
+	blockType: BlockType
 }
 
 export const isDiagramBlock = (value: unknown): value is DiagramBlock => {
-  if (typeof value !== 'object' || value === null) return false
+	if (typeof value !== 'object' || value === null) return false
 
-  if (
-    'blockType' in value &&
-    typeof value['blockType'] === 'string' &&
-    blockTypes.includes(value['blockType'] as BlockType)
-  ) {
-    return true
-  }
-  return false
+	if (
+		'blockType' in value &&
+		typeof value['blockType'] === 'string' &&
+		blockTypes.includes(value['blockType'] as BlockType)
+	) {
+		return true
+	}
+	return false
 }
 
 export const isDiagramBlockArray = (value: unknown): value is DiagramBlock[] => {
-  if (!Array.isArray(value)) return false
+	if (!Array.isArray(value)) return false
 
-  for (const item of value) {
-    if (!isDiagramBlock(item)) return false
-  }
-  return true
+	for (const item of value) {
+		if (!isDiagramBlock(item)) return false
+	}
+	return true
 }
 
 export function isDiagramPlaceholderExist(source: string, index: number): boolean {
-  return new RegExp(getDiagramPlaceholder(index)).test(source)
+	return new RegExp(getDiagramPlaceholder(index)).test(source)
 }
 
 export function getDiagramPlaceholder(index: number): string {
-  return `<${index + 1}>`
+	return `<${index + 1}>`
 }
 
 interface ProblemDiagramProps {
-  diagram: DiagramBlock
+	diagram: DiagramBlock
 }
 
 export const ProblemDiagram: React.FC<ProblemDiagramProps> = ({ diagram }) => {
-  switch (diagram.blockType) {
-    case 'diagram-image':
-      return <DiagramImage diagram={diagram as unknown as DiagramImageBlock} />
-    case 'diagram-list':
-      return <DiagramList diagram={diagram as unknown as DiagramListBlock} />
-    case 'diagram-table':
-      return <DiagramTable diagram={diagram as unknown as DiagramTableBlock} />
-  }
+	switch (diagram.blockType) {
+		case 'diagram-image':
+			return <DiagramImage diagram={diagram as unknown as DiagramImageBlock} />
+		case 'diagram-list':
+			return <DiagramList diagram={diagram as unknown as DiagramListBlock} />
+		case 'diagram-table':
+			return <DiagramTable diagram={diagram as unknown as DiagramTableBlock} />
+	}
 }

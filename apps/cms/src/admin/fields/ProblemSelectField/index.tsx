@@ -10,35 +10,30 @@ import { ProblemTransferDrawer } from './ProblemTransferDrawer'
 import './index.scss'
 
 export type ProblemSelectProps = Omit<RelationshipField, 'type'> & {
-  path: string
+	path: string
 }
 
-export const ProblemSelectField: React.FC<ProblemSelectProps> = ({
-  path,
-  label,
-  required,
-  relationTo,
-}) => {
-  if (Array.isArray(relationTo)) {
-    throw new Error('Polymorphic relationships are not supported.')
-  }
-  if (relationTo !== Problems.slug) {
-    throw new Error(`Only relationships to '${Problems.slug}' are supported.`)
-  }
+export const ProblemSelectField: React.FC<ProblemSelectProps> = ({ path, label, required, relationTo }) => {
+	if (Array.isArray(relationTo)) {
+		throw new Error('Polymorphic relationships are not supported.')
+	}
+	if (relationTo !== Problems.slug) {
+		throw new Error(`Only relationships to '${Problems.slug}' are supported.`)
+	}
 
-  const { value: problemIds } = useField<string[]>({ path })
-  const { query } = useFilterProblems({
-    ids: problemIds,
-  })
-  const { status, data, refetch } = query
+	const { value: problemIds } = useField<string[]>({ path })
+	const { query } = useFilterProblems({
+		ids: problemIds,
+	})
+	const { status, data, refetch } = query
 
-  return (
-    <div className="problem-select">
-      <Label htmlFor={`field-${path.replace(/\./gi, '__')}`} label={label} required={required} />
-      <ProblemTransferDrawer toggleLabel="+ Add New" path={path} />
+	return (
+		<div className="problem-select">
+			<Label htmlFor={`field-${path.replace(/\./gi, '__')}`} label={label} required={required} />
+			<ProblemTransferDrawer toggleLabel="+ Add New" path={path} />
 
-      {status === 'loading' && <p>Loading...</p>}
-      {status === 'success' && <ProblemCardList problems={data.docs} refreshData={refetch} />}
-    </div>
-  )
+			{status === 'loading' && <p>Loading...</p>}
+			{status === 'success' && <ProblemCardList problems={data.docs} refreshData={refetch} />}
+		</div>
+	)
 }

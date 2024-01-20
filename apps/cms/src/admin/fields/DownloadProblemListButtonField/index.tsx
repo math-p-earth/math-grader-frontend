@@ -6,17 +6,17 @@ import { useDocumentInfo } from 'payload/components/utilities'
 import { downloadFile } from '../../hooks/useDownload'
 
 export const DownloadProblemListButtonField: React.FC = () => {
-  const { id } = useDocumentInfo()
+	const { id } = useDocumentInfo()
 
-  return (
-    <Button
-      onClick={() => {
-        downloadFile({
-          url: `/api/problem-lists/${id}/download`,
-        })
-      }}
-    >
-      Download
-    </Button>
-  )
+	return (
+		<Button
+			onClick={() => {
+				downloadFile({
+					url: `/api/problem-lists/${id}/download`,
+				})
+			}}
+		>
+			Download
+		</Button>
+	)
 }

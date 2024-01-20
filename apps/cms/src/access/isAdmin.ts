@@ -8,17 +8,15 @@ import { UserTypes, isTypeUser } from './type'
  * @param role Role of user
  */
 export const isAdmin: Access<unknown, UserTypes> = ({ req: { user } }) => {
-  if (isTypeUser(user)) {
-    return user.roles.includes('ADMIN')
-  }
-  return false
+	if (isTypeUser(user)) {
+		return user.roles.includes('ADMIN')
+	}
+	return false
 }
 
-export const isAdminFieldAccess: FieldAccess<TypeWithID, unknown, UserTypes> = ({
-  req: { user },
-}) => {
-  if (isTypeUser(user)) {
-    return user.roles.includes('ADMIN')
-  }
-  return false
+export const isAdminFieldAccess: FieldAccess<TypeWithID, unknown, UserTypes> = ({ req: { user } }) => {
+	if (isTypeUser(user)) {
+		return user.roles.includes('ADMIN')
+	}
+	return false
 }

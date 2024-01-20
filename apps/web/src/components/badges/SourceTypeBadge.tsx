@@ -1,6 +1,7 @@
-import { Badge, badgeVariants } from 'ui/components/ui/badge'
 import { VariantProps } from 'class-variance-authority'
 import { Source } from '~/types/payload-types'
+
+import { Badge, badgeVariants } from 'ui/components/ui/badge'
 
 const typeConfigs: Record<Source['type'], TypeBadgeConfig> = {
 	GENERIC: {

@@ -1,7 +1,8 @@
 import * as React from 'react'
 
-import { cn, getValidChildren } from '../../lib/utils'
 import { ChevronRight } from 'lucide-react'
+
+import { cn, getValidChildren } from '../../lib/utils'
 
 export interface BreadcrumbProps extends React.ComponentPropsWithoutRef<'nav'> {
 	/* The visual separator between each breadcrumb item */
