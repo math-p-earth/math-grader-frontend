@@ -1,6 +1,5 @@
-import { ProblemList } from 'payload/generated-types'
-
 import { initClient, initContract } from '@ts-rest/core'
+import { ProblemList } from 'core/payload-types'
 import { z } from 'zod'
 
 import { diagramTableDataSchema } from '../../../collections/Problems/diagram-blocks/Table'

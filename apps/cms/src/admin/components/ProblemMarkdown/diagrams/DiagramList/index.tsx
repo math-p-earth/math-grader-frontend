@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { DiagramListBlock } from 'payload/generated-types'
+import { DiagramListBlock } from 'core/payload-types'
 
 import { DiagramListOrderScheme } from '../../../../../collections/Problems/diagram-blocks/List'
 import { LatexMarkdown } from '../../../../fields/LatexField/LatexMarkdown'

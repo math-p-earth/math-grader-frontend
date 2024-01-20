@@ -109,7 +109,7 @@ export default buildConfig({
 	collections: [Courses, Media, Problems, ProblemLists, Sources, Students, Submissions, Tags, Uploads, Users],
 	endpoints: endpoints,
 	typescript: {
-		outputFile: path.resolve(__dirname, 'payload-types.ts'),
+		outputFile: path.resolve(__dirname, '../../../packages/types/payload-types/generated.ts'),
 	},
 	graphQL: {
 		disable: true,

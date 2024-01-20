@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { DiagramImageBlock, Media } from 'payload/generated-types'
+import { DiagramImageBlock, Media } from 'core/payload-types'
 
 import { useQueryMedia } from '../../../../hooks/useQueryMedia'
 

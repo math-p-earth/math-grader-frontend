@@ -2,3 +2,5 @@
 /coverage
 .next
 pnpm-lock.yaml
+
+packages/core/payload-types/generated.ts

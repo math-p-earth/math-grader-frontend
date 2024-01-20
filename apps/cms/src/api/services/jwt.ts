@@ -1,7 +1,7 @@
 import payload from 'payload'
-import { Student } from 'payload/generated-types'
 import { SanitizedCollectionConfig } from 'payload/types'
 
+import { Student } from 'core/payload-types'
 import jwt from 'jsonwebtoken'
 
 export function generateAccessToken(student: Student, collectionConfig: SanitizedCollectionConfig) {

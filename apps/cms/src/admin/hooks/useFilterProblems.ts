@@ -1,10 +1,10 @@
 import { useConfig } from 'payload/components/utilities'
 import { PaginatedDocs } from 'payload/database'
 import { ErrorResponse } from 'payload/dist/express/responses/formatError'
-import { Problem, Source } from 'payload/generated-types'
 import { Where } from 'payload/types'
 
 import { useQuery } from '@tanstack/react-query'
+import { Problem, Source } from 'core/payload-types'
 import qs from 'qs'
 
 import { Problems } from '../../collections/Problems'

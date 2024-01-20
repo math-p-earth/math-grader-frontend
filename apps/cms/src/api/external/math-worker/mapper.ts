@@ -6,8 +6,7 @@ import {
 	Problem,
 	ProblemList,
 	Source,
-} from 'payload/generated-types'
-
+} from 'core/payload-types'
 import { z } from 'zod'
 
 import { diagramTableDataSchema } from '../../../collections/Problems/diagram-blocks/Table'

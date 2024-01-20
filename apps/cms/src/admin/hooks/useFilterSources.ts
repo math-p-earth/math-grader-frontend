@@ -1,10 +1,10 @@
 import { useConfig } from 'payload/components/utilities'
 import { PaginatedDocs } from 'payload/database'
 import { ErrorResponse } from 'payload/dist/express/responses/formatError'
-import { Source } from 'payload/generated-types'
 import { Where } from 'payload/types'
 
 import { useQuery } from '@tanstack/react-query'
+import { Source } from 'core/payload-types'
 import qs from 'qs'
 
 export interface SourceFilter {

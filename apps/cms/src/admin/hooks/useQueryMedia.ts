@@ -1,8 +1,8 @@
 import { useConfig } from 'payload/components/utilities'
 import { ErrorResponse } from 'payload/dist/express/responses/formatError'
-import { Media } from 'payload/generated-types'
 
 import { useQuery } from '@tanstack/react-query'
+import { Media } from 'core/payload-types'
 
 import { Media as MediaConfig } from '../../collections/Media'
 

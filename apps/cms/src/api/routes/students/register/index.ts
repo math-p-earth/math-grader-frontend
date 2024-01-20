@@ -1,7 +1,7 @@
 import getCookieExpiration from 'payload/dist/utilities/getCookieExpiration'
-import { Student } from 'payload/generated-types'
 import { PayloadRequest } from 'payload/types'
 
+import { Student } from 'core/payload-types'
 import { CookieOptions, Response } from 'express'
 import { LoginTicket } from 'google-auth-library'
 

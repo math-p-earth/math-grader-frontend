@@ -1,6 +1,7 @@
 import { phoneField } from 'payload-plugin-phone-field'
-import { Student } from 'payload/generated-types'
 import { Access, CollectionConfig, Validate } from 'payload/types'
+
+import { Student } from 'core/payload-types'
 
 import { isAdmin, isAdminFieldAccess } from '../../access/isAdmin'
 import { isSelf } from '../../access/isSelf'

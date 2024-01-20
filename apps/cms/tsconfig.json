@@ -9,10 +9,7 @@
 		"outDir": "./dist",
 		"rootDir": "./src",
 		"jsx": "react",
-		"experimentalDecorators": true,
-		"paths": {
-			"payload/generated-types": ["./src/payload-types.ts"]
-		}
+		"experimentalDecorators": true
 	},
 	"include": ["src"],
 	"exclude": ["node_modules", "dist", "build"],

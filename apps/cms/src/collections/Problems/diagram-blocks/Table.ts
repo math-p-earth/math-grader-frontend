@@ -1,6 +1,6 @@
-import { DiagramTableBlock as DiagramTableBlockType } from 'payload/generated-types'
 import { Block, Validate } from 'payload/types'
 
+import { DiagramTableBlock as DiagramTableBlockType } from 'core/payload-types'
 import { z } from 'zod'
 
 export const diagramTableDataSchema = z.object({

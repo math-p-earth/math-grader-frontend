@@ -1,6 +1,7 @@
 import { RelationshipField } from 'payload/dist/fields/config/types'
-import { Config } from 'payload/generated-types'
 import { Field, FieldHook } from 'payload/types'
+
+import { Config } from 'core/payload-types'
 
 type BackpopulateFieldHookOptions<TSlug extends keyof Config['collections']> = Pick<
 	BackpopulateFieldOptions<TSlug>,

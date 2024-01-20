@@ -1,7 +1,7 @@
 import { Forbidden } from 'payload/errors'
-import { Problem } from 'payload/generated-types'
 import { PayloadRequest } from 'payload/types'
 
+import { Problem } from 'core/payload-types'
 import { Response } from 'express'
 import z from 'zod'
 
