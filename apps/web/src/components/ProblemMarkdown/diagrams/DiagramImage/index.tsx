@@ -1,8 +1,8 @@
 import React from 'react'
 
+import { DiagramImageBlock, Media } from 'core/payload-types'
 import Image from 'next/image'
 import { getMediaById } from '~/api/media/getMediaById'
-import { DiagramImageBlock, Media } from '~/types/payload-types'
 
 interface DiagramImageProps {
 	diagram: DiagramImageBlock

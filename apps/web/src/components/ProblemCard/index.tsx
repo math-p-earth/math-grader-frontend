@@ -1,4 +1,4 @@
-import { Problem } from '~/types/payload-types'
+import { Problem } from 'core/payload-types'
 
 import { Badge } from 'ui/components/ui/badge'
 import { Card, CardContent, CardHeader } from 'ui/components/ui/card'

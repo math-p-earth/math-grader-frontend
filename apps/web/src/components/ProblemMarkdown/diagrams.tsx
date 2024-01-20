@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { DiagramImageBlock } from '~/types/payload-types'
+import { DiagramImageBlock } from 'core/payload-types'
 
 import { DiagramImage } from './diagrams/DiagramImage'
 

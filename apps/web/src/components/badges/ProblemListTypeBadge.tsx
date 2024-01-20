@@ -1,5 +1,5 @@
 import { VariantProps } from 'class-variance-authority'
-import { ProblemList } from '~/types/payload-types'
+import { ProblemList } from 'core/payload-types'
 
 import { Badge, badgeVariants } from 'ui/components/ui/badge'
 

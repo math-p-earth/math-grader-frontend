@@ -189,6 +189,9 @@ importers:
       clsx:
         specifier: ^2.0.0
         version: 2.0.0
+      core:
+        specifier: workspace:*
+        version: link:../../packages/core
       jsonwebtoken:
         specifier: ^9.0.2
         version: 9.0.2
