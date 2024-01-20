@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { Problem } from 'types/payload/payload-types'
+import { Problem } from 'core/payload-types'
 
 import { ProblemMarkdown } from '../ProblemMarkdown'
 import { EditProblemButton } from './EditProblemButton'
