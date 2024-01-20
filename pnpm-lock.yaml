@@ -56,6 +56,9 @@ importers:
       antd:
         specifier: ^5.6.1
         version: 5.6.1(react-dom@18.2.0)(react@18.2.0)
+      clsx:
+        specifier: ^2.0.0
+        version: 2.0.0
       dotenv:
         specifier: ^8.2.0
         version: 8.2.0
@@ -113,6 +116,9 @@ importers:
       tailwind-merge:
         specifier: ^2.2.0
         version: 2.2.0
+      ui:
+        specifier: workspace:*
+        version: link:../../packages/ui
       zod:
         specifier: ^3.20.2
         version: 3.21.4
@@ -150,6 +156,9 @@ importers:
       cross-env:
         specifier: ^7.0.3
         version: 7.0.3
+      dotrc:
+        specifier: workspace:*
+        version: link:../../packages/dotrc
       eslint:
         specifier: ^8.26.0
         version: 8.54.0
