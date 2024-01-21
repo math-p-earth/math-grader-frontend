@@ -15,7 +15,7 @@ spec:
       serviceAccountName: cloud-run-cms@math-p-earth.iam.gserviceaccount.com
       containers:
         - volumeMounts:
-            - mountPath: /app/env
+            - mountPath: /app/apps/cms/env
               name: envfile
           image: ${IMAGE}
           ports:
