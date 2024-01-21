@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 
 import { diagramTableDataSchema } from '../../../../../apps/cms/src/collections/Problems/diagram-blocks/Table'
 import { DiagramTableBlock } from '../../../payload-types'
@@ -8,8 +8,7 @@ interface DiagramTableProps {
 	diagram: DiagramTableBlock
 }
 
-export const DiagramTable: React.FC<DiagramTableProps> = ({ diagram: rawDiagram }) => {
-	const [diagram] = useState<DiagramTableBlock>(rawDiagram)
+export const DiagramTable: React.FC<DiagramTableProps> = ({ diagram }) => {
 	const result = diagramTableDataSchema.safeParse(diagram.data)
 	if (!result.success) {
 		return <div>Parse error: {result.error.message}</div>

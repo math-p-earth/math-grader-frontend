@@ -12,7 +12,7 @@ interface DiagramImageProps {
 export const DiagramImage: React.FC<DiagramImageProps> = ({ image, caption, width, height }) => {
 	const [computedWidth, computedHeight] = getComputedWidthHeight(image, width, height)
 	return (
-		<div className="flex flex-col items-center">
+		<div className="flex flex-col items-center gap-2 py-4">
 			<img
 				className="object-contain"
 				src={image.url}
@@ -21,7 +21,7 @@ export const DiagramImage: React.FC<DiagramImageProps> = ({ image, caption, widt
 				height={computedHeight}
 				style={{ width: computedWidth, height: computedHeight }}
 			/>
-			{caption && <caption className="text-sm italic">{caption}</caption>}
+			{caption && <div className="text-sm italic">{caption}</div>}
 		</div>
 	)
 }

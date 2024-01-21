@@ -22,11 +22,9 @@ export function ProblemCard({ problem, order }: ProblemCardProps) {
 				</div>
 			</CardHeader>
 			<CardContent className="max-w-none">
-				<ProblemMarkdown className="pb-4" diagrams={problem.diagrams}>
-					{problem.content}
-				</ProblemMarkdown>
+				<ProblemMarkdown diagrams={problem.diagrams}>{problem.content}</ProblemMarkdown>
 				{problem.choices && problem.choices.length > 0 && (
-					<div className="flex flex-col gap-4 pl-16">
+					<div className="mt-4 flex flex-col gap-4 pl-16">
 						{problem.choices.map(({ id, choice, diagrams }, index) => (
 							<div key={id} className="flex items-start gap-4">
 								<ChoiceNumberIcon>{index + 1}</ChoiceNumberIcon>
