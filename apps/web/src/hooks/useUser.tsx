@@ -33,9 +33,12 @@ export interface UserResponse {
 }
 export function useUser() {
 	const router = useRouter()
-	const query = useQuery<UserResponse>(['me'], async () => {
-		const res = await httpClient.get<UserResponse>('/students/me')
-		return res.data
+	const query = useQuery<UserResponse>({
+		queryKey: ['me'],
+		queryFn: async () => {
+			const res = await httpClient.get<UserResponse>('/students/me')
+			return res.data
+		},
 	})
 
 	const signOut = async () => {

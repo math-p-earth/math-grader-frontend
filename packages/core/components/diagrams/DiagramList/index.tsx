@@ -1,6 +1,7 @@
 import React from 'react'
 
-import { cn } from '../../../../../apps/cms/src/admin/utils/cn'
+import { cn } from 'ui/lib/utils'
+
 import { DiagramListBlock, DiagramListOrderScheme } from '../../../payload-types'
 import { LatexMarkdown } from '../../LatexMarkdown'
 
