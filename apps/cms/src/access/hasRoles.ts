@@ -1,6 +1,7 @@
 import { Access } from 'payload/types'
 
-import { User } from '../payload-types'
+import { User } from 'core/payload-types'
+
 import { Role, isTypeUser } from './type'
 
 /**

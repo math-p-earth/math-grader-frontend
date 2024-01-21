@@ -1,9 +1,10 @@
 import { Access, CollectionConfig, Condition, Field } from 'payload/types'
 
+import { Course, Source } from 'core/payload-types'
+
 import { hasRoles } from '../../access/hasRoles'
 import { UserTypes, isTypeApprovedStudent, isTypeUser } from '../../access/type'
 import { ProblemSelectField } from '../../admin/fields/ProblemSelectField'
-import { Course, Source } from '../../payload-types'
 
 const bookFields: Field[] = [
 	{

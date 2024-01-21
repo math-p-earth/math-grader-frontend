@@ -10,16 +10,6 @@ const config = defineConfig({
 		...base.rules,
 		'@next/next/no-html-link-for-pages': 'off',
 		'@next/next/no-img-element': 'off',
-		'react/jsx-sort-props': [
-			'warn',
-			{
-				callbacksLast: true,
-				shorthandLast: true,
-				ignoreCase: false,
-				multiline: 'last',
-				reservedFirst: ['key', 'ref'],
-			},
-		],
 		'react/no-unescaped-entities': 'off',
 	},
 })

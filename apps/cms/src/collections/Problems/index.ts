@@ -1,10 +1,11 @@
 import { Access, CollectionConfig, Condition } from 'payload/types'
 
+import { Course, Problem, ProblemList, Source } from 'core/payload-types'
+
 import { hasRoles } from '../../access/hasRoles'
 import { UserTypes, isTypeApprovedStudent, isTypeUser } from '../../access/type'
 import { generateLatexField } from '../../admin/fields/LatexField'
 import { BackpopulateField } from '../../fields/Backpopulate'
-import { Course, Problem, ProblemList, Source } from '../../payload-types'
 import { diagramBlockConfigs } from './diagram-blocks'
 
 const ProblemsReadAccess: Access<Problem, UserTypes> = ({ req: { user } }) => {

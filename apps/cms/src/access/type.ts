@@ -1,8 +1,9 @@
 import { User as PayloadUser } from 'payload/dist/auth/types'
 
+import { Student, User } from 'core/payload-types'
+
 import { Students } from '../collections/Students'
 import { Users } from '../collections/Users'
-import { Student, User } from '../payload-types'
 
 export type UserTypes = User | Student
 export type AuthUser = UserTypes & PayloadUser

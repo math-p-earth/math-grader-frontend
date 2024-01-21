@@ -1,8 +1,9 @@
 import { Access, CollectionConfig } from 'payload/types'
 
+import { Course } from 'core/payload-types'
+
 import { isAdmin } from '../../access/isAdmin'
 import { UserTypes, isTypeApprovedStudent, isTypeUser } from '../../access/type'
-import { Course } from '../../payload-types'
 
 const CoursesReadAccess: Access<Course, UserTypes> = ({ req: { user } }) => {
 	if (isTypeUser(user)) {

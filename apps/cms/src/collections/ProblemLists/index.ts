@@ -1,10 +1,11 @@
 import { Access, CollectionConfig } from 'payload/types'
 
+import { Course, ProblemList } from 'core/payload-types'
+
 import { hasRoles } from '../../access/hasRoles'
 import { UserTypes, isTypeApprovedStudent, isTypeUser } from '../../access/type'
 import { DownloadProblemListButtonField } from '../../admin/fields/DownloadProblemListButtonField'
 import { ProblemSelectField } from '../../admin/fields/ProblemSelectField'
-import { Course, ProblemList } from '../../payload-types'
 
 const ProblemListsReadAccess: Access<ProblemList, UserTypes> = ({ req: { user } }) => {
 	if (isTypeUser(user)) {
