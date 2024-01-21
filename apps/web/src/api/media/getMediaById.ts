@@ -1,5 +1,5 @@
+import { Media } from 'core/payload-types'
 import { env } from '~/env.mjs'
-import { Media } from '~/types/payload-types'
 
 import { getPayloadToken } from '../auth'
 import { handleResponse } from '../handleResponse'

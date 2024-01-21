@@ -1,6 +1,6 @@
+import { Problem } from 'core/payload-types'
 import qs from 'qs'
 import { env } from '~/env.mjs'
-import { Problem } from '~/types/payload-types'
 
 import { getPayloadToken } from '../auth'
 import { handleResponse } from '../handleResponse'

@@ -1,7 +1,7 @@
 'use client'
 
 import { useQuery } from '@tanstack/react-query'
-import { Media, PayloadErrorResponse } from '~/types/payload-types'
+import { Media, PayloadErrorResponse } from 'core/payload-types'
 import { httpClient } from '~/util/httpClient'
 
 export interface useQueryMediaOptions {

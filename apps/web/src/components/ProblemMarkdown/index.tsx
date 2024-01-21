@@ -1,7 +1,10 @@
 import React, { ReactNode } from 'react'
 
-import { LatexMarkdown } from '../LatexMarkdown'
-import { DiagramBlock, ProblemDiagram, getDiagramPlaceholder, isDiagramPlaceholderExist } from './diagrams'
+import { LatexMarkdown } from 'core/components/LatexMarkdown'
+import { getDiagramPlaceholder, isDiagramPlaceholderExist } from 'core/components/diagrams/util'
+import { DiagramBlock } from 'core/payload-types'
+
+import { ProblemDiagram } from './diagrams'
 
 interface ProblemMarkdownProps {
 	children: string

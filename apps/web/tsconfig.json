@@ -1,12 +1,12 @@
 {
-  "extends": "tsconfig/nextjs.json",
-  "compilerOptions": {
-    "plugins": [{ "name": "next" }],
+	"extends": "tsconfig/nextjs.json",
+	"compilerOptions": {
+		"plugins": [{ "name": "next" }],
 		"paths": {
 			"~/*": ["src/*"]
 		},
-    "baseUrl": "."
-  },
+		"baseUrl": "."
+	},
 	"include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "tailwind.config.ts", ".next/types/**/*.ts"],
 	"exclude": ["node_modules"]
 }

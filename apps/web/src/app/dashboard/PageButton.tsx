@@ -1,6 +1,7 @@
+import Link from 'next/link'
+
 import { Button } from 'ui/components/ui/button'
 import { cn } from 'ui/lib/utils'
-import Link from 'next/link'
 
 export interface PageButtonProps {
 	href: string

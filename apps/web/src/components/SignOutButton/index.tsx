@@ -1,8 +1,9 @@
 'use client'
 
-import { Button } from 'ui/components/ui/button'
 import { useRouter } from 'next/navigation'
 import { useUser } from '~/hooks/useUser'
+
+import { Button } from 'ui/components/ui/button'
 
 interface SignOutButtonProps {
 	className?: string

@@ -1,7 +1,8 @@
-import { Breadcrumb, BreadcrumbItem, BreadcrumbLink } from 'ui/components/ui/breadcrumb'
+import { ProblemListTypeBadge } from 'core/components/badges/ProblemListTypeBadge'
 import Link from 'next/link'
 import { getProblemListById } from '~/api/problem-list/getProblemListById'
-import { ProblemListTypeBadge } from '~/components/badges/ProblemListTypeBadge'
+
+import { Breadcrumb, BreadcrumbItem, BreadcrumbLink } from 'ui/components/ui/breadcrumb'
 
 import { ProblemCard } from '../../../../components/ProblemCard'
 import { DownloadProblemListButton } from './downloadProblemListButton'

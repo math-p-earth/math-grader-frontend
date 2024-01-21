@@ -1,6 +1,7 @@
 import { Toaster } from 'sonner'
 
 import 'ui/styles/globals.css'
+
 import { Providers } from './providers'
 
 export default function RootLayout({
