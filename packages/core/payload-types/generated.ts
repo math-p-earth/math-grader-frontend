@@ -231,6 +231,7 @@ export interface PayloadMigration {
 }
 
 
+// @ts-ignore
 declare module 'payload' {
   export interface GeneratedTypes {
     collections: {
