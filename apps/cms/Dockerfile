@@ -36,8 +36,8 @@ COPY --from=pruner /app/out/json/ .
 COPY ["pnpm-lock.yaml", "package.json", "./"]
 RUN pnpm install --frozen-lockfile
 
-COPY --from=builder /app/apps/cms/dist ./dist
-COPY --from=builder /app/apps/cms/build ./build
+COPY --from=builder /app/apps/cms/dist ./apps/cms/dist
+COPY --from=builder /app/apps/cms/build ./apps/cms/build
 
 EXPOSE 3000
 
