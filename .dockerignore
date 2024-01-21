@@ -1,0 +1,9 @@
+node_modules/
+.turbo/
+eslintrc.js
+prettierrc.js
+Dockerfile
+.gitignore
+.dockerignore
+.npmrc
+turbo.json
