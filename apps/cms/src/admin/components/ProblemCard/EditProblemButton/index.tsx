@@ -4,9 +4,6 @@ import { useDocumentDrawer } from 'payload/dist/admin/components/elements/Docume
 import Edit from 'payload/dist/admin/components/icons/Edit'
 
 import { Problems } from '../../../../collections/Problems'
-import './index.scss'
-
-const baseClass = 'edit-problem-icon'
 
 interface EditProblemButtonProps {
 	problemId: string
@@ -19,8 +16,8 @@ export function EditProblemButton({ problemId, refreshData }: EditProblemButtonP
 		collectionSlug: Problems.slug,
 	})
 	return (
-		<div className={baseClass}>
-			<DocumentDrawerToggler className={`${baseClass}__drawer-toggler`}>
+		<div>
+			<DocumentDrawerToggler>
 				<Edit />
 			</DocumentDrawerToggler>
 			<DocumentDrawer

@@ -7,7 +7,6 @@ import { Problems } from '../../../collections/Problems'
 import { ProblemCardList } from '../../components/ProblemCardList'
 import { useFilterProblems } from '../../hooks/useFilterProblems'
 import { ProblemTransferDrawer } from './ProblemTransferDrawer'
-import './index.scss'
 
 export type ProblemSelectProps = Omit<RelationshipField, 'type'> & {
 	path: string
@@ -28,7 +27,7 @@ export function ProblemSelectField({ path, label, required, relationTo }: Proble
 	const { status, data, refetch } = query
 
 	return (
-		<div className="problem-select">
+		<div>
 			<Label htmlFor={`field-${path.replace(/\./gi, '__')}`} label={label} required={required} />
 			<ProblemTransferDrawer toggleLabel="+ Add New" path={path} />
 

@@ -4,7 +4,6 @@ import { useField } from 'payload/components/forms'
 
 import { parseProblemUpload } from '../../../../../api/routes/problems/upload/problem-parser'
 import { ProblemCardList } from '../../../../components/ProblemCardList'
-import './index.scss'
 
 interface RenderInputProps {
 	inputPath: string
@@ -31,7 +30,7 @@ export function RenderInput({ inputPath }: RenderInputProps) {
 		)
 	} catch (err) {
 		return (
-			<div>
+			<div className="text-red-400">
 				<h3>Invalid input</h3>
 				{err instanceof Error && (
 					<p>

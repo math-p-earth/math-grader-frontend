@@ -5,7 +5,6 @@ import { Problem } from 'core/payload-types'
 import { ProblemMarkdown } from '../ProblemMarkdown'
 import { EditProblemButton } from './EditProblemButton'
 import { ProblemNumberIcon } from './ProblemNumberIcon'
-import './index.scss'
 
 export type ProblemCardProblemItem = Pick<Problem, 'content' | 'choices' | 'diagrams'> & Partial<Pick<Problem, 'id'>>
 
@@ -15,12 +14,10 @@ interface ProblemCardProps {
 	refreshData?: () => void
 }
 
-const baseClass = 'problem-card'
-
 export function ProblemCard({ problem, number: order, refreshData }: ProblemCardProps) {
 	return (
-		<div className={baseClass}>
-			<div className={`${baseClass}__problem-header`}>
+		<div className="border-t border-t-zinc-300 pt-4">
+			<div className="mb-2 flex items-center gap-1">
 				{typeof order !== 'undefined' && <ProblemNumberIcon>{order}</ProblemNumberIcon>}
 				{problem.id && <EditProblemButton problemId={problem.id} refreshData={refreshData} />}
 			</div>

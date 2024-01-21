@@ -9,14 +9,11 @@ import { ProblemCard } from '../../../components/ProblemCard'
 import { useFilterProblems } from '../../../hooks/useFilterProblems'
 import { useFilterSources } from '../../../hooks/useFilterSources'
 import { useFilterTags } from '../../../hooks/useFilterTags'
-import './index.scss'
 
 interface ProblemTransferDrawerProps {
 	path: string
 	toggleLabel: string
 }
-
-const baseClass = 'problem-transfer-drawer'
 
 // TODO: implement reordering
 export function ProblemTransferDrawer({ path, toggleLabel }: ProblemTransferDrawerProps) {
@@ -75,40 +72,43 @@ export function ProblemTransferDrawer({ path, toggleLabel }: ProblemTransferDraw
 	const drawerSlug = `problem-transfer-${path}`
 
 	return (
-		<div className={baseClass}>
-			<DrawerToggler slug={drawerSlug} className={`${baseClass}__toggle`}>
+		<div>
+			<DrawerToggler
+				slug={drawerSlug}
+				className="mb-4 flex cursor-pointer items-center rounded-md bg-zinc-600 p-2 text-sm leading-4 text-zinc-100 hover:bg-zinc-500 dark:bg-zinc-100 hover:dark:bg-zinc-200"
+			>
 				{toggleLabel}
 			</DrawerToggler>
 			<Drawer slug={drawerSlug} title="Select Problems">
-				<div className={`${baseClass}__content`}>
-					<Select
-						options={sourcesData?.docs.map((source) => ({
-							label: source.name,
-							value: source.id,
-						}))}
-						allowClear
-						showSearch
-						placeholder="Filter by sources"
-						filterOption={false}
-						onSearch={setSourceSearchInput}
-						onChange={onChangeSource}
-					/>
-					<Select
-						options={tagsData?.docs.map((tag) => ({
-							label: tag.name,
-							value: tag.id,
-						}))}
-						allowClear
-						showSearch
-						placeholder="Filter by tag"
-						filterOption={false}
-						onSearch={setTagSearchInput}
-						onChange={onChangeTag}
-						style={{
-							marginLeft: '1rem',
-						}}
-					/>
+				<div className="flex flex-col gap-4">
+					<div className="flex gap-4">
+						<Select
+							options={sourcesData?.docs.map((source) => ({
+								label: source.name,
+								value: source.id,
+							}))}
+							allowClear
+							showSearch
+							placeholder="Filter by sources"
+							filterOption={false}
+							onSearch={setSourceSearchInput}
+							onChange={onChangeSource}
+						/>
+						<Select
+							options={tagsData?.docs.map((tag) => ({
+								label: tag.name,
+								value: tag.id,
+							}))}
+							allowClear
+							showSearch
+							placeholder="Filter by tag"
+							filterOption={false}
+							onSearch={setTagSearchInput}
+							onChange={onChangeTag}
+						/>
+					</div>
 					<Transfer
+						className="[&_.ant-transfer-list-content-item-text]:overflow-auto [&_.ant-transfer-list]:h-[700px] [&_.ant-transfer-list]:grow"
 						dataSource={problems.map((problem) => ({
 							...problem,
 							key: problem.id,

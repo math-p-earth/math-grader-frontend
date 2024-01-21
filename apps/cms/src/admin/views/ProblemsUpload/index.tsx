@@ -16,9 +16,6 @@ import { Problem, ProblemList, Source } from 'core/payload-types'
 
 import { RenderInput } from './components/RenderInput'
 import { fields } from './fields'
-import './index.scss'
-
-const baseClass = 'problems-upload'
 
 type UploadProblemResponse = {
 	problems: Problem[]
@@ -63,14 +60,14 @@ const ProblemsUploadView: AdminViewComponent = ({ user, canAccessAdmin }) => {
 		<DefaultTemplate>
 			<Meta title="Upload Problems" />
 			<Form
-				className={`${baseClass}__form`}
+				className="size-full"
 				method="post"
 				action="/api/problems/upload"
 				onSuccess={(json) => onSuccess(json as UploadProblemResponse)}
 			>
 				<Gutter>
 					<h1>Upload Problems in Bulk</h1>
-					<div className={`${baseClass}__main`}>
+					<div className="flex min-h-full w-full flex-col pr-48">
 						<RenderFields
 							filter={(field) => !field?.admin?.position || field?.admin?.position !== 'sidebar'}
 							fieldTypes={fieldTypes}

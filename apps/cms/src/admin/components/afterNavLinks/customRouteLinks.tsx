@@ -11,17 +11,15 @@ const customRoutes = [
 	},
 ]
 
-const baseClass = 'after-nav-links'
-
 export function customRouteLinks() {
 	return (
-		<div className={baseClass}>
+		<div>
 			<span className="nav__label">Custom Routes</span>
 			<nav>
 				{customRoutes.map((route, index) => (
 					<NavLink key={index} className="nav__link" activeClassName="active" to={route.href}>
-						<Chevron />
-						{route.label}
+						<Chevron className="nav__link-icon -rotate-90" />
+						<span className="nav__link-label">{route.label}</span>
 					</NavLink>
 				))}
 			</nav>

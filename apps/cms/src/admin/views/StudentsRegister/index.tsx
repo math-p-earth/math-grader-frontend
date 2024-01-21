@@ -11,9 +11,6 @@ import jwtDecode from 'jwt-decode'
 
 import { useQueryParams } from '../../hooks/useQueryParams'
 import { fields } from './fields'
-import './index.scss'
-
-const baseClass = 'student-register'
 
 // only include fields that we care about
 interface IDTokenPayload {
@@ -27,7 +24,7 @@ const StudentsRegister: AdminViewComponent = () => {
 	const redirectUrl = useQueryParams('redirectUrl')
 	if (!idToken || !redirectUrl) {
 		return (
-			<MinimalTemplate className={baseClass} width="normal">
+			<MinimalTemplate width="normal">
 				<h1>Register</h1>
 				<p>
 					Google ID token is required to complete new user registration. Please initate registration flow through
@@ -58,7 +55,7 @@ const StudentsRegister: AdminViewComponent = () => {
 		}
 	} catch (err) {
 		return (
-			<MinimalTemplate className={baseClass} width="normal">
+			<MinimalTemplate width="normal">
 				<h1>Register</h1>
 				<p>
 					Invalid id token. Id token is required to complete new user registration. Please initate registration flow
@@ -68,11 +65,10 @@ const StudentsRegister: AdminViewComponent = () => {
 		)
 	}
 	return (
-		<MinimalTemplate className={baseClass} width="normal">
+		<MinimalTemplate width="normal">
 			<h1>Register</h1>
 			<p>For first time users, please fill in additional data below.</p>
 			<Form
-				className={`${baseClass}__form`}
 				method="post"
 				action="/api/students/register"
 				initialData={initialData}
