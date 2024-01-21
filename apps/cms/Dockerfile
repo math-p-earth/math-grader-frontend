@@ -41,4 +41,5 @@ COPY --from=builder /app/apps/cms/build ./build
 
 EXPOSE 3000
 
-CMD ["pnpm", "serve", "--filter", "cms"]
+WORKDIR /app/apps/cms
+CMD ["pnpm", "serve"]
