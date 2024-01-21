@@ -1,32 +1,27 @@
 import React from 'react'
 
-import { DiagramImageBlock, Media } from 'core/payload-types'
-
-import { useQueryMedia } from '../../../../hooks/useQueryMedia'
+import { Media } from '../../../payload-types'
 
 interface DiagramImageProps {
-	diagram: DiagramImageBlock
+	image: Media
+	caption?: string
+	width?: number
+	height?: number
 }
 
-export const DiagramImage: React.FC<DiagramImageProps> = ({ diagram }) => {
-	const { query } = useQueryMedia({ image: diagram.image })
-	if (!query.isSuccess) {
-		return null
-	}
-	const image = query.data
-
-	const [width, height] = getComputedWidthHeight(image, diagram.width, diagram.height)
+export const DiagramImage: React.FC<DiagramImageProps> = ({ image, caption, width, height }) => {
+	const [computedWidth, computedHeight] = getComputedWidthHeight(image, width, height)
 	return (
 		<div className="flex flex-col items-center">
 			<img
 				className="object-contain"
 				src={image.url}
 				alt={image.filename}
-				width={width}
-				height={height}
-				style={{ width, height }}
+				width={computedWidth}
+				height={computedHeight}
+				style={{ width: computedWidth, height: computedHeight }}
 			/>
-			{diagram.caption && <caption className="text-sm italic">{diagram.caption}</caption>}
+			{caption && <caption className="text-sm italic">{caption}</caption>}
 		</div>
 	)
 }

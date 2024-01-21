@@ -1,48 +1,11 @@
 import React from 'react'
 
-import { DiagramImageBlock, DiagramListBlock, DiagramTableBlock } from 'core/payload-types'
+import { DiagramImage } from 'core/components/diagrams/DiagramImage'
+import { DiagramList } from 'core/components/diagrams/DiagramList'
+import { DiagramTable } from 'core/components/diagrams/DiagramTable'
+import { DiagramBlock, DiagramImageBlock } from 'core/payload-types'
 
-import { DiagramImage } from './diagrams/DiagramImage'
-import { DiagramList } from './diagrams/DiagramList'
-import { DiagramTable } from './diagrams/DiagramTable'
-
-// add future block types here
-const blockTypes = ['diagram-image', 'diagram-list', 'diagram-table'] as const
-type BlockType = (typeof blockTypes)[number]
-
-export interface DiagramBlock {
-	blockType: BlockType
-}
-
-export const isDiagramBlock = (value: unknown): value is DiagramBlock => {
-	if (typeof value !== 'object' || value === null) return false
-
-	if (
-		'blockType' in value &&
-		typeof value['blockType'] === 'string' &&
-		blockTypes.includes(value['blockType'] as BlockType)
-	) {
-		return true
-	}
-	return false
-}
-
-export const isDiagramBlockArray = (value: unknown): value is DiagramBlock[] => {
-	if (!Array.isArray(value)) return false
-
-	for (const item of value) {
-		if (!isDiagramBlock(item)) return false
-	}
-	return true
-}
-
-export function isDiagramPlaceholderExist(source: string, index: number): boolean {
-	return new RegExp(getDiagramPlaceholder(index)).test(source)
-}
-
-export function getDiagramPlaceholder(index: number): string {
-	return `<${index + 1}>`
-}
+import { useQueryMedia } from '../../hooks/useQueryMedia'
 
 interface ProblemDiagramProps {
 	diagram: DiagramBlock
@@ -51,10 +14,23 @@ interface ProblemDiagramProps {
 export const ProblemDiagram: React.FC<ProblemDiagramProps> = ({ diagram }) => {
 	switch (diagram.blockType) {
 		case 'diagram-image':
-			return <DiagramImage diagram={diagram as unknown as DiagramImageBlock} />
+			return <DiagramImageWrapper diagram={diagram} />
 		case 'diagram-list':
-			return <DiagramList diagram={diagram as unknown as DiagramListBlock} />
+			return <DiagramList diagram={diagram} />
 		case 'diagram-table':
-			return <DiagramTable diagram={diagram as unknown as DiagramTableBlock} />
+			return <DiagramTable diagram={diagram} />
 	}
+}
+
+interface DiagramImageWrapperProps {
+	diagram: DiagramImageBlock
+}
+
+const DiagramImageWrapper: React.FC<DiagramImageWrapperProps> = ({ diagram }) => {
+	const { query } = useQueryMedia({ media: diagram.image })
+	// TODO: add skeleton for loading images
+	if (!query.data) {
+		return null
+	}
+	return <DiagramImage image={query.data} caption={diagram.caption} width={diagram.width} height={diagram.height} />
 }

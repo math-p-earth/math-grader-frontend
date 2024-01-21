@@ -2,8 +2,9 @@ import React from 'react'
 
 import { useFormFields } from 'payload/components/forms'
 
+import { DiagramBlock, isDiagramBlockArray } from 'core/payload-types'
+
 import { ProblemMarkdown } from '../../components/ProblemMarkdown'
-import { DiagramBlock, isDiagramBlockArray } from '../../components/ProblemMarkdown/diagrams'
 
 interface LatexFieldProps {
 	targetFieldName: string

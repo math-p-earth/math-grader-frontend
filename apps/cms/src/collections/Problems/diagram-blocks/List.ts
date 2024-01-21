@@ -1,18 +1,8 @@
 import { Block, Option } from 'payload/types'
 
-import { generateLatexField } from '../../../admin/fields/LatexField'
+import { diagramListOrderSchemes } from 'core/payload-types'
 
-export const diagramListOrderSchemes = [
-	{ value: 'unordered:none', label: 'unordered:none' },
-	{ value: 'unordered:bullet', label: 'unordered:bullet "•"' },
-	{ value: 'ordered:numbers', label: 'ordered:numbers "1."' },
-	{ value: 'ordered:latex-numbers', label: 'ordered:latex-numbers "$(1)$"' },
-	{ value: 'ordered:letters-lower', label: 'ordered:letters-lower "a."' },
-	{ value: 'ordered:letters-upper', label: 'ordered:letters-upper "A."' },
-	{ value: 'ordered:latex-letters-lower', label: 'ordered:latex-letters-lower "$(a)$"' },
-	{ value: 'ordered:latex-letters-upper', label: 'ordered:latex-letters-upper "$(A)$"' },
-] as const
-export type DiagramListOrderScheme = (typeof diagramListOrderSchemes)[number]['value']
+import { generateLatexField } from '../../../admin/fields/LatexField'
 
 export const DiagramListBlock: Block = {
 	slug: 'diagram-list',

@@ -1,9 +1,8 @@
 import React, { useState } from 'react'
 
-import { LatexMarkdown } from 'core/components/LatexMarkdown'
-import { DiagramTableBlock } from 'core/payload-types'
-
-import { diagramTableDataSchema } from '../../../../../collections/Problems/diagram-blocks/Table'
+import { diagramTableDataSchema } from '../../../../../apps/cms/src/collections/Problems/diagram-blocks/Table'
+import { DiagramTableBlock } from '../../../payload-types'
+import { LatexMarkdown } from '../../LatexMarkdown'
 
 interface DiagramTableProps {
 	diagram: DiagramTableBlock

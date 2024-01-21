@@ -7,33 +7,32 @@ import { Media } from 'core/payload-types'
 import { Media as MediaConfig } from '../../collections/Media'
 
 export interface useQueryMediaOptions {
-	image: string | Media
+	media: string | Media
 }
 
-export const useQueryMedia = ({ image }: useQueryMediaOptions) => {
+export const useQueryMedia = ({ media }: useQueryMediaOptions) => {
 	const {
 		serverURL,
 		routes: { api },
 	} = useConfig()
 
 	const query = useQuery<Media, ErrorResponse>({
-		queryKey: ['media', image, serverURL, api],
+		queryKey: ['media', media, serverURL, api],
 		keepPreviousData: true,
 		queryFn: async () => {
-			// if image is not string, treat as Media, no need to query
-			if (typeof image !== 'string') {
-				return image
+			// if media is not string, treat as Media, no need to query
+			if (typeof media !== 'string') {
+				return media
 			}
 			// if image is string, treat as id
-			const response = await fetch(`${serverURL}${api}/${MediaConfig.slug}/${image}`, {
+			const response = await fetch(`${serverURL}${api}/${MediaConfig.slug}/${media}`, {
 				credentials: 'include',
 			})
 			if (!response.ok) {
 				throw new Error(`Failed to fetch media: ${response.text()}`)
 			}
 
-			const media: Media = await response.json()
-			return media
+			return (await response.json()) as Media
 		},
 	})
 

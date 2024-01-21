@@ -1,10 +1,8 @@
 import React from 'react'
 
-import { LatexMarkdown } from 'core/components/LatexMarkdown'
-import { DiagramListBlock } from 'core/payload-types'
-
-import { DiagramListOrderScheme } from '../../../../../collections/Problems/diagram-blocks/List'
-import { cn } from '../../../../utils/cn'
+import { cn } from '../../../../../apps/cms/src/admin/utils/cn'
+import { DiagramListBlock, DiagramListOrderScheme } from '../../../payload-types'
+import { LatexMarkdown } from '../../LatexMarkdown'
 
 interface DiagramListProps {
 	diagram: DiagramListBlock
