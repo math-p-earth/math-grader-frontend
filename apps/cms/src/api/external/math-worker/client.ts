@@ -1,8 +1,7 @@
 import { initClient, initContract } from '@ts-rest/core'
-import { ProblemList } from 'core/payload-types'
+import { ProblemList, diagramTableDataSchema } from 'core/payload-types'
 import { z } from 'zod'
 
-import { diagramTableDataSchema } from '../../../collections/Problems/diagram-blocks/Table'
 import { MATH_WORKER_URL } from '../../../config'
 import { mapProblemListToContract } from './mapper'
 

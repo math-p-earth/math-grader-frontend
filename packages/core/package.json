@@ -11,7 +11,8 @@
 		"remark-frontmatter": "^4.0.1",
 		"remark-gfm": "^3.0.1",
 		"remark-math": "^5.1.1",
-		"ui": "workspace:*"
+		"ui": "workspace:*",
+		"zod": "^3.20.2"
 	},
 	"devDependencies": {
 		"@types/react": "18.2.21",

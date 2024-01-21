@@ -1,3 +1,5 @@
+import z from 'zod'
+
 import { CheckForExcess, CheckForMissing } from '../utils/types'
 import { DiagramImageBlock, DiagramListBlock, DiagramTableBlock } from './generated'
 
@@ -47,3 +49,8 @@ export const diagramListOrderSchemes = [
 	{ value: 'ordered:latex-letters-upper', label: 'ordered:latex-letters-upper "$(A)$"' },
 ] as const
 export type DiagramListOrderScheme = (typeof diagramListOrderSchemes)[number]['value']
+
+export const diagramTableDataSchema = z.object({
+	rows: z.array(z.array(z.string())),
+})
+export type DiagramTableData = z.infer<typeof diagramTableDataSchema>

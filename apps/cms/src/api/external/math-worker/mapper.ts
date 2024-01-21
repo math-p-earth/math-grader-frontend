@@ -6,10 +6,10 @@ import {
 	Problem,
 	ProblemList,
 	Source,
+	diagramTableDataSchema,
 } from 'core/payload-types'
 import { z } from 'zod'
 
-import { diagramTableDataSchema } from '../../../collections/Problems/diagram-blocks/Table'
 import { diagramSchema, problemChoiceSchema, problemListSchema, problemSchema, sourceSchema } from './client'
 
 export const mapDiagramToContract = (

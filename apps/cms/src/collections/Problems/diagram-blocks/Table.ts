@@ -1,12 +1,6 @@
 import { Block, Validate } from 'payload/types'
 
-import { DiagramTableBlock as DiagramTableBlockType } from 'core/payload-types'
-import { z } from 'zod'
-
-export const diagramTableDataSchema = z.object({
-	rows: z.array(z.array(z.string())),
-})
-export type DiagramTableData = z.infer<typeof diagramTableDataSchema>
+import { DiagramTableBlock as DiagramTableBlockType, diagramTableDataSchema } from 'core/payload-types'
 
 const validateDataField: Validate<DiagramTableBlockType['data'], unknown, DiagramTableBlockType, unknown> = (
 	value,
