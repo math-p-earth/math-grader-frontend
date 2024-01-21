@@ -19,7 +19,7 @@ const PATH_PREFIX = '__PATH__'
  * @param props UI Props for this component. Automatically set by Payload.
  * @returns JSX.Element
  */
-export const LatexField: React.FC<LatexFieldProps> = ({ targetFieldName, diagramsFieldName, path }) => {
+export function LatexField({ targetFieldName, diagramsFieldName, path }: LatexFieldProps) {
 	if (targetFieldName.startsWith(PATH_PREFIX) && path) {
 		targetFieldName = targetFieldName.replace(PATH_PREFIX, path)
 	}
@@ -44,12 +44,12 @@ export const LatexField: React.FC<LatexFieldProps> = ({ targetFieldName, diagram
 	return <ProblemMarkdown diagrams={diagrams}>{source}</ProblemMarkdown>
 }
 
-interface generateLatexFieldOptions {
+interface GenerateLatexFieldOptions {
 	targetFieldName: string
 	diagramsFieldName?: string
 }
 
-export const generateLatexField = ({ targetFieldName, diagramsFieldName }: generateLatexFieldOptions) => {
+export function generateLatexField({ targetFieldName, diagramsFieldName }: GenerateLatexFieldOptions) {
 	return (props: LatexFieldProps) => (
 		<LatexField {...props} targetFieldName={targetFieldName} diagramsFieldName={diagramsFieldName} />
 	)

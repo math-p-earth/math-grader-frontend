@@ -19,7 +19,7 @@ interface ProblemTransferDrawerProps {
 const baseClass = 'problem-transfer-drawer'
 
 // TODO: implement reordering
-export const ProblemTransferDrawer: React.FC<ProblemTransferDrawerProps> = ({ path, toggleLabel }) => {
+export function ProblemTransferDrawer({ path, toggleLabel }: ProblemTransferDrawerProps) {
 	const { value: problemIds, setValue } = useField<string[]>({ path })
 	const [sourceSearchInput, setSourceSearchInput] = useState('')
 	const [tagSearchInput, setTagSearchInput] = useState('')

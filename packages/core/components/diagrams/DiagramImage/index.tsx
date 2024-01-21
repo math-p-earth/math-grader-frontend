@@ -9,7 +9,7 @@ interface DiagramImageProps {
 	height?: number
 }
 
-export const DiagramImage: React.FC<DiagramImageProps> = ({ image, caption, width, height }) => {
+export function DiagramImage({ image, caption, width, height }: DiagramImageProps) {
 	const [computedWidth, computedHeight] = getComputedWidthHeight(image, width, height)
 	return (
 		<div className="flex flex-col items-center gap-2 py-4">

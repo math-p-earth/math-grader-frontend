@@ -13,7 +13,7 @@ const customRoutes = [
 
 const baseClass = 'after-nav-links'
 
-export const customRouteLinks: React.FC = () => {
+export function customRouteLinks() {
 	return (
 		<div className={baseClass}>
 			<span className="nav__label">Custom Routes</span>

@@ -5,7 +5,7 @@ import { useDocumentInfo } from 'payload/components/utilities'
 
 import { downloadFile } from '../../hooks/useDownload'
 
-export const DownloadProblemListButtonField: React.FC = () => {
+export function DownloadProblemListButtonField() {
 	const { id } = useDocumentInfo()
 
 	return (

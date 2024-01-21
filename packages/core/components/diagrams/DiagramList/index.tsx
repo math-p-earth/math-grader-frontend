@@ -23,7 +23,7 @@ const gridCols: Record<number, string> = {
 	12: 'grid-cols-12',
 }
 
-export const DiagramList: React.FC<DiagramListProps> = ({ diagram }) => {
+export function DiagramList({ diagram }: DiagramListProps) {
 	const { itemsPerLine, orderScheme, items } = diagram
 
 	const gridCol = gridCols[itemsPerLine ?? 1] ?? gridCols[1]

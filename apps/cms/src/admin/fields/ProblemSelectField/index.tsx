@@ -13,7 +13,7 @@ export type ProblemSelectProps = Omit<RelationshipField, 'type'> & {
 	path: string
 }
 
-export const ProblemSelectField: React.FC<ProblemSelectProps> = ({ path, label, required, relationTo }) => {
+export function ProblemSelectField({ path, label, required, relationTo }: ProblemSelectProps) {
 	if (Array.isArray(relationTo)) {
 		throw new Error('Polymorphic relationships are not supported.')
 	}

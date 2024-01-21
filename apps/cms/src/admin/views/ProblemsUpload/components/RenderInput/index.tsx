@@ -10,7 +10,7 @@ interface RenderInputProps {
 	inputPath: string
 }
 
-const RenderInput: React.FC<RenderInputProps> = ({ inputPath }) => {
+export function RenderInput({ inputPath }: RenderInputProps) {
 	const { value: input } = useField<string>({
 		path: inputPath,
 	})
@@ -44,5 +44,3 @@ const RenderInput: React.FC<RenderInputProps> = ({ inputPath }) => {
 		)
 	}
 }
-
-export default RenderInput

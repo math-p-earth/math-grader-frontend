@@ -13,7 +13,7 @@ interface EditProblemButtonProps {
 	refreshData?: () => void
 }
 
-export const EditProblemButton: React.FC<EditProblemButtonProps> = ({ problemId, refreshData }) => {
+export function EditProblemButton({ problemId, refreshData }: EditProblemButtonProps) {
 	const [DocumentDrawer, DocumentDrawerToggler] = useDocumentDrawer({
 		id: problemId,
 		collectionSlug: Problems.slug,

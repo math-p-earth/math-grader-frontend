@@ -11,7 +11,7 @@ interface ProblemDiagramProps {
 	diagram: DiagramBlock
 }
 
-export const ProblemDiagram: React.FC<ProblemDiagramProps> = ({ diagram }) => {
+export function ProblemDiagram({ diagram }: ProblemDiagramProps) {
 	switch (diagram.blockType) {
 		case 'diagram-image':
 			return <DiagramImageWrapper diagram={diagram} />
@@ -26,7 +26,7 @@ interface DiagramImageWrapperProps {
 	diagram: DiagramImageBlock
 }
 
-const DiagramImageWrapper: React.FC<DiagramImageWrapperProps> = ({ diagram }) => {
+function DiagramImageWrapper({ diagram }: DiagramImageWrapperProps) {
 	const { query } = useQueryMedia({ media: diagram.image })
 	// TODO: add skeleton for loading images
 	if (!query.data) {

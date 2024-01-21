@@ -17,7 +17,7 @@ interface ProblemCardProps {
 
 const baseClass = 'problem-card'
 
-export const ProblemCard: React.FC<ProblemCardProps> = ({ problem, number: order, refreshData }) => {
+export function ProblemCard({ problem, number: order, refreshData }: ProblemCardProps) {
 	return (
 		<div className={baseClass}>
 			<div className={`${baseClass}__problem-header`}>

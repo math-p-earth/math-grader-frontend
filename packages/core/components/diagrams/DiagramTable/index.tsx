@@ -8,7 +8,7 @@ interface DiagramTableProps {
 	diagram: DiagramTableBlock
 }
 
-export const DiagramTable: React.FC<DiagramTableProps> = ({ diagram }) => {
+export function DiagramTable({ diagram }: DiagramTableProps) {
 	const result = diagramTableDataSchema.safeParse(diagram.data)
 	if (!result.success) {
 		return <div>Parse error: {result.error.message}</div>

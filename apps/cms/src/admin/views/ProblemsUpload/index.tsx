@@ -14,7 +14,7 @@ import { fieldTypes } from 'payload/dist/admin/components/forms/field-types'
 
 import { Problem, ProblemList, Source } from 'core/payload-types'
 
-import RenderInput from './components/RenderInput'
+import { RenderInput } from './components/RenderInput'
 import { fields } from './fields'
 import './index.scss'
 

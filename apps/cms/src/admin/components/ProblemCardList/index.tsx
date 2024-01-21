@@ -10,7 +10,7 @@ interface ProblemCardListProps {
 
 const baseClass = 'problem-card-list'
 
-export const ProblemCardList: React.FC<ProblemCardListProps> = ({ problems, refreshData }) => {
+export function ProblemCardList({ problems, refreshData }: ProblemCardListProps) {
 	return (
 		<div className={baseClass}>
 			{problems.map((problem, i) => (
