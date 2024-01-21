@@ -1,6 +1,6 @@
+import { SourceTypeBadge } from 'core/components/badges/SourceTypeBadge'
 import Link from 'next/link'
 import { getSourceById } from '~/api/source/getSourceById'
-import { SourceTypeBadge } from '~/components/badges/SourceTypeBadge'
 
 import { Breadcrumb, BreadcrumbItem, BreadcrumbLink } from 'ui/components/ui/breadcrumb'
 

@@ -1,9 +1,9 @@
 'use client'
 
 import { ColumnDef } from '@tanstack/react-table'
+import { ProblemListTypeBadge } from 'core/components/badges/ProblemListTypeBadge'
 import { Download } from 'lucide-react'
 import { ProblemList } from '~/api/problem-list/getProblemLists'
-import { ProblemListTypeBadge } from '~/components/badges/ProblemListTypeBadge'
 import { downloadFile } from '~/util/download'
 
 import { Button } from 'ui/components/ui/button'

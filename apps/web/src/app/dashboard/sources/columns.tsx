@@ -1,9 +1,9 @@
 'use client'
 
 import { ColumnDef } from '@tanstack/react-table'
+import { SourceTypeBadge } from 'core/components/badges/SourceTypeBadge'
 import { ChevronRight } from 'lucide-react'
 import { Source } from '~/api/source/getSources'
-import { SourceTypeBadge } from '~/components/badges/SourceTypeBadge'
 
 type SourceRow = Source & { href: string }
 

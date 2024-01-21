@@ -1,9 +1,13 @@
-import { VariantProps } from 'class-variance-authority'
-import { ProblemList } from 'core/payload-types'
+import { Badge, BadgeProps } from 'ui/components/ui/badge'
 
-import { Badge, badgeVariants } from 'ui/components/ui/badge'
+import { ProblemListType } from '../../payload-types'
 
-const typeConfigs: Record<ProblemList['type'], TypeBadgeConfig> = {
+interface ProblemListTypeBadgeConfig {
+	badgeColor: BadgeProps['badgeColor']
+	label: string
+}
+
+const typeConfigs: Record<ProblemListType, ProblemListTypeBadgeConfig> = {
 	DRILL: {
 		badgeColor: 'orange',
 		label: 'Drill',
@@ -22,13 +26,8 @@ const typeConfigs: Record<ProblemList['type'], TypeBadgeConfig> = {
 	},
 }
 
-interface TypeBadgeConfig {
-	badgeColor: VariantProps<typeof badgeVariants>['badgeColor']
-	label: string
-}
-
 interface ProblemListTypeBadgeProps {
-	type: ProblemList['type']
+	type: ProblemListType
 }
 
 export function ProblemListTypeBadge({ type }: ProblemListTypeBadgeProps) {

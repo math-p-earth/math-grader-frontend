@@ -1,9 +1,13 @@
-import { VariantProps } from 'class-variance-authority'
-import { Source } from 'core/payload-types'
+import { Badge, BadgeProps } from 'ui/components/ui/badge'
 
-import { Badge, badgeVariants } from 'ui/components/ui/badge'
+import { SourceType } from '../../payload-types'
 
-const typeConfigs: Record<Source['type'], TypeBadgeConfig> = {
+interface SourceTypeBadgeConfig {
+	badgeColor: BadgeProps['badgeColor']
+	label: string
+}
+
+const typeConfigs: Record<SourceType, SourceTypeBadgeConfig> = {
 	GENERIC: {
 		// TODO: change to 'OTHER'
 		badgeColor: 'orange',
@@ -19,13 +23,8 @@ const typeConfigs: Record<Source['type'], TypeBadgeConfig> = {
 	},
 }
 
-interface TypeBadgeConfig {
-	badgeColor: VariantProps<typeof badgeVariants>['badgeColor']
-	label: string
-}
-
 interface SourceTypeBadgeProps {
-	type: Source['type']
+	type: SourceType
 }
 
 export function SourceTypeBadge({ type }: SourceTypeBadgeProps) {
