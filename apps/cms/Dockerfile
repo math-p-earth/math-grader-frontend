@@ -1,4 +1,4 @@
-FROM node:18-alpine AS pnpm
+FROM node:20-alpine3.18 AS pnpm
 RUN apk add --no-cache libc6-compat
 RUN apk update
 
@@ -23,7 +23,7 @@ COPY --from=pruner /app/out/json/ .
 COPY pnpm-lock.yaml ./pnpm-lock.yaml
 RUN pnpm install --frozen-lockfile
 
-COPY --from=pruner /app/out/full/deplo .
+COPY --from=pruner /app/out/full/ .
 COPY turbo.json turbo.json
 RUN pnpm turbo run build --filter=cms...
 
