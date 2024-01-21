@@ -3,5 +3,5 @@ const baseConfig = require('ui/tailwind.config')
 
 module.exports = {
 	...baseConfig,
-	content: [...baseConfig.content, './**/*.{ts,tsx}'],
+	content: [...baseConfig.content, '../../packages/core/**/*.{ts,tsx}'],
 }

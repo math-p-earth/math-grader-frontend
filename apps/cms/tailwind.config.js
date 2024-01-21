@@ -6,6 +6,7 @@ const baseConfig = require('core/tailwind.config')
 // eslint-disable-next-line no-undef
 module.exports = {
 	...baseConfig,
+	darkMode: ['class', '[data-theme="dark"]'],
 	content: [...baseConfig.content, './src/admin/**/*.{ts,tsx}'],
 	corePlugins: {
 		...baseConfig.corePlugins,

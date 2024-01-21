@@ -984,11 +984,6 @@
   cursor: pointer;
 }
 
-.touch-pinch-zoom {
-  --tw-pinch-zoom: pinch-zoom;
-  touch-action: var(--tw-pan-x) var(--tw-pan-y) var(--tw-pinch-zoom);
-}
-
 .select-none {
   -webkit-user-select: none;
      -moz-user-select: none;
@@ -1003,21 +998,6 @@
   -webkit-appearance: none;
      -moz-appearance: none;
           appearance: none;
-}
-
-.columns-2 {
-  -moz-columns: 2;
-       columns: 2;
-}
-
-.columns-3 {
-  -moz-columns: 3;
-       columns: 3;
-}
-
-.columns-4 {
-  -moz-columns: 4;
-       columns: 4;
 }
 
 .grid-cols-1 {
@@ -1172,10 +1152,6 @@
 
 .text-clip {
   text-overflow: clip;
-}
-
-.text-wrap {
-  text-wrap: wrap;
 }
 
 .break-words {
@@ -1862,10 +1838,6 @@
 
 .paused {
   animation-play-state: paused;
-}
-
-.repeat-1 {
-  animation-iteration-count: 1;
 }
 
 html,
