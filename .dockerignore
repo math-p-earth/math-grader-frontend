@@ -5,5 +5,3 @@ prettierrc.js
 Dockerfile
 .gitignore
 .dockerignore
-.npmrc
-turbo.json
