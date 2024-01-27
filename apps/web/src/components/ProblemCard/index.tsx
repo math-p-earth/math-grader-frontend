@@ -1,3 +1,5 @@
+import { ReactNode } from 'react'
+
 import { Problem } from 'core/payload-types'
 
 import { Badge } from 'ui/components/ui/badge'
@@ -10,15 +12,18 @@ import { ProblemNumberIcon } from './ProblemNumberIcon'
 interface ProblemCardProps {
 	problem: Problem
 	order: number
+	actions?: ReactNode
 }
 
-export function ProblemCard({ problem, order }: ProblemCardProps) {
+export function ProblemCard({ problem, order, actions }: ProblemCardProps) {
 	return (
 		<Card>
 			<CardHeader>
 				<div className="flex flex-row items-center gap-4">
 					<ProblemNumberIcon>{order}</ProblemNumberIcon>
 					{typeof problem.source === 'object' && <Badge badgeColor="sky-light">{problem.source.name}</Badge>}
+					<span className="flex-1" />
+					{actions}
 				</div>
 			</CardHeader>
 			<CardContent className="max-w-none">

@@ -7,7 +7,8 @@
 		"config": "tailwind.config.js",
 		"css": "styles/globals.css",
 		"baseColor": "zinc",
-		"cssVariables": false
+		"cssVariables": false,
+		"prefix": ""
 	},
 	"aliases": {
 		"components": "./components",

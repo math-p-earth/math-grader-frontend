@@ -1,8 +1,10 @@
 import { ProblemListTypeBadge } from 'core/components/badges/ProblemListTypeBadge'
 import Link from 'next/link'
 import { getProblemListById } from '~/api/problem-list/getProblemListById'
+import { SubmissionInput, SubmissionInputTrigger } from '~/app/_create-submission/components/input'
 
 import { Breadcrumb, BreadcrumbItem, BreadcrumbLink } from 'ui/components/ui/breadcrumb'
+import { Button } from 'ui/components/ui/button'
 
 import { ProblemCard } from '../../../../components/ProblemCard'
 import { DownloadProblemListButton } from './downloadProblemListButton'
@@ -33,7 +35,17 @@ export default async function ProblemListByIdPage({ params }: { params: { id: st
 			{data.description && <div className="mt-4">{data.description}</div>}
 			<div className="mt-8 flex flex-col gap-4 px-8">
 				{data.problems.map((problem, index) => (
-					<ProblemCard key={problem.id} order={index + 1} problem={problem} />
+					<SubmissionInput key={problem.id} problemListId={id} problemListName={data.name} problemId={problem.id}>
+						<ProblemCard
+							order={index + 1}
+							problem={problem}
+							actions={
+								<SubmissionInputTrigger>
+									<Button variant="outline">Submit Solution</Button>
+								</SubmissionInputTrigger>
+							}
+						/>
+					</SubmissionInput>
 				))}
 			</div>
 		</div>
