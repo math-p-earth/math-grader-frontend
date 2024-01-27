@@ -30,6 +30,11 @@ export default async function ProblemListByIdPage({ params }: { params: { id: st
 				<span>{data.name}</span>
 				<ProblemListTypeBadge type={data.type} />
 				<div className="grow" />
+				<SubmissionInput problemListId={id} problemListName={data.name}>
+					<SubmissionInputTrigger>
+						<Button variant="outline">Submit Solution</Button>
+					</SubmissionInputTrigger>
+				</SubmissionInput>
 				<DownloadProblemListButton problemListId={id} />
 			</div>
 			{data.description && <div className="mt-4">{data.description}</div>}

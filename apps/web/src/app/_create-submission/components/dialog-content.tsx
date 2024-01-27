@@ -1,4 +1,5 @@
-import { useEffect, useMemo, useState } from 'react'
+import { useCallback, useEffect, useMemo, useState } from 'react'
+import { useDropzone } from 'react-dropzone'
 
 import { Loader2, Upload, X } from 'lucide-react'
 import { ProblemNumberIcon } from '~/components/ProblemCard/ProblemNumberIcon'
@@ -29,6 +30,17 @@ export default function CreateSubmissionDialogContent({
 	draft: DraftSubmission
 	onCancel: () => void
 }) {
+	const { addUpload } = useCreateSubmissionStore()
+	const onDrop = useCallback(
+		(acceptedFiles: File[]) => {
+			for (const file of acceptedFiles) {
+				addUpload({ file })
+			}
+		},
+		[addUpload],
+	)
+	const { getRootProps, getInputProps, isDragAccept } = useDropzone({ onDrop })
+
 	const items = useMemo(() => {
 		const submissionProblems = Object.values(draft.problems)
 			.map(
@@ -74,9 +86,16 @@ export default function CreateSubmissionDialogContent({
 				})}
 			</div>
 			<DialogFooter className="flex-row-reverse">
-				<Button variant="outline">
+				<Button variant="outline" className="relative" {...getRootProps()}>
+					<input {...getInputProps()} />
 					<Upload size={16} className="mr-2" />
 					Add More
+					<div
+						className={cn(
+							'pointer-events-none absolute inset-0 rounded-md bg-green-500 opacity-0 transition-opacity',
+							isDragAccept && 'opacity-10',
+						)}
+					/>
 				</Button>
 				<span className="sm:flex-1" />
 				<Button variant="outline" onClick={onCancel}>

@@ -30,11 +30,27 @@ const mockSubmissionApi = {
 		if (args.file.name === 'error.pdf') {
 			throw new Error('mock error')
 		}
+		let problemId: string
+		if (args.problemId === undefined) {
+			// submit from list case, detect problem id from file name
+			if (args.file.name === 'unknown.pdf') {
+				// simulate unknown problem id (no data matrix in uploaded file)
+				throw new Error('unknown problem id')
+			} else {
+				problemId = args.file.name
+			}
+		} else {
+			// submit from problem case, simulate problem id check
+			if (args.file.name !== 'unknown.pdf' && args.file.name !== `${args.problemId}.pdf`) {
+				throw new Error('problem id mismatch')
+			}
+			problemId = args.problemId
+		}
 		return {
 			submissions: [
 				{
 					problem: {
-						id: args.file.name,
+						id: problemId,
 						order: '1',
 					},
 					files: [
