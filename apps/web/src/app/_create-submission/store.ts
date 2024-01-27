@@ -3,11 +3,14 @@ import { create } from 'zustand'
 import { persist } from 'zustand/middleware'
 import { immer } from 'zustand/middleware/immer'
 
+import { SubmissionProblem, submissionApi } from './api'
+
 export interface PendingUpload {
 	id: string
 	file: File
 	abortController: AbortController
 	createdAt: string
+	errorMessage?: string
 }
 
 export interface DraftSubmission {
@@ -15,6 +18,7 @@ export interface DraftSubmission {
 	problemListName: string
 
 	pendingUploads: Record<string, PendingUpload>
+	problems: Record<string, SubmissionProblem>
 }
 
 export interface AddUploadArgs {
@@ -28,7 +32,7 @@ interface CreateSubmissionStore {
 	discardDraft: () => void
 	discardDraftIfEmpty: () => void
 
-	addUpload: (args: AddUploadArgs) => void
+	addUpload: (args: AddUploadArgs) => Promise<void>
 	removeUpload: (id: string) => void
 }
 
@@ -42,6 +46,7 @@ export const useCreateSubmissionStore = create(
 						problemListId,
 						problemListName,
 						pendingUploads: {},
+						problems: {},
 					}
 				})
 			},
@@ -53,14 +58,14 @@ export const useCreateSubmissionStore = create(
 			discardDraftIfEmpty() {
 				const { draft } = get()
 				if (!draft) return
-				if (Object.keys(draft.pendingUploads).length === 0) {
+				if (Object.keys(draft.problems).length === 0 && Object.keys(draft.pendingUploads).length === 0) {
 					set((state) => {
 						state.draft = null
 					})
 				}
 			},
 
-			addUpload({ file }) {
+			async addUpload({ file, problemId }) {
 				const id = uuidV4()
 				const { draft } = get()
 				if (!draft) return
@@ -73,6 +78,32 @@ export const useCreateSubmissionStore = create(
 						createdAt: new Date().toISOString(),
 					}
 				})
+				try {
+					const response = await submissionApi.uploadFile({
+						problemListId: draft.problemListId,
+						problemId,
+						file,
+						signal: abortController.signal,
+					})
+					set((state) => {
+						const { draft } = state
+						if (!draft) return
+						delete draft.pendingUploads[id]
+						for (const submissionProblem of response.submissions) {
+							const problemId = submissionProblem.problem.id
+							if (!(problemId in draft.problems)) {
+								draft.problems[problemId] = submissionProblem
+								continue
+							}
+							draft.problems[problemId]!.files.push(...submissionProblem.files)
+						}
+					})
+				} catch (error) {
+					const errorMessage = error instanceof Error ? error.message : 'Unknown error'
+					set((state) => {
+						state.draft!.pendingUploads[id]!.errorMessage = errorMessage
+					})
+				}
 			},
 			removeUpload(id) {
 				set((state) => {

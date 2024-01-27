@@ -4,6 +4,7 @@ import { Loader2, Upload, X } from 'lucide-react'
 
 import { Button } from 'ui/components/ui/button'
 import { DialogDescription, DialogFooter, DialogHeader, DialogTitle } from 'ui/components/ui/dialog'
+import { cn } from 'ui/lib/utils'
 
 import { DraftSubmission, PendingUpload, useCreateSubmissionStore } from '../store'
 
@@ -58,20 +59,27 @@ export default function CreateSubmissionDialogContent({
 }
 
 function PendingUploadView({ pendingUpload }: { pendingUpload: PendingUpload }) {
+	const { id, file, errorMessage } = pendingUpload
 	const { removeUpload } = useCreateSubmissionStore()
 	const blobUrl = useBlobUrl(pendingUpload.file)
 	return (
-		<div className="rounded-md border border-zinc-200 p-4 dark:border-zinc-800">
+		<div
+			className={cn(
+				'rounded-md border border-zinc-200 p-4 dark:border-zinc-800',
+				errorMessage ? 'dark:border-red-800 dark:bg-red-950 dark:text-red-200' : '',
+			)}
+		>
 			<div className="flex items-center gap-2">
 				<a href={blobUrl} className="hover:underline" target="_blank">
-					{pendingUpload.file.name}
+					{file.name}
 				</a>
-				<Loader2 className="animate-spin" size={14} />
+				{errorMessage ? null : <Loader2 className="animate-spin" size={14} />}
 				<span className="flex-1" />
-				<Button variant="ghost" size="sm" className="h-6 p-1" onClick={() => removeUpload(pendingUpload.id)}>
+				<Button variant="ghost" size="sm" className="h-6 p-1" onClick={() => removeUpload(id)}>
 					<X size={16} />
 				</Button>
 			</div>
+			{errorMessage && <div className="text-sm">{errorMessage}</div>}
 		</div>
 	)
 }
