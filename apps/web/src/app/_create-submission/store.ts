@@ -26,6 +26,7 @@ interface CreateSubmissionStore {
 	draft: DraftSubmission | null
 	startDraft: (args: { problemListId: string; problemListName: string }) => void
 	discardDraft: () => void
+	discardDraftIfEmpty: () => void
 
 	addUpload: (args: AddUploadArgs) => void
 	removeUpload: (id: string) => void
@@ -49,6 +50,15 @@ export const useCreateSubmissionStore = create(
 					state.draft = null
 				})
 			},
+			discardDraftIfEmpty() {
+				const { draft } = get()
+				if (!draft) return
+				if (Object.keys(draft.pendingUploads).length === 0) {
+					set((state) => {
+						state.draft = null
+					})
+				}
+			},
 
 			addUpload({ file }) {
 				const id = uuidV4()
@@ -68,10 +78,8 @@ export const useCreateSubmissionStore = create(
 				set((state) => {
 					state.draft?.pendingUploads[id]?.abortController.abort()
 					delete state.draft!.pendingUploads[id]
-					if (Object.keys(state.draft!.pendingUploads).length === 0) {
-						state.draft = null
-					}
 				})
+				get().discardDraftIfEmpty()
 			},
 		})),
 		{
@@ -84,6 +92,11 @@ export const useCreateSubmissionStore = create(
 						...state.draft,
 						pendingUploads: {},
 					},
+				}
+			},
+			onRehydrateStorage() {
+				return (state) => {
+					state?.discardDraftIfEmpty()
 				}
 			},
 		},
