@@ -1,4 +1,4 @@
-import { useMemo } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 
 import { Loader2, Upload, X } from 'lucide-react'
 
@@ -59,10 +59,13 @@ export default function CreateSubmissionDialogContent({
 
 function PendingUploadView({ pendingUpload }: { pendingUpload: PendingUpload }) {
 	const { removeUpload } = useCreateSubmissionStore()
+	const blobUrl = useBlobUrl(pendingUpload.file)
 	return (
 		<div className="rounded-md border border-zinc-200 p-4 dark:border-zinc-800">
 			<div className="flex items-center gap-2">
-				{pendingUpload.file.name}
+				<a href={blobUrl} className="hover:underline" target="_blank">
+					{pendingUpload.file.name}
+				</a>
 				<Loader2 className="animate-spin" size={14} />
 				<span className="flex-1" />
 				<Button variant="ghost" size="sm" className="h-6 p-1" onClick={() => removeUpload(pendingUpload.id)}>
@@ -71,4 +74,17 @@ function PendingUploadView({ pendingUpload }: { pendingUpload: PendingUpload }) 
 			</div>
 		</div>
 	)
+}
+
+function useBlobUrl(file: File) {
+	const [url, setUrl] = useState<string | undefined>()
+	useEffect(() => {
+		const url = URL.createObjectURL(file)
+		setUrl(url)
+		return () => {
+			URL.revokeObjectURL(url)
+			setUrl(undefined)
+		}
+	}, [file])
+	return url
 }
