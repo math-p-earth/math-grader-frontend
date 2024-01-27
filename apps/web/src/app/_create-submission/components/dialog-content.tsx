@@ -1,18 +1,26 @@
 import { useEffect, useMemo, useState } from 'react'
 
 import { Loader2, Upload, X } from 'lucide-react'
+import { ProblemNumberIcon } from '~/components/ProblemCard/ProblemNumberIcon'
 
 import { Button } from 'ui/components/ui/button'
 import { DialogDescription, DialogFooter, DialogHeader, DialogTitle } from 'ui/components/ui/dialog'
 import { cn } from 'ui/lib/utils'
 
+import { SubmissionProblem } from '../api'
 import { DraftSubmission, PendingUpload, useCreateSubmissionStore } from '../store'
 
-type Item = {
-	type: 'pendingUpload'
-	pendingUpload: PendingUpload
-	createdAt: Date
-}
+type Item =
+	| {
+			type: 'pendingUpload'
+			pendingUpload: PendingUpload
+			createdAt: Date
+	  }
+	| {
+			type: 'submissionProblem'
+			submissionProblem: SubmissionProblem
+			createdAt: Date
+	  }
 
 export default function CreateSubmissionDialogContent({
 	draft,
@@ -22,7 +30,16 @@ export default function CreateSubmissionDialogContent({
 	onCancel: () => void
 }) {
 	const items = useMemo(() => {
-		return Object.values(draft.pendingUploads)
+		const submissionProblems = Object.values(draft.problems)
+			.map(
+				(problem): Item => ({
+					type: 'submissionProblem',
+					submissionProblem: problem,
+					createdAt: new Date(problem.createdAt),
+				}),
+			)
+			.sort((a, b) => a.createdAt.getTime() - b.createdAt.getTime())
+		const pendingUploads = Object.values(draft.pendingUploads)
 			.map(
 				(pendingUpload): Item => ({
 					type: 'pendingUpload',
@@ -31,7 +48,8 @@ export default function CreateSubmissionDialogContent({
 				}),
 			)
 			.sort((a, b) => a.createdAt.getTime() - b.createdAt.getTime())
-	}, [draft.pendingUploads])
+		return [...submissionProblems, ...pendingUploads]
+	}, [draft.problems, draft.pendingUploads])
 	return (
 		<div className="flex flex-col gap-4">
 			<DialogHeader>
@@ -39,9 +57,21 @@ export default function CreateSubmissionDialogContent({
 				<DialogDescription>{draft.problemListName}</DialogDescription>
 			</DialogHeader>
 			<div className="flex flex-col gap-2">
-				{items.map((item) => (
-					<PendingUploadView key={item.pendingUpload.id} pendingUpload={item.pendingUpload} />
-				))}
+				{items.map((item) => {
+					switch (item.type) {
+						case 'submissionProblem':
+							return (
+								<SubmissionProblemView
+									key={item.submissionProblem.problem.id}
+									submissionProblem={item.submissionProblem}
+								/>
+							)
+						case 'pendingUpload':
+							return <PendingUploadView key={item.pendingUpload.id} pendingUpload={item.pendingUpload} />
+						default:
+							return item satisfies never
+					}
+				})}
 			</div>
 			<DialogFooter className="flex-row-reverse">
 				<Button variant="outline">
@@ -80,6 +110,32 @@ function PendingUploadView({ pendingUpload }: { pendingUpload: PendingUpload }) 
 				</Button>
 			</div>
 			{errorMessage && <div className="text-sm">{errorMessage}</div>}
+		</div>
+	)
+}
+
+function SubmissionProblemView({ submissionProblem }: { submissionProblem: SubmissionProblem }) {
+	const { removeFile } = useCreateSubmissionStore()
+	return (
+		<div className="flex flex-col gap-2 rounded-md border border-zinc-200 p-4 dark:border-zinc-800">
+			<ProblemNumberIcon>{submissionProblem.problem.order}</ProblemNumberIcon>
+			<div className="flex flex-col gap-1">
+				{submissionProblem.files.map((file) => (
+					<div key={file.id} className="flex items-center gap-2">
+						<a href={file.url} className="hover:underline" target="_blank">
+							{file.name}
+						</a>
+						<Button
+							variant="ghost"
+							size="sm"
+							className="h-6 p-1"
+							onClick={() => removeFile(submissionProblem.problem.id, file.id)}
+						>
+							<X size={16} />
+						</Button>
+					</div>
+				))}
+			</div>
 		</div>
 	)
 }

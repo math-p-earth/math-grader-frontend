@@ -34,6 +34,7 @@ interface CreateSubmissionStore {
 
 	addUpload: (args: AddUploadArgs) => Promise<void>
 	removeUpload: (id: string) => void
+	removeFile: (problemId: string, fileId: string) => void
 }
 
 export const useCreateSubmissionStore = create(
@@ -109,6 +110,19 @@ export const useCreateSubmissionStore = create(
 				set((state) => {
 					state.draft?.pendingUploads[id]?.abortController.abort()
 					delete state.draft!.pendingUploads[id]
+				})
+				get().discardDraftIfEmpty()
+			},
+			removeFile(problemId, fileId) {
+				set((state) => {
+					const { draft } = state
+					if (!draft) return
+					const problem = draft.problems[problemId]
+					if (!problem) return
+					problem.files = problem.files.filter((file) => file.id !== fileId)
+					if (problem.files.length === 0) {
+						delete draft.problems[problemId]
+					}
 				})
 				get().discardDraftIfEmpty()
 			},

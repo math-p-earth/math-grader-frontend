@@ -7,11 +7,14 @@ export interface UploadFileArgs {
 export interface SubmissionProblem {
 	problem: {
 		id: string
+		order: string
 	}
 	files: Array<{
 		id: string
+		name: string
 		url: string
 	}>
+	createdAt: string
 }
 export interface UploadFileResult {
 	submissions: SubmissionProblem[]
@@ -32,17 +35,21 @@ const mockSubmissionApi = {
 				{
 					problem: {
 						id: args.file.name,
+						order: '1',
 					},
 					files: [
 						{
 							id: 'mock-file-1',
+							name: 'mock-file-1',
 							url: 'mock-file-url-1',
 						},
 						{
 							id: 'mock-file-2',
+							name: 'mock-file-2',
 							url: 'mock-file-url-2',
 						},
 					],
+					createdAt: new Date().toISOString(),
 				},
 			],
 		} satisfies UploadFileResult
