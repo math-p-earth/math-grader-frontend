@@ -6,6 +6,7 @@ import { ProblemNumberIcon } from '~/components/ProblemCard/ProblemNumberIcon'
 
 import { Button } from 'ui/components/ui/button'
 import { DialogDescription, DialogFooter, DialogHeader, DialogTitle } from 'ui/components/ui/dialog'
+import { ScrollArea } from 'ui/components/ui/scroll-area'
 import { cn } from 'ui/lib/utils'
 
 import { SubmissionProblem } from '../api'
@@ -68,23 +69,25 @@ export default function CreateSubmissionDialogContent({
 				<DialogTitle>Submit solution</DialogTitle>
 				<DialogDescription>{draft.problemListName}</DialogDescription>
 			</DialogHeader>
-			<div className="flex flex-col gap-2">
-				{items.map((item) => {
-					switch (item.type) {
-						case 'submissionProblem':
-							return (
-								<SubmissionProblemView
-									key={item.submissionProblem.problem.id}
-									submissionProblem={item.submissionProblem}
-								/>
-							)
-						case 'pendingUpload':
-							return <PendingUploadView key={item.pendingUpload.id} pendingUpload={item.pendingUpload} />
-						default:
-							return item satisfies never
-					}
-				})}
-			</div>
+			<ScrollArea className="-mr-4 max-h-[calc(100vh_-_280px)]">
+				<div className="flex flex-col gap-2 pr-4">
+					{items.map((item) => {
+						switch (item.type) {
+							case 'submissionProblem':
+								return (
+									<SubmissionProblemView
+										key={item.submissionProblem.problem.id}
+										submissionProblem={item.submissionProblem}
+									/>
+								)
+							case 'pendingUpload':
+								return <PendingUploadView key={item.pendingUpload.id} pendingUpload={item.pendingUpload} />
+							default:
+								return item satisfies never
+						}
+					})}
+				</div>
+			</ScrollArea>
 			<DialogFooter className="flex-row-reverse">
 				<Button variant="outline" className="relative" {...getRootProps()}>
 					<input {...getInputProps()} />
