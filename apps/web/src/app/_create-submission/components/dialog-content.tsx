@@ -118,7 +118,9 @@ function PendingUploadView({ pendingUpload }: { pendingUpload: PendingUpload }) 
 		<div
 			className={cn(
 				'rounded-md border border-zinc-200 p-4 dark:border-zinc-800',
-				errorMessage ? 'dark:border-red-800 dark:bg-red-950 dark:text-red-200' : '',
+				errorMessage
+					? 'border-red-300 bg-red-100 text-red-900 dark:border-red-800 dark:bg-red-950 dark:text-red-200'
+					: '',
 			)}
 		>
 			<div className="flex items-center gap-2">
