@@ -1,22 +1,32 @@
 export interface UploadFileArgs {
+	// problem list id of the submission
 	problemListId: string
+	// problem id, only available if user triggered submit from a problem
+	// maybe use as a hint if there is no data matrix in the file
 	problemId?: string
 	file: File
+	// abort signal for the upload request
 	signal: AbortSignal
 }
 export interface SubmissionProblem {
+	// problem associated with the submission
 	problem: {
 		id: string
+		// the order to show in the submission list ui
 		order: string
 	}
 	files: Array<{
+		// for reference in the actual submission
 		id: string
+		// shown in the submission list ui
 		name: string
+		// preview url
 		url: string
 	}>
 	createdAt: string
 }
 export interface UploadFileResult {
+	// problems detected in the uploaded file
 	submissions: SubmissionProblem[]
 }
 export interface CreateSubmissionsArgs {
