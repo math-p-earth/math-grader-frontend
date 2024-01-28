@@ -28,6 +28,9 @@ export interface AddUploadArgs {
 
 interface CreateSubmissionStore {
 	draft: DraftSubmission | null
+	isSubmitting: boolean
+	showSuccess: boolean
+
 	startDraft: (args: { problemListId: string; problemListName: string }) => void
 	discardDraft: () => void
 	discardDraftIfEmpty: () => void
@@ -35,12 +38,17 @@ interface CreateSubmissionStore {
 	addUpload: (args: AddUploadArgs) => Promise<void>
 	removeUpload: (id: string) => void
 	removeFile: (problemId: string, fileId: string) => void
+
+	submit: () => Promise<void>
 }
 
 export const useCreateSubmissionStore = create(
 	persist(
 		immer<CreateSubmissionStore>((set, get) => ({
 			draft: null,
+			isSubmitting: false,
+			showSuccess: false,
+
 			startDraft({ problemListId, problemListName }) {
 				set((state) => {
 					state.draft = {
@@ -54,15 +62,14 @@ export const useCreateSubmissionStore = create(
 			discardDraft() {
 				set((state) => {
 					state.draft = null
+					state.showSuccess = false
 				})
 			},
 			discardDraftIfEmpty() {
-				const { draft } = get()
+				const { draft, discardDraft } = get()
 				if (!draft) return
 				if (Object.keys(draft.problems).length === 0 && Object.keys(draft.pendingUploads).length === 0) {
-					set((state) => {
-						state.draft = null
-					})
+					discardDraft()
 				}
 			},
 
@@ -125,6 +132,33 @@ export const useCreateSubmissionStore = create(
 					}
 				})
 				get().discardDraftIfEmpty()
+			},
+
+			async submit() {
+				if (get().isSubmitting) return
+				set((state) => {
+					state.isSubmitting = true
+				})
+				try {
+					const { draft } = get()
+					if (!draft) return
+					const submissions = Object.values(draft.problems).map((problem) => ({
+						problemId: problem.problem.id,
+						fileIds: problem.files.map((file) => file.id),
+					}))
+					await submissionApi.createSubmissions({ submissions })
+					set((state) => {
+						state.draft = null
+						state.showSuccess = true
+					})
+				} catch (error) {
+					// maybe show a toast here?
+					console.error(error)
+				} finally {
+					set((state) => {
+						state.isSubmitting = false
+					})
+				}
 			},
 		})),
 		{

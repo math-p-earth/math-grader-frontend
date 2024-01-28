@@ -31,7 +31,7 @@ export default function CreateSubmissionDialogContent({
 	draft: DraftSubmission
 	onCancel: () => void
 }) {
-	const { addUpload } = useCreateSubmissionStore()
+	const { addUpload, isSubmitting, submit } = useCreateSubmissionStore()
 	const onDrop = useCallback(
 		(acceptedFiles: File[]) => {
 			for (const file of acceptedFiles) {
@@ -40,7 +40,7 @@ export default function CreateSubmissionDialogContent({
 		},
 		[addUpload],
 	)
-	const { getRootProps, getInputProps, isDragAccept } = useDropzone({ onDrop })
+	const { getRootProps, getInputProps, isDragAccept } = useDropzone({ onDrop, disabled: isSubmitting })
 
 	const items = useMemo(() => {
 		const submissionProblems = Object.values(draft.problems)
@@ -89,7 +89,7 @@ export default function CreateSubmissionDialogContent({
 				</div>
 			</ScrollArea>
 			<DialogFooter className="flex-row-reverse">
-				<Button variant="outline" className="relative" {...getRootProps()}>
+				<Button variant="outline" className="relative" {...getRootProps()} disabled={isSubmitting}>
 					<input {...getInputProps()} />
 					<Upload size={16} className="mr-2" />
 					Add More
@@ -101,10 +101,12 @@ export default function CreateSubmissionDialogContent({
 					/>
 				</Button>
 				<span className="sm:flex-1" />
-				<Button variant="outline" onClick={onCancel}>
+				<Button variant="outline" onClick={onCancel} disabled={isSubmitting}>
 					Cancel
 				</Button>
-				<Button type="submit">Submit</Button>
+				<Button type="submit" onClick={submit} disabled={isSubmitting || Object.keys(draft.problems).length === 0}>
+					Submit
+				</Button>
 			</DialogFooter>
 		</div>
 	)

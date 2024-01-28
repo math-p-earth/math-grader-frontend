@@ -19,12 +19,16 @@ export interface SubmissionProblem {
 export interface UploadFileResult {
 	submissions: SubmissionProblem[]
 }
+export interface CreateSubmissionsArgs {
+	submissions: Array<{ problemId: string; fileIds: string[] }>
+}
 
 interface SubmissionApi {
 	uploadFile(args: UploadFileArgs): Promise<UploadFileResult>
+	createSubmissions(args: CreateSubmissionsArgs): Promise<void>
 }
 
-const mockSubmissionApi = {
+const mockSubmissionApi: SubmissionApi = {
 	async uploadFile(args) {
 		await new Promise((resolve) => setTimeout(resolve, 1000))
 		if (args.file.name === 'error.pdf') {
@@ -70,6 +74,9 @@ const mockSubmissionApi = {
 			],
 		} satisfies UploadFileResult
 	},
-} satisfies SubmissionApi
+	async createSubmissions() {
+		await new Promise((resolve) => setTimeout(resolve, 1000))
+	},
+}
 
 export const submissionApi = mockSubmissionApi
