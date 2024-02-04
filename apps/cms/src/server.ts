@@ -4,7 +4,7 @@ import express from 'express'
 import cron from 'node-cron'
 
 import { PAYLOAD_SECRET, PORT } from './config'
-import { removeExpiredPendingUploads } from './cron'
+import { removeExpiredUploads } from './cron'
 
 const app = express()
 
@@ -24,7 +24,7 @@ async function start() {
 	})
 
 	// every 30 mins
-	cron.schedule('0/30 * * * *', removeExpiredPendingUploads, {
+	cron.schedule('0/30 * * * *', removeExpiredUploads, {
 		runOnInit: true,
 	})
 	payload.logger.info('Cron jobs scheduled')

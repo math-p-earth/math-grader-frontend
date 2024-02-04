@@ -17,7 +17,6 @@ export interface Config {
     submissions: Submission;
     tags: Tag;
     uploads: Upload;
-    'pending-uploads': PendingUpload;
     users: User;
     'payload-preferences': PayloadPreference;
     'payload-migrations': PayloadMigration;
@@ -176,6 +175,9 @@ export interface Upload {
         relationTo: 'students';
         value: string | Student;
       };
+  canExpire: boolean;
+  expiresAt?: string;
+  prefix?: string;
   updatedAt: string;
   createdAt: string;
   url?: string;
@@ -198,27 +200,6 @@ export interface User {
   loginAttempts?: number;
   lockUntil?: string;
   password?: string;
-}
-export interface PendingUpload {
-  id: string;
-  owner:
-    | {
-        relationTo: 'users';
-        value: string | User;
-      }
-    | {
-        relationTo: 'students';
-        value: string | Student;
-      };
-  expiresAt?: string;
-  updatedAt: string;
-  createdAt: string;
-  url?: string;
-  filename?: string;
-  mimeType?: string;
-  filesize?: number;
-  width?: number;
-  height?: number;
 }
 export interface PayloadPreference {
   id: string;
@@ -265,7 +246,6 @@ declare module 'payload' {
       'submissions': Submission
       'tags': Tag
       'uploads': Upload
-      'pending-uploads': PendingUpload
       'users': User
       'payload-preferences': PayloadPreference
       'payload-migrations': PayloadMigration

@@ -1,19 +1,28 @@
 import payload from 'payload'
 
-export async function removeExpiredPendingUploads(now: Date | 'manual' | 'init') {
-	payload.logger.info(`[removeExpiredPendingUploads] cron started: now = ${now}`)
+export async function removeExpiredUploads(now: Date | 'manual' | 'init') {
+	payload.logger.info(`[removeExpiredUploads] cron started: now = ${now}`)
 	const date = typeof now === 'string' ? new Date() : now
 	const result = await payload.delete({
-		collection: 'pending-uploads',
+		collection: 'uploads',
 		where: {
-			expiresAt: {
-				less_than: date.toISOString(),
-			},
+			and: [
+				{
+					canExpire: {
+						equals: true,
+					},
+				},
+				{
+					expiresAt: {
+						less_than: date.toISOString(),
+					},
+				},
+			],
 		},
 	})
 	if (result.errors.length > 0) {
-		payload.logger.error('[removeExpiredPendingUploads] Error removing expired pending uploads', { errors: result.errors })
+		payload.logger.error('[removeExpiredUploads] Error removing expired uploads', { errors: result.errors })
 		return
 	}
-	payload.logger.info(`[removeExpiredPendingUploads] Removed ${result.docs.length} expired pending uploads`)
+	payload.logger.info(`[removeExpiredUploads] Removed ${result.docs.length} expired uploads`)
 }

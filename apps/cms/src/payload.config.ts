@@ -13,7 +13,6 @@ import { adminViewConfigs } from './admin/routes'
 import { endpoints } from './api/routes'
 import { Courses } from './collections/Courses'
 import { Media } from './collections/Media'
-import { PendingUploads } from './collections/PendingUploads'
 import { ProblemLists } from './collections/ProblemLists'
 import { Problems } from './collections/Problems'
 import { Sources } from './collections/Sources'
@@ -107,19 +106,7 @@ export default buildConfig({
 			}
 		},
 	},
-	collections: [
-		Courses,
-		Media,
-		Problems,
-		ProblemLists,
-		Sources,
-		Students,
-		Submissions,
-		Tags,
-		Uploads,
-		PendingUploads,
-		Users,
-	],
+	collections: [Courses, Media, Problems, ProblemLists, Sources, Students, Submissions, Tags, Uploads, Users],
 	endpoints: endpoints,
 	typescript: {
 		outputFile: path.resolve(__dirname, '../../../packages/core/payload-types/generated.ts'),
@@ -135,9 +122,9 @@ export default buildConfig({
 					prefix: `${S3_PREFIX}/${Media.slug}`,
 					disableLocalStorage: true,
 				},
-				[PendingUploads.slug]: {
+				[Uploads.slug]: {
 					adapter: adapter,
-					prefix: `${S3_PREFIX}/${PendingUploads.slug}`,
+					prefix: `${S3_PREFIX}/${Uploads.slug}`,
 					disableLocalStorage: true,
 				},
 			},

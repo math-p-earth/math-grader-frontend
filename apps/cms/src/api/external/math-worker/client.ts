@@ -15,13 +15,13 @@ interface GenerateProblemListFileResult {
 	headers: Headers
 }
 
-interface DecodeProblemSubmissionResultItem {
+export interface DecodeProblemSubmissionResultItem {
 	userId: string
 	problemId: string
 	fileContent: Buffer
 }
 
-interface DecodeProblemSubmissionResult {
+export interface DecodeProblemSubmissionResult {
 	items: DecodeProblemSubmissionResultItem[]
 }
 

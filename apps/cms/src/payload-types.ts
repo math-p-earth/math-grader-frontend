@@ -5,7 +5,6 @@ import {
 	Media,
 	PayloadMigration,
 	PayloadPreference,
-	PendingUpload,
 	Problem,
 	ProblemList,
 	Source,
@@ -31,7 +30,6 @@ declare module 'payload' {
 			submissions: Submission
 			tags: Tag
 			uploads: Upload
-			'pending-uploads': PendingUpload
 			users: User
 			'payload-preferences': PayloadPreference
 			'payload-migrations': PayloadMigration

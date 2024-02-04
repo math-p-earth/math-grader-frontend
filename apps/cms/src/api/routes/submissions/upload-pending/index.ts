@@ -5,10 +5,10 @@ import { Response } from 'express'
 import type { UploadedFile } from 'express-fileupload'
 import { z } from 'zod'
 
-import { AuthUser } from '../../../../access/type'
+import { AuthUser, isTypeStudent } from '../../../../access/type'
 import { PUBLIC_URL } from '../../../../config'
 import { withErrorHandler } from '../../../errors/handler/withErrorHandler'
-import { mathWorkerClient } from '../../../external/math-worker/client'
+import { DecodeProblemSubmissionResultItem, mathWorkerClient } from '../../../external/math-worker/client'
 
 export const submissionUploadPendingSchema = z.object({
 	problemListId: z.string(),
@@ -18,14 +18,14 @@ export const submissionUploadPendingSchema = z.object({
 interface SubmissionProblem {
 	// problem associated with the submission
 	problemId: string
-	files: Array<{
+	file: {
 		// for reference in the actual submission
 		id: string
 		// shown in the submission list ui
 		name: string
 		// preview url
 		url: string
-	}>
+	}
 	createdAt: string
 }
 interface SubmissionUploadPendingResponse {
@@ -36,6 +36,9 @@ interface SubmissionUploadPendingResponse {
 async function submissionUploadPendingHandler({ body, payload, user, files }: PayloadRequest<AuthUser>, res: Response) {
 	if (!user) {
 		throw new Forbidden()
+	}
+	if (!isTypeStudent(user)) {
+		throw new APIError('Only students can submit', 400)
 	}
 	if (!files?.file) {
 		throw new APIError('No file uploaded', 400)
@@ -58,18 +61,25 @@ async function submissionUploadPendingHandler({ body, payload, user, files }: Pa
 		throw new APIError(`Problem list with id ${problemListId} not found, or you may not have access to it.`, 404)
 	}
 
-	// TODO: support upload for specific problemId
+	let items: DecodeProblemSubmissionResultItem[] = []
 	if (typeof problemId !== 'undefined') {
-		throw new Error('upload for specific problemId not implemented yet')
+		items = [
+			{
+				problemId,
+				fileContent: file.data,
+				userId: user.id,
+			},
+		]
+	} else {
+		const result = await mathWorkerClient.decodeProblemSubmission(new Blob([file.data]))
+		items = result.items
 	}
 
 	// create pending uploads
-
-	const { items } = await mathWorkerClient.decodeProblemSubmission(new Blob([file.data]))
-	const pendingUploads = await Promise.all(
+	const uploads = await Promise.all(
 		items.map((item) =>
 			payload.create({
-				collection: 'pending-uploads',
+				collection: 'uploads',
 				file: {
 					data: item.fileContent,
 					mimetype: 'application/pdf',
@@ -81,6 +91,7 @@ async function submissionUploadPendingHandler({ body, payload, user, files }: Pa
 						relationTo: user.collection,
 						value: user.id,
 					},
+					canExpire: true,
 					expiresAt: new Date(Date.now() + 1000 * 60 * 60).toISOString(), // 1 hour
 				},
 			}),
@@ -88,15 +99,13 @@ async function submissionUploadPendingHandler({ body, payload, user, files }: Pa
 	)
 
 	const resp: SubmissionUploadPendingResponse = {
-		submissions: pendingUploads.map<SubmissionProblem>((uploadItem, idx) => ({
+		submissions: uploads.map<SubmissionProblem>((uploadItem, idx) => ({
 			problemId: items[idx].problemId,
-			files: [
-				{
-					id: uploadItem.id,
-					name: uploadItem.filename!,
-					url: `${PUBLIC_URL}${uploadItem.url}`,
-				},
-			],
+			file: {
+				id: uploadItem.id,
+				name: uploadItem.filename!,
+				url: `${PUBLIC_URL}${uploadItem.url}`,
+			},
 			createdAt: uploadItem.createdAt,
 		})),
 	}
