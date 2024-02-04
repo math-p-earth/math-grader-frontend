@@ -1,8 +1,10 @@
 import payload from 'payload'
 
 import express from 'express'
+import cron from 'node-cron'
 
 import { PAYLOAD_SECRET, PORT } from './config'
+import { removeExpiredPendingUploads } from './cron'
 
 const app = express()
 
@@ -20,6 +22,12 @@ async function start() {
 			payload.logger.info(`Payload Admin URL: ${payload.getAdminURL()}`)
 		},
 	})
+
+	// every 30 mins
+	cron.schedule('0/30 * * * *', removeExpiredPendingUploads, {
+		runOnInit: true,
+	})
+	payload.logger.info('Cron jobs scheduled')
 
 	app.listen(PORT, () => {
 		payload.logger.info(`Server started on port ${PORT}`)

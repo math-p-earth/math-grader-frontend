@@ -35,6 +35,12 @@ export const PendingUploads: CollectionConfig = {
 			name: 'expiresAt',
 			type: 'date',
 			required: true,
+			index: true,
+			admin: {
+				date: {
+					pickerAppearance: 'dayAndTime',
+				},
+			},
 		},
 	],
 }
