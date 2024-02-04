@@ -135,6 +135,11 @@ export default buildConfig({
 					prefix: `${S3_PREFIX}/${Media.slug}`,
 					disableLocalStorage: true,
 				},
+				[PendingUploads.slug]: {
+					adapter: adapter,
+					prefix: `${S3_PREFIX}/${PendingUploads.slug}`,
+					disableLocalStorage: true,
+				},
 			},
 		}),
 	],

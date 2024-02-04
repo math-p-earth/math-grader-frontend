@@ -9,7 +9,6 @@ const validateDataField: Validate<DiagramTableBlockType['data'], unknown, Diagra
 	const result = diagramTableDataSchema.safeParse(value)
 	if (result.success === false) {
 		const errorMsg = result.error.errors.map((error) => `${error.path}: ${error.message}`).join('\n')
-		console.log({ errorMsg })
 		return `Failed to parse data field: ${errorMsg}`
 	}
 	const { rows } = result.data
