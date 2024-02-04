@@ -32,7 +32,7 @@ export default async function ProblemListByIdPage({ params }: { params: { id: st
 				<div className="grow" />
 				<SubmissionInput problemListId={id} problemListName={data.name}>
 					<SubmissionInputTrigger>
-						<Button variant="outline">Submit Solution</Button>
+						<Button variant="outline">Submit</Button>
 					</SubmissionInputTrigger>
 				</SubmissionInput>
 				<DownloadProblemListButton problemListId={id} />
@@ -46,7 +46,7 @@ export default async function ProblemListByIdPage({ params }: { params: { id: st
 							problem={problem}
 							actions={
 								<SubmissionInputTrigger>
-									<Button variant="outline">Submit Solution</Button>
+									<Button variant="outline">Submit</Button>
 								</SubmissionInputTrigger>
 							}
 						/>

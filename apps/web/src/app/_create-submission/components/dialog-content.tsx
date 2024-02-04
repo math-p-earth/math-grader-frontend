@@ -31,7 +31,7 @@ export default function CreateSubmissionDialogContent({
 	draft: DraftSubmission
 	onCancel: () => void
 }) {
-	const { addUpload, isSubmitting, submit } = useCreateSubmissionStore()
+	const { addUpload, showSuccess, isSubmitting, submit } = useCreateSubmissionStore()
 	const onDrop = useCallback(
 		(acceptedFiles: File[]) => {
 			for (const file of acceptedFiles) {
@@ -66,18 +66,19 @@ export default function CreateSubmissionDialogContent({
 	return (
 		<div className="flex flex-col gap-4">
 			<DialogHeader>
-				<DialogTitle>Submit solution</DialogTitle>
+				<DialogTitle>Submit answers</DialogTitle>
 				<DialogDescription>{draft.problemListName}</DialogDescription>
 			</DialogHeader>
 			<ScrollArea className="-mr-4 max-h-[calc(100vh_-_280px)]">
 				<div className="flex flex-col gap-2 pr-4">
-					{items.map((item) => {
+					{items.map((item, idx) => {
 						switch (item.type) {
 							case 'submissionProblem':
 								return (
 									<SubmissionProblemView
-										key={item.submissionProblem.problem.id}
+										key={item.submissionProblem.problemId}
 										submissionProblem={item.submissionProblem}
+										order={idx + 1}
 									/>
 								)
 							case 'pendingUpload':
@@ -89,24 +90,35 @@ export default function CreateSubmissionDialogContent({
 				</div>
 			</ScrollArea>
 			<DialogFooter className="flex-row-reverse">
-				<Button variant="outline" className="relative" {...getRootProps()} disabled={isSubmitting}>
-					<input {...getInputProps()} />
-					<Upload size={16} className="mr-2" />
-					Add More
-					<div
-						className={cn(
-							'pointer-events-none absolute inset-0 rounded-md bg-green-500 opacity-0 transition-opacity',
-							isDragAccept && 'opacity-10',
-						)}
-					/>
-				</Button>
-				<span className="sm:flex-1" />
-				<Button variant="outline" onClick={onCancel} disabled={isSubmitting}>
-					Cancel
-				</Button>
-				<Button type="submit" onClick={submit} disabled={isSubmitting || Object.keys(draft.problems).length === 0}>
-					Submit
-				</Button>
+				{showSuccess ? (
+					<Button onClick={onCancel} disabled={isSubmitting}>
+						Close
+					</Button>
+				) : (
+					<>
+						<Button variant="outline" className="relative" {...getRootProps()} disabled={isSubmitting}>
+							<input {...getInputProps()} />
+							<Upload size={16} className="mr-2" />
+							Add More
+							<div
+								className={cn(
+									'pointer-events-none absolute inset-0 rounded-md bg-green-500 opacity-0 transition-opacity',
+									isDragAccept && 'opacity-10',
+								)}
+							/>
+						</Button>
+						<span className="sm:flex-1" />
+						<Button variant="outline" onClick={onCancel} disabled={isSubmitting}>
+							Cancel
+						</Button>
+						<Button type="submit" onClick={submit} disabled={isSubmitting || Object.keys(draft.problems).length === 0}>
+							<div className="flex items-center gap-1">
+								<span>Submit</span>
+								{isSubmitting && <Loader2 className="animate-spin" size={16} />}
+							</div>
+						</Button>
+					</>
+				)}
 			</DialogFooter>
 		</div>
 	)
@@ -140,27 +152,23 @@ function PendingUploadView({ pendingUpload }: { pendingUpload: PendingUpload }) 
 	)
 }
 
-function SubmissionProblemView({ submissionProblem }: { submissionProblem: SubmissionProblem }) {
-	const { removeFile } = useCreateSubmissionStore()
+function SubmissionProblemView({ submissionProblem, order }: { submissionProblem: SubmissionProblem; order: number }) {
+	const { removeFile, showSuccess } = useCreateSubmissionStore()
 	return (
-		<div className="flex flex-col gap-2 rounded-md border border-zinc-200 p-4 dark:border-zinc-800">
-			<ProblemNumberIcon>{submissionProblem.problem.order}</ProblemNumberIcon>
-			<div className="flex flex-col gap-1">
-				{submissionProblem.files.map((file) => (
-					<div key={file.id} className="flex items-center gap-2">
-						<a href={file.url} className="hover:underline" target="_blank">
-							{file.name}
-						</a>
-						<Button
-							variant="ghost"
-							size="sm"
-							className="h-6 p-1"
-							onClick={() => removeFile(submissionProblem.problem.id, file.id)}
-						>
-							<X size={16} />
-						</Button>
-					</div>
-				))}
+		<div
+			className={cn(
+				'flex gap-2 rounded-md border border-zinc-200 p-4 dark:border-zinc-800',
+				...(showSuccess ? ['border-green-400 dark:border-green-800 dark:bg-zinc-950'] : []),
+			)}
+		>
+			<ProblemNumberIcon>{order}</ProblemNumberIcon>
+			<div key={submissionProblem.file.id} className="flex items-center gap-2">
+				<a href={submissionProblem.file.url} className="hover:underline" target="_blank">
+					{submissionProblem.file.name}
+				</a>
+				<Button variant="ghost" size="sm" className="h-6 p-1" onClick={() => removeFile(submissionProblem.problemId)}>
+					<X size={16} />
+				</Button>
 			</div>
 		</div>
 	)

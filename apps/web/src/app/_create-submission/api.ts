@@ -1,3 +1,5 @@
+import { httpClient } from '~/util/httpClient'
+
 export interface UploadFileArgs {
 	// problem list id of the submission
 	problemListId: string
@@ -10,19 +12,15 @@ export interface UploadFileArgs {
 }
 export interface SubmissionProblem {
 	// problem associated with the submission
-	problem: {
-		id: string
-		// the order to show in the submission list ui
-		order: string
-	}
-	files: Array<{
+	problemId: string
+	file: {
 		// for reference in the actual submission
 		id: string
 		// shown in the submission list ui
 		name: string
 		// preview url
 		url: string
-	}>
+	}
 	createdAt: string
 }
 export interface UploadFileResult {
@@ -30,7 +28,7 @@ export interface UploadFileResult {
 	submissions: SubmissionProblem[]
 }
 export interface CreateSubmissionsArgs {
-	submissions: Array<{ problemId: string; fileIds: string[] }>
+	items: Array<{ problemId: string; fileId: string }>
 }
 
 interface SubmissionApi {
@@ -38,7 +36,7 @@ interface SubmissionApi {
 	createSubmissions(args: CreateSubmissionsArgs): Promise<void>
 }
 
-const mockSubmissionApi: SubmissionApi = {
+const _mockSubmissionApi: SubmissionApi = {
 	async uploadFile(args) {
 		await new Promise((resolve) => setTimeout(resolve, 1000))
 		if (args.file.name === 'error.pdf') {
@@ -63,22 +61,12 @@ const mockSubmissionApi: SubmissionApi = {
 		return {
 			submissions: [
 				{
-					problem: {
-						id: problemId,
-						order: '1',
+					problemId,
+					file: {
+						id: 'mock-file-1',
+						name: 'mock-file-1',
+						url: 'mock-file-url-1',
 					},
-					files: [
-						{
-							id: 'mock-file-1',
-							name: 'mock-file-1',
-							url: 'mock-file-url-1',
-						},
-						{
-							id: 'mock-file-2',
-							name: 'mock-file-2',
-							url: 'mock-file-url-2',
-						},
-					],
 					createdAt: new Date().toISOString(),
 				},
 			],
@@ -89,4 +77,22 @@ const mockSubmissionApi: SubmissionApi = {
 	},
 }
 
-export const submissionApi = mockSubmissionApi
+export const submissionApi: SubmissionApi = {
+	async uploadFile({ file, problemListId, signal, problemId }) {
+		const formData = new FormData()
+		formData.append('file', file)
+		formData.append('problemListId', problemListId)
+		if (typeof problemId !== 'undefined') {
+			formData.append('problemId', problemId)
+		}
+
+		const response = await httpClient.post<UploadFileResult>('/submissions/upload-pending', formData, {
+			signal,
+		})
+		return response.data
+	},
+
+	async createSubmissions({ items }) {
+		await httpClient.post('/submissions/confirm-upload', { items })
+	},
+}

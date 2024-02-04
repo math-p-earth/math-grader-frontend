@@ -1,3 +1,4 @@
+import { toast } from 'sonner'
 import { v4 as uuidV4 } from 'uuid'
 import { create } from 'zustand'
 import { persist } from 'zustand/middleware'
@@ -37,7 +38,7 @@ interface CreateSubmissionStore {
 
 	addUpload: (args: AddUploadArgs) => Promise<void>
 	removeUpload: (id: string) => void
-	removeFile: (problemId: string, fileId: string) => void
+	removeFile: (problemId: string) => void
 
 	submit: () => Promise<void>
 }
@@ -57,6 +58,7 @@ export const useCreateSubmissionStore = create(
 						pendingUploads: {},
 						problems: {},
 					}
+					state.showSuccess = false
 				})
 			},
 			discardDraft() {
@@ -67,7 +69,9 @@ export const useCreateSubmissionStore = create(
 			},
 			discardDraftIfEmpty() {
 				const { draft, discardDraft } = get()
-				if (!draft) return
+				if (!draft) {
+					return
+				}
 				if (Object.keys(draft.problems).length === 0 && Object.keys(draft.pendingUploads).length === 0) {
 					discardDraft()
 				}
@@ -76,7 +80,9 @@ export const useCreateSubmissionStore = create(
 			async addUpload({ file, problemId }) {
 				const id = uuidV4()
 				const { draft } = get()
-				if (!draft) return
+				if (!draft) {
+					return
+				}
 				const abortController = new AbortController()
 				set((state) => {
 					state.draft!.pendingUploads[id] = {
@@ -95,15 +101,17 @@ export const useCreateSubmissionStore = create(
 					})
 					set((state) => {
 						const { draft } = state
-						if (!draft) return
+						if (!draft) {
+							return
+						}
 						delete draft.pendingUploads[id]
 						for (const submissionProblem of response.submissions) {
-							const problemId = submissionProblem.problem.id
+							const problemId = submissionProblem.problemId
 							if (!(problemId in draft.problems)) {
 								draft.problems[problemId] = submissionProblem
 								continue
 							}
-							draft.problems[problemId]!.files.push(...submissionProblem.files)
+							draft.problems[problemId]!.file = submissionProblem.file
 						}
 					})
 				} catch (error) {
@@ -120,40 +128,46 @@ export const useCreateSubmissionStore = create(
 				})
 				get().discardDraftIfEmpty()
 			},
-			removeFile(problemId, fileId) {
+			removeFile(problemId) {
 				set((state) => {
 					const { draft } = state
-					if (!draft) return
-					const problem = draft.problems[problemId]
-					if (!problem) return
-					problem.files = problem.files.filter((file) => file.id !== fileId)
-					if (problem.files.length === 0) {
-						delete draft.problems[problemId]
+					if (!draft) {
+						return
 					}
+					const problem = draft.problems[problemId]
+					if (!problem) {
+						return
+					}
+					delete draft.problems[problemId]
 				})
 				get().discardDraftIfEmpty()
 			},
 
 			async submit() {
-				if (get().isSubmitting) return
+				if (get().isSubmitting) {
+					return
+				}
 				set((state) => {
 					state.isSubmitting = true
 				})
 				try {
 					const { draft } = get()
-					if (!draft) return
+					if (!draft) {
+						return
+					}
 					const submissions = Object.values(draft.problems).map((problem) => ({
-						problemId: problem.problem.id,
-						fileIds: problem.files.map((file) => file.id),
+						problemId: problem.problemId,
+						fileId: problem.file.id,
 					}))
-					await submissionApi.createSubmissions({ submissions })
+
+					await submissionApi.createSubmissions({ items: submissions })
 					set((state) => {
-						state.draft = null
 						state.showSuccess = true
 					})
+					toast.success(`Created ${submissions.length} submissions.`)
 				} catch (error) {
-					// maybe show a toast here?
-					console.error(error)
+					console.error(error instanceof Error ? error.message : error)
+					toast.error(`Failed to create submissions: ${error instanceof Error ? error.message : error}`)
 				} finally {
 					set((state) => {
 						state.isSubmitting = false

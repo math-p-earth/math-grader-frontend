@@ -10,7 +10,7 @@ import {
 } from 'core/payload-types'
 import { z } from 'zod'
 
-import { diagramSchema, problemChoiceSchema, problemListSchema, problemSchema, sourceSchema } from './client'
+import { diagramSchema, problemChoiceSchema, problemListSchema, problemSchema, sourceSchema } from './contract'
 
 export const mapDiagramToContract = (
 	diagram: DiagramImageBlock | DiagramListBlock | DiagramTableBlock,
@@ -59,7 +59,7 @@ export const mapProblemChoiceToContract = (
 
 export const mapSourceToContract = (source: string | Source | undefined): z.infer<typeof sourceSchema> | undefined => {
 	if (typeof source === 'string') {
-		throw new Error(`source cannot by string`)
+		throw new Error(`source cannot be string`)
 	}
 	if (!source) {
 		return undefined
@@ -73,7 +73,7 @@ export const mapSourceToContract = (source: string | Source | undefined): z.infe
 
 export const mapProblemToContract = (problem: string | Problem): z.infer<typeof problemSchema> => {
 	if (typeof problem === 'string') {
-		throw new Error(`problem cannot by string`)
+		throw new Error(`problem cannot be string`)
 	}
 	return {
 		id: problem.id,
