@@ -10,7 +10,7 @@ import { PUBLIC_URL } from '../../../../config'
 import { withErrorHandler } from '../../../errors/handler/withErrorHandler'
 import { mathWorkerClient } from '../../../external/math-worker/client'
 
-export const submissionUploadSchema = z.object({
+export const submissionUploadPendingSchema = z.object({
 	problemListId: z.string(),
 	problemId: z.string().optional(),
 })
@@ -28,12 +28,12 @@ interface SubmissionProblem {
 	}>
 	createdAt: string
 }
-interface SubmissionUploadResponse {
+interface SubmissionUploadPendingResponse {
 	// problems detected in the uploaded file
 	submissions: SubmissionProblem[]
 }
 
-async function submissionUploadHandler({ body, payload, user, files }: PayloadRequest<AuthUser>, res: Response) {
+async function submissionUploadPendingHandler({ body, payload, user, files }: PayloadRequest<AuthUser>, res: Response) {
 	if (!user) {
 		throw new Forbidden()
 	}
@@ -45,7 +45,7 @@ async function submissionUploadHandler({ body, payload, user, files }: PayloadRe
 		throw new APIError('Only PDF files are supported', 400)
 	}
 
-	const { problemListId, problemId } = submissionUploadSchema.parse(body)
+	const { problemListId, problemId } = submissionUploadPendingSchema.parse(body)
 	const problemList = await payload.findByID({
 		collection: 'problem-lists',
 		id: problemListId,
@@ -87,7 +87,7 @@ async function submissionUploadHandler({ body, payload, user, files }: PayloadRe
 		),
 	)
 
-	const resp: SubmissionUploadResponse = {
+	const resp: SubmissionUploadPendingResponse = {
 		submissions: pendingUploads.map<SubmissionProblem>((uploadItem, idx) => ({
 			problemId: items[idx].problemId,
 			files: [
@@ -103,4 +103,4 @@ async function submissionUploadHandler({ body, payload, user, files }: PayloadRe
 	res.json(resp)
 }
 
-export default withErrorHandler(submissionUploadHandler)
+export default withErrorHandler(submissionUploadPendingHandler)
