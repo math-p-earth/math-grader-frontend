@@ -21,7 +21,7 @@ interface UseMySubmissionsOptions {
 
 export const useMySubmissions = (opt: UseMySubmissionsOptions) => {
 	const query = useQuery<GetMySubmissionsResponse, PayloadErrorResponse>({
-		queryKey: ['my-submissions', JSON.stringify(opt)],
+		queryKey: ['my-submissions', opt],
 		keepPreviousData: true,
 		queryFn: async () => {
 			const { depth, limit = 99999999, problemIds } = opt
