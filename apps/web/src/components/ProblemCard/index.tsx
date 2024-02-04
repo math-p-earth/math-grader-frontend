@@ -13,11 +13,12 @@ interface ProblemCardProps {
 	problem: Problem
 	order: number
 	actions?: ReactNode
+	className?: string
 }
 
-export function ProblemCard({ problem, order, actions }: ProblemCardProps) {
+export function ProblemCard({ problem, order, actions, className }: ProblemCardProps) {
 	return (
-		<Card>
+		<Card className={className}>
 			<CardHeader>
 				<div className="flex flex-row items-center gap-4">
 					<ProblemNumberIcon>{order}</ProblemNumberIcon>
