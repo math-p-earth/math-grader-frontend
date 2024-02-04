@@ -109,7 +109,7 @@ export default buildConfig({
 	collections: [Courses, Media, Problems, ProblemLists, Sources, Students, Submissions, Tags, Uploads, Users],
 	endpoints: endpoints,
 	typescript: {
-		outputFile: path.resolve(__dirname, '../../../packages/types/payload-types/generated.ts'),
+		outputFile: path.resolve(__dirname, '../../../packages/core/payload-types/generated.ts'),
 	},
 	graphQL: {
 		disable: true,
@@ -120,6 +120,11 @@ export default buildConfig({
 				[Media.slug]: {
 					adapter: adapter,
 					prefix: `${S3_PREFIX}/${Media.slug}`,
+					disableLocalStorage: true,
+				},
+				[Uploads.slug]: {
+					adapter: adapter,
+					prefix: `${S3_PREFIX}/${Uploads.slug}`,
 					disableLocalStorage: true,
 				},
 			},

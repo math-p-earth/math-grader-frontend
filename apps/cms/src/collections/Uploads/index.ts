@@ -31,5 +31,27 @@ export const Uploads: CollectionConfig = {
 				beforeValidate: [setUserOnCreate(['users', 'students'])],
 			},
 		},
+		{
+			type: 'row',
+			fields: [
+				{
+					name: 'canExpire',
+					type: 'checkbox',
+					required: true,
+					defaultValue: false,
+				},
+				{
+					name: 'expiresAt',
+					type: 'date',
+					required: false,
+					index: true,
+					admin: {
+						date: {
+							pickerAppearance: 'dayAndTime',
+						},
+					},
+				},
+			],
+		},
 	],
 }

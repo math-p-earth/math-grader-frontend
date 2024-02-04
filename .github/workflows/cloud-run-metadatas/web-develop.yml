@@ -23,8 +23,8 @@ spec:
               memory: 512Mi
           env:
             - name: BACKEND_INTERNAL_URL
-              value: https://math-grader-cms-develop-s7hi2brqxa-as.a.run.app
+              value: https://cms-develop-s7hi2brqxa-as.a.run.app
             - name: NEXT_PUBLIC_BACKEND_URL
-              value: https://math-grader-cms-develop-s7hi2brqxa-as.a.run.app
+              value: https://cms-develop-s7hi2brqxa-as.a.run.app
             - name: NEXT_PUBLIC_GOOGLE_OAUTH_CLIENT_ID
               value: 198474744222-5kt2eu0u69hjidj7mdlpiv7ejmvrp4fl.apps.googleusercontent.com

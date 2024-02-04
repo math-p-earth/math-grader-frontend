@@ -175,6 +175,9 @@ export interface Upload {
         relationTo: 'students';
         value: string | Student;
       };
+  canExpire: boolean;
+  expiresAt?: string;
+  prefix?: string;
   updatedAt: string;
   createdAt: string;
   url?: string;
@@ -229,7 +232,6 @@ export interface PayloadMigration {
   updatedAt: string;
   createdAt: string;
 }
-
 
 // @ts-ignore
 declare module 'payload' {

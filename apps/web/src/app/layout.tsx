@@ -2,6 +2,7 @@ import { Toaster } from 'sonner'
 
 import 'ui/styles/globals.css'
 
+import { CreateSubmissionDialog } from './_create-submission/dialog'
 import { Providers } from './providers'
 
 export default function RootLayout({
@@ -25,6 +26,7 @@ export default function RootLayout({
 			<body className="bg-background text-foreground">
 				<Providers>
 					<Toaster position="top-right" richColors />
+					<CreateSubmissionDialog />
 					<div>{children}</div>
 				</Providers>
 			</body>

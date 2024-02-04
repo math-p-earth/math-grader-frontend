@@ -4,6 +4,8 @@ import authGoogleVerifyHandler from './auth/google/verify'
 import problemListDownloadHandler from './problem-lists/download'
 import problemsUploadHandler from './problems/upload'
 import studentsRegister from './students/register'
+import submissionConfirmUploadHandler from './submissions/confirm-upload'
+import submissionUploadPendingHandler from './submissions/upload-pending'
 
 const authEndpoints: Endpoint[] = [
 	{
@@ -34,4 +36,22 @@ const problemListEndpoints: Endpoint[] = [
 	},
 ]
 
-export const endpoints: Endpoint[] = [...authEndpoints, ...problemEndpoints, ...problemListEndpoints]
+const submissionsEndpoints: Endpoint[] = [
+	{
+		path: '/submissions/upload-pending',
+		method: 'post',
+		handler: submissionUploadPendingHandler,
+	},
+	{
+		path: '/submissions/confirm-upload',
+		method: 'post',
+		handler: submissionConfirmUploadHandler,
+	},
+]
+
+export const endpoints: Endpoint[] = [
+	...authEndpoints,
+	...problemEndpoints,
+	...problemListEndpoints,
+	...submissionsEndpoints,
+]
