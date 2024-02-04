@@ -230,8 +230,6 @@ export interface PayloadMigration {
   createdAt: string;
 }
 
-
-// @ts-ignore
 declare module 'payload' {
   export interface GeneratedTypes {
     collections: {
