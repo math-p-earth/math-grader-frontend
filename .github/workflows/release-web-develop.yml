@@ -25,6 +25,10 @@ jobs:
           echo "Working tag: $TAG"
           echo "tag=$TAG" >> $GITHUB_OUTPUT
 
+      - name: Set .env
+        run: |
+          mv apps/web/.env.develop apps/web/.env
+
   build-push:
     needs:
       - prepare
