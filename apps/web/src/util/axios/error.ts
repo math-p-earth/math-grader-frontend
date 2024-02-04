@@ -1,4 +1,5 @@
 import axios, { AxiosError, AxiosResponse } from 'axios'
+import { z } from 'zod'
 
 /**
  * Normally `AxiosResponse` has both optional `request` and `response`.
@@ -25,6 +26,34 @@ export function errorIsFromServer<T = unknown>(error: unknown): error is ErrorWi
 			return true
 		}
 		return false
+	}
+	return false
+}
+
+const payloadErrorSchema = z.object({
+	errors: z.array(
+		z.object({
+			message: z.string(),
+		}),
+	),
+})
+export type PayloadError = z.infer<typeof payloadErrorSchema>
+
+/**
+ * Check if it is an error that came from server (400, 401, 404, 500). You can check `status` inside.
+ * Input error is not type safe.
+ * @remark
+ * This should be able to `catch` all error due to `try` the `axiosInstance.post` except network error
+ * which it cannot even reach the server in the first place. (Use `errorIsNetworkError` for that)
+ *
+ * @param T The innermost `data` is of type `any` if not specified here.
+ */
+export function errorIsPayloadError(error: unknown): error is ErrorWithAxiosResponse<PayloadError> {
+	// Error !== null hotfixes Axios type guard that cause runtime error when null
+	if (errorIsFromServer(error)) {
+		const response = error.response.data
+		const result = payloadErrorSchema.safeParse(response)
+		return result.success
 	}
 	return false
 }

@@ -32,7 +32,7 @@ async function submissionConfirmUploadHandler(req: PayloadRequest<AuthUser>, res
 	const problemIds = items.map((s) => s.problemId)
 	const fileIds = items.map((s) => s.fileId)
 	const now = new Date()
-	const [problemsResult, uploadsResult] = await Promise.all([
+	const [problemsResult, uploadsResult, submissionsResult] = await Promise.all([
 		payload.find({
 			collection: 'problems',
 			where: {
@@ -57,9 +57,26 @@ async function submissionConfirmUploadHandler(req: PayloadRequest<AuthUser>, res
 			},
 			pagination: false,
 		}),
+		payload.find({
+			collection: 'submissions',
+			where: {
+				problem: {
+					in: problemIds,
+				},
+				student: {
+					equals: user.id,
+				},
+			},
+			pagination: false,
+		}),
 	])
 	const problems = problemsResult.docs.reduce<Record<string, Problem>>((acc, p) => {
 		acc[p.id] = p
+		return acc
+	}, {})
+	const submittedSubmissions = submissionsResult.docs.reduce<Record<string, Submission>>((acc, s) => {
+		const problemId = typeof s.problem === 'string' ? s.problem : s.problem.id
+		acc[problemId] = s
 		return acc
 	}, {})
 	const uploads = uploadsResult.docs.reduce<Record<string, Upload>>((acc, f) => {
@@ -67,9 +84,13 @@ async function submissionConfirmUploadHandler(req: PayloadRequest<AuthUser>, res
 		return acc
 	}, {})
 	const invalidProblemIds = problemIds.filter((id) => !(id in problems))
+	const duplicatedProblemIds = problemIds.filter((id) => id in submittedSubmissions)
 	const invalidFileIds = fileIds.filter((id) => !(id in uploads))
 	if (invalidProblemIds.length > 0) {
 		throw new APIError(`Problem ids not found: ${invalidProblemIds.join(', ')}`, 400)
+	}
+	if (duplicatedProblemIds.length > 0) {
+		throw new APIError(`Submissions already exist for problem ids: ${duplicatedProblemIds.join(', ')}`, 400)
 	}
 	if (invalidFileIds.length > 0) {
 		throw new APIError(`Pending file ids not found: ${invalidFileIds.join(', ')}`, 400)

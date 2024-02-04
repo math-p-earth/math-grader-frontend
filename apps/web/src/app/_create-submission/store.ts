@@ -3,6 +3,7 @@ import { v4 as uuidV4 } from 'uuid'
 import { create } from 'zustand'
 import { persist } from 'zustand/middleware'
 import { immer } from 'zustand/middleware/immer'
+import { errorIsPayloadError } from '~/util/axios/error'
 
 import { SubmissionProblem, submissionApi } from './api'
 
@@ -115,9 +116,16 @@ export const useCreateSubmissionStore = create(
 						}
 					})
 				} catch (error) {
-					const errorMessage = error instanceof Error ? error.message : 'Unknown error'
+					let message: string
+					if (errorIsPayloadError(error) && error.response.data.errors.length > 0) {
+						message = error.response.data.errors[0]!.message
+					} else if (error instanceof Error) {
+						message = error.message
+					} else {
+						message = 'Unknown error'
+					}
 					set((state) => {
-						state.draft!.pendingUploads[id]!.errorMessage = errorMessage
+						state.draft!.pendingUploads[id]!.errorMessage = message
 					})
 				}
 			},
@@ -166,8 +174,16 @@ export const useCreateSubmissionStore = create(
 					})
 					toast.success(`Created ${submissions.length} submissions.`)
 				} catch (error) {
-					console.error(error instanceof Error ? error.message : error)
-					toast.error(`Failed to create submissions: ${error instanceof Error ? error.message : error}`)
+					let message: string
+					if (errorIsPayloadError(error) && error.response.data.errors.length > 0) {
+						message = error.response.data.errors[0]!.message
+					} else if (error instanceof Error) {
+						message = error.message
+					} else {
+						message = 'Unknown error'
+					}
+					console.error(error)
+					toast.error(`Failed to create submissions: ${message}`)
 				} finally {
 					set((state) => {
 						state.isSubmitting = false
