@@ -17,6 +17,7 @@ export interface Config {
     submissions: Submission;
     tags: Tag;
     uploads: Upload;
+    'pending-uploads': PendingUpload;
     users: User;
     'payload-preferences': PayloadPreference;
     'payload-migrations': PayloadMigration;
@@ -198,6 +199,27 @@ export interface User {
   lockUntil?: string;
   password?: string;
 }
+export interface PendingUpload {
+  id: string;
+  owner:
+    | {
+        relationTo: 'users';
+        value: string | User;
+      }
+    | {
+        relationTo: 'students';
+        value: string | Student;
+      };
+  expiresAt?: string;
+  updatedAt: string;
+  createdAt: string;
+  url?: string;
+  filename?: string;
+  mimeType?: string;
+  filesize?: number;
+  width?: number;
+  height?: number;
+}
 export interface PayloadPreference {
   id: string;
   user:
@@ -230,6 +252,7 @@ export interface PayloadMigration {
   createdAt: string;
 }
 
+// @ts-ignore
 declare module 'payload' {
   export interface GeneratedTypes {
     collections: {
@@ -242,6 +265,7 @@ declare module 'payload' {
       'submissions': Submission
       'tags': Tag
       'uploads': Upload
+      'pending-uploads': PendingUpload
       'users': User
       'payload-preferences': PayloadPreference
       'payload-migrations': PayloadMigration

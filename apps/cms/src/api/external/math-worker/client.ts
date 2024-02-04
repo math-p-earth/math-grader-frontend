@@ -1,77 +1,9 @@
-import { initClient, initContract } from '@ts-rest/core'
-import { ProblemList, diagramTableDataSchema } from 'core/payload-types'
-import { z } from 'zod'
+import { initClient } from '@ts-rest/core'
+import { ProblemList } from 'core/payload-types'
 
 import { MATH_WORKER_URL } from '../../../config'
+import { mathWorkerContract } from './contract'
 import { mapProblemListToContract } from './mapper'
-
-const c = initContract()
-
-export const diagramSchema = z.discriminatedUnion('blockType', [
-	z.object({
-		blockType: z.literal('diagram-image'),
-		imageUrl: z.string(),
-		caption: z.string().optional(),
-		width: z.number().optional(),
-		height: z.number().optional(),
-	}),
-	z.object({
-		blockType: z.literal('diagram-list'),
-		itemsPerLine: z.number(),
-		items: z.array(
-			z.object({
-				content: z.string(),
-			}),
-		),
-	}),
-	z.object({
-		blockType: z.literal('diagram-table'),
-		data: diagramTableDataSchema,
-	}),
-])
-
-export const problemChoiceSchema = z.object({
-	choice: z.string(),
-	diagrams: z.array(diagramSchema),
-})
-
-export const sourceSchema = z.object({
-	id: z.string().length(24),
-	name: z.string(),
-	type: z.enum(['GENERIC', 'BOOK', 'PAPER']),
-})
-
-export const problemSchema = z.object({
-	id: z.string().length(24),
-	content: z.string(),
-	type: z.enum(['MCQ', 'SHORT', 'TF', 'PROOF']),
-	source: sourceSchema.optional(),
-	choices: z.array(problemChoiceSchema),
-	diagrams: z.array(diagramSchema),
-})
-
-export const problemListSchema = z.object({
-	id: z.string().length(24),
-	name: z.string(),
-	type: z.enum(['DRILL', 'LECTURE_PROBLEM', 'COLLECTION', 'CHALLENGE']),
-	problems: z.array(problemSchema),
-})
-
-export const generateProblemListFileRequestSchema = z.object({
-	userId: z.string().length(24),
-	problemList: problemListSchema,
-})
-
-export const mathWorkerContract = c.router({
-	generateProblemListFile: {
-		method: 'POST',
-		path: '/generate-problem-list-file',
-		responses: {
-			200: z.instanceof(Blob),
-		},
-		body: generateProblemListFileRequestSchema,
-	},
-})
 
 const rawClient = initClient(mathWorkerContract, {
 	baseUrl: MATH_WORKER_URL,
@@ -81,6 +13,16 @@ const rawClient = initClient(mathWorkerContract, {
 interface GenerateProblemListFileResult {
 	buffer: Buffer
 	headers: Headers
+}
+
+interface DecodeProblemSubmissionResultItem {
+	userId: string
+	problemId: string
+	fileContent: Buffer
+}
+
+interface DecodeProblemSubmissionResult {
+	items: DecodeProblemSubmissionResultItem[]
 }
 
 export const mathWorkerClient = {
@@ -105,6 +47,25 @@ export const mathWorkerClient = {
 		return {
 			buffer: buffer,
 			headers: response.headers,
+		}
+	},
+
+	decodeProblemSubmission: async (file: Blob): Promise<DecodeProblemSubmissionResult> => {
+		const body = new FormData()
+		body.append('file', file)
+		const response = await rawClient.decodeProblemSubmission({
+			body,
+		})
+
+		if (response.status !== 200) {
+			throw new Error(`Failed to decode problem submission: ${JSON.stringify(response.body, null, 2)}`)
+		}
+		return {
+			items: response.body.items.map<DecodeProblemSubmissionResultItem>((item) => ({
+				userId: item.userId,
+				problemId: item.problemId,
+				fileContent: Buffer.from(item.fileContent, 'base64'),
+			})),
 		}
 	},
 }

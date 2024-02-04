@@ -9,9 +9,12 @@ export const withErrorHandler: (handler: RouteHandler) => RouteHandler = (handle
 			await handler(req, res, next)
 		} catch (err) {
 			if (err instanceof z.ZodError) {
-				next({
-					message: err.issues,
+				res.status(400).json({
+					message: 'Invalid input',
+					errors: err.errors,
 				})
+				res.end()
+				return
 			}
 			next(err)
 		}

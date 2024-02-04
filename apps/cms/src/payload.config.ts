@@ -13,6 +13,7 @@ import { adminViewConfigs } from './admin/routes'
 import { endpoints } from './api/routes'
 import { Courses } from './collections/Courses'
 import { Media } from './collections/Media'
+import { PendingUploads } from './collections/PendingUploads'
 import { ProblemLists } from './collections/ProblemLists'
 import { Problems } from './collections/Problems'
 import { Sources } from './collections/Sources'
@@ -106,10 +107,22 @@ export default buildConfig({
 			}
 		},
 	},
-	collections: [Courses, Media, Problems, ProblemLists, Sources, Students, Submissions, Tags, Uploads, Users],
+	collections: [
+		Courses,
+		Media,
+		Problems,
+		ProblemLists,
+		Sources,
+		Students,
+		Submissions,
+		Tags,
+		Uploads,
+		PendingUploads,
+		Users,
+	],
 	endpoints: endpoints,
 	typescript: {
-		outputFile: path.resolve(__dirname, '../../../packages/types/payload-types/generated.ts'),
+		outputFile: path.resolve(__dirname, '../../../packages/core/payload-types/generated.ts'),
 	},
 	graphQL: {
 		disable: true,

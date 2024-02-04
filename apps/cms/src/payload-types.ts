@@ -1,8 +1,11 @@
+import { GeneratedTypes } from 'payload'
+
 import {
 	Course,
 	Media,
 	PayloadMigration,
 	PayloadPreference,
+	PendingUpload,
 	Problem,
 	ProblemList,
 	Source,
@@ -13,6 +16,9 @@ import {
 	User,
 } from 'core/payload-types'
 
+export type CollectionType = GeneratedTypes['collections'][keyof GeneratedTypes['collections']]
+
+// needs to be kept in sync with core/payload-types/generated.ts because I can't find a way to bring module augmentation from core to cms package yet.
 declare module 'payload' {
 	export interface GeneratedTypes {
 		collections: {
@@ -25,6 +31,7 @@ declare module 'payload' {
 			submissions: Submission
 			tags: Tag
 			uploads: Upload
+			'pending-uploads': PendingUpload
 			users: User
 			'payload-preferences': PayloadPreference
 			'payload-migrations': PayloadMigration
