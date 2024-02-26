@@ -45,7 +45,7 @@ export function ProblemCard({ problem, order, actions, className, submissions = 
 				{submissions.length > 0 && (
 					<div>
 						<div className="font-semibold">Submissions</div>
-						<ol className="marker:text-md list-inside list-decimal leading-7">
+						<ol className="list-inside list-decimal pl-2 leading-7 marker:text-sm">
 							{submissions.map((submission) => (
 								<SubmissionRow key={submission.id} submission={submission} />
 							))}
