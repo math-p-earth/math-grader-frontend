@@ -10,7 +10,15 @@ import {
 } from 'core/payload-types'
 import { z } from 'zod'
 
-import { diagramSchema, problemChoiceSchema, problemListSchema, problemSchema, sourceSchema } from './contract'
+import {
+	ProblemSheet,
+	diagramSchema,
+	problemChoiceSchema,
+	problemListSchema,
+	problemSchema,
+	problemSheetSchema,
+	sourceSchema,
+} from './contract'
 
 export const mapDiagramToContract = (
 	diagram: DiagramImageBlock | DiagramListBlock | DiagramTableBlock,
@@ -91,5 +99,12 @@ export const mapProblemListToContract = (problemList: ProblemList): z.infer<type
 		name: problemList.name,
 		type: problemList.type,
 		problems: problemList.problems.map(mapProblemToContract),
+	}
+}
+
+export const mapProblemSheetToContract = (problemSheet: ProblemSheet): z.infer<typeof problemSheetSchema> => {
+	return {
+		name: problemSheet.name,
+		problems: problemSheet.problems.map(mapProblemToContract),
 	}
 }

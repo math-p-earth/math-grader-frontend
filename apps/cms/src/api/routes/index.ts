@@ -1,7 +1,7 @@
 import { Endpoint } from 'payload/config'
 
 import authGoogleVerifyHandler from './auth/google/verify'
-import problemListDownloadHandler from './problem-lists/download'
+import problemListDownloadHandler from './problems/download'
 import problemsUploadHandler from './problems/upload'
 import studentsRegister from './students/register'
 import submissionConfirmUploadHandler from './submissions/confirm-upload'
@@ -26,12 +26,9 @@ const problemEndpoints: Endpoint[] = [
 		method: 'post',
 		handler: problemsUploadHandler,
 	},
-]
-
-const problemListEndpoints: Endpoint[] = [
 	{
-		path: '/problem-lists/:problemListId/download',
-		method: 'get',
+		path: '/problems/download',
+		method: 'post',
 		handler: problemListDownloadHandler,
 	},
 ]
@@ -49,9 +46,4 @@ const submissionsEndpoints: Endpoint[] = [
 	},
 ]
 
-export const endpoints: Endpoint[] = [
-	...authEndpoints,
-	...problemEndpoints,
-	...problemListEndpoints,
-	...submissionsEndpoints,
-]
+export const endpoints: Endpoint[] = [...authEndpoints, ...problemEndpoints, ...submissionsEndpoints]

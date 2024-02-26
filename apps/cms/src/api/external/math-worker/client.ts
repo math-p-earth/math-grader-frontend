@@ -1,9 +1,8 @@
 import { initClient } from '@ts-rest/core'
-import { ProblemList } from 'core/payload-types'
 
 import { MATH_WORKER_URL } from '../../../config'
-import { mathWorkerContract } from './contract'
-import { mapProblemListToContract } from './mapper'
+import { ProblemSheet, mathWorkerContract } from './contract'
+import { mapProblemSheetToContract } from './mapper'
 
 const rawClient = initClient(mathWorkerContract, {
 	baseUrl: MATH_WORKER_URL,
@@ -28,18 +27,21 @@ export interface DecodeProblemSubmissionResult {
 export const mathWorkerClient = {
 	/**
 	 * @param userId user id
-	 * @param problemList ProblemList with depth >= 2
+	 * @param problemSheet ProblemSheet
 	 */
-	generateProblemListFile: async (userId: string, problemList: ProblemList): Promise<GenerateProblemListFileResult> => {
-		const response = await rawClient.generateProblemListFile({
+	generateProblemSheetFile: async (
+		userId: string,
+		problemSheet: ProblemSheet,
+	): Promise<GenerateProblemListFileResult> => {
+		const response = await rawClient.generateProblemSheetFile({
 			body: {
 				userId,
-				problemList: mapProblemListToContract(problemList),
+				problemSheet: mapProblemSheetToContract(problemSheet),
 			},
 		})
 
 		if (response.status !== 200) {
-			throw new Error(`Failed to generate problem list file: ${JSON.stringify(response.body, null, 2)}`)
+			throw new Error(`Failed to generate problem sheet file: ${JSON.stringify(response.body, null, 2)}`)
 		}
 
 		const buffer = Buffer.from(await response.body.arrayBuffer())

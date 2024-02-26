@@ -74,23 +74,14 @@ async function submissionConfirmUploadHandler(req: PayloadRequest<AuthUser>, res
 		acc[p.id] = p
 		return acc
 	}, {})
-	const submittedSubmissions = submissionsResult.docs.reduce<Record<string, Submission>>((acc, s) => {
-		const problemId = typeof s.problem === 'string' ? s.problem : s.problem.id
-		acc[problemId] = s
-		return acc
-	}, {})
 	const uploads = uploadsResult.docs.reduce<Record<string, Upload>>((acc, f) => {
 		acc[f.id] = f
 		return acc
 	}, {})
 	const invalidProblemIds = problemIds.filter((id) => !(id in problems))
-	const duplicatedProblemIds = problemIds.filter((id) => id in submittedSubmissions)
 	const invalidFileIds = fileIds.filter((id) => !(id in uploads))
 	if (invalidProblemIds.length > 0) {
 		throw new APIError(`Problem ids not found: ${invalidProblemIds.join(', ')}`, 400)
-	}
-	if (duplicatedProblemIds.length > 0) {
-		throw new APIError(`Submissions already exist for problem ids: ${duplicatedProblemIds.join(', ')}`, 400)
 	}
 	if (invalidFileIds.length > 0) {
 		throw new APIError(`Pending file ids not found: ${invalidFileIds.join(', ')}`, 400)

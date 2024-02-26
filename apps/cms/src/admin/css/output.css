@@ -1399,6 +1399,10 @@
   background-color: rgb(249 115 22 / var(--tw-bg-opacity));
 }
 
+.bg-primary {
+  background-color: hsl(var(--primary));
+}
+
 .bg-red-200 {
   --tw-bg-opacity: 1;
   background-color: rgb(254 202 202 / var(--tw-bg-opacity));
@@ -1694,6 +1698,10 @@
   color: hsl(var(--destructive-foreground) / var(--tw-text-opacity));
 }
 
+.text-primary-foreground {
+  color: hsl(var(--primary-foreground));
+}
+
 .text-red-400 {
   --tw-text-opacity: 1;
   color: rgb(248 113 113 / var(--tw-text-opacity));
@@ -1904,8 +1912,26 @@
   }
 }
 
+.animate-in {
+  animation-name: enter;
+  animation-duration: 150ms;
+  --tw-enter-opacity: initial;
+  --tw-enter-scale: initial;
+  --tw-enter-rotate: initial;
+  --tw-enter-translate-x: initial;
+  --tw-enter-translate-y: initial;
+}
+
+.fade-in-0 {
+  --tw-enter-opacity: 0;
+}
+
 .zoom-in {
   --tw-enter-scale: 0;
+}
+
+.zoom-in-95 {
+  --tw-enter-scale: .95;
 }
 
 .zoom-out {

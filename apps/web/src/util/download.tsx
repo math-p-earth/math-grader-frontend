@@ -35,11 +35,13 @@ const filenameFromResponse = (response: AxiosResponse<Buffer>): string => {
 export interface DownloadOptions {
 	path: string
 	method?: 'GET' | 'POST'
+	data: unknown
 }
 
-export function downloadFile({ path, method = 'GET' }: DownloadOptions) {
+export function downloadFile({ path, method = 'GET', data }: DownloadOptions) {
 	const promise = httpClient.request({
 		url: path,
+		data: data,
 		method: method,
 		responseType: 'arraybuffer',
 	})

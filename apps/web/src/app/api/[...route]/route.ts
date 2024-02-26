@@ -10,10 +10,11 @@ const routeRevalidateTime: RouteRevalidateTime = {
 }
 
 async function handleRoute(request: NextRequest) {
+	const query = request.nextUrl.search
 	const endpoint = request.nextUrl.pathname.slice('/api'.length)
 	const revalidate = endpoint in routeRevalidateTime ? routeRevalidateTime[endpoint] : 0
 
-	const resp = await fetch(`${env.BACKEND_INTERNAL_URL}/api${endpoint}`, {
+	const resp = await fetch(`${env.BACKEND_INTERNAL_URL}/api${endpoint}${query}`, {
 		method: request.method,
 		body: request.body,
 		duplex: 'half',

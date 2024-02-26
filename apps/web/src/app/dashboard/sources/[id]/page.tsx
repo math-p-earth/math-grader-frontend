@@ -2,6 +2,7 @@ import { SourceTypeBadge } from 'core/components/badges/SourceTypeBadge'
 import Link from 'next/link'
 import { getSourceById } from '~/api/source/getSourceById'
 import { SubmissionInput, SubmissionInputTrigger } from '~/app/_create-submission/components/input'
+import { DownloadProblemSheetButton } from '~/components/DownloadProblemSheetButton'
 import { ProblemCards } from '~/components/ProblemCards'
 
 import { Breadcrumb, BreadcrumbItem, BreadcrumbLink } from 'ui/components/ui/breadcrumb'
@@ -32,6 +33,7 @@ export default async function SourceByIdPage({ params }: { params: { id: string 
 						<Button variant="outline">Submit</Button>
 					</SubmissionInputTrigger>
 				</SubmissionInput>
+				<DownloadProblemSheetButton sourceId={id} />
 			</div>
 			{data.description && <div className="mt-4">{data.description}</div>}
 			<ProblemCards problems={data.problems} submissionHeaderLabel={data.name} />

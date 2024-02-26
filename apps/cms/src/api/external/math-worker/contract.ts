@@ -1,5 +1,5 @@
 import { initContract } from '@ts-rest/core'
-import { diagramTableDataSchema } from 'core/payload-types'
+import { Problem, diagramTableDataSchema } from 'core/payload-types'
 import { z } from 'zod'
 
 const c = initContract()
@@ -54,16 +54,25 @@ export const problemListSchema = z.object({
 	problems: z.array(problemSchema),
 })
 
+export const problemSheetSchema = z.object({
+	name: z.string(),
+	problems: z.array(problemSchema),
+})
+export interface ProblemSheet {
+	name: string
+	problems: Problem[]
+}
+
 export const mathWorkerContract = c.router({
-	generateProblemListFile: {
+	generateProblemSheetFile: {
 		method: 'POST',
-		path: '/generate-problem-list-file',
+		path: '/generate-problem-sheet-file',
 		responses: {
 			200: z.instanceof(Blob),
 		},
 		body: z.object({
 			userId: z.string().length(24),
-			problemList: problemListSchema,
+			problemSheet: problemSheetSchema,
 		}),
 	},
 	decodeProblemSubmission: {
