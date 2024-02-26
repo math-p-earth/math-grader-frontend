@@ -16,8 +16,7 @@ export interface PendingUpload {
 }
 
 export interface DraftSubmission {
-	problemListId: string
-	problemListName: string
+	headerLabel?: string
 
 	pendingUploads: Record<string, PendingUpload>
 	problems: Record<string, SubmissionProblem>
@@ -33,7 +32,7 @@ interface CreateSubmissionStore {
 	isSubmitting: boolean
 	showSuccess: boolean
 
-	startDraft: (args: { problemListId: string; problemListName: string }) => void
+	startDraft: (args: { headerLabel?: string }) => void
 	discardDraft: () => void
 	discardDraftIfEmpty: () => void
 
@@ -51,11 +50,10 @@ export const useCreateSubmissionStore = create(
 			isSubmitting: false,
 			showSuccess: false,
 
-			startDraft({ problemListId, problemListName }) {
+			startDraft({ headerLabel }) {
 				set((state) => {
 					state.draft = {
-						problemListId,
-						problemListName,
+						headerLabel,
 						pendingUploads: {},
 						problems: {},
 					}
@@ -95,7 +93,6 @@ export const useCreateSubmissionStore = create(
 				})
 				try {
 					const response = await submissionApi.uploadFile({
-						problemListId: draft.problemListId,
 						problemId,
 						file,
 						signal: abortController.signal,

@@ -1,10 +1,11 @@
 import { SourceTypeBadge } from 'core/components/badges/SourceTypeBadge'
 import Link from 'next/link'
 import { getSourceById } from '~/api/source/getSourceById'
+import { SubmissionInput, SubmissionInputTrigger } from '~/app/_create-submission/components/input'
+import { ProblemCards } from '~/components/ProblemCards'
 
 import { Breadcrumb, BreadcrumbItem, BreadcrumbLink } from 'ui/components/ui/breadcrumb'
-
-import { ProblemCard } from '../../../../components/ProblemCard'
+import { Button } from 'ui/components/ui/button'
 
 export default async function SourceByIdPage({ params }: { params: { id: string } }) {
 	const { id } = params
@@ -23,15 +24,17 @@ export default async function SourceByIdPage({ params }: { params: { id: string 
 					</BreadcrumbLink>
 				</BreadcrumbItem>
 			</Breadcrumb>
-			<div className="mt-6 flex items-center gap-3 text-2xl font-semibold">
-				{data.name} <SourceTypeBadge type={data.type} />
+			<div className="mt-6 flex items-center gap-3 pr-8 text-2xl font-semibold">
+				<span>{data.name}</span> <SourceTypeBadge type={data.type} />
+				<div className="grow" />
+				<SubmissionInput headerLabel={data.name}>
+					<SubmissionInputTrigger>
+						<Button variant="outline">Submit</Button>
+					</SubmissionInputTrigger>
+				</SubmissionInput>
 			</div>
 			{data.description && <div className="mt-4">{data.description}</div>}
-			<div className="mt-8 flex flex-col gap-4 px-8">
-				{data.problems.map((problem, index) => (
-					<ProblemCard key={problem.id} order={index + 1} problem={problem} />
-				))}
-			</div>
+			<ProblemCards problems={data.problems} submissionHeaderLabel={data.name} />
 		</div>
 	)
 }

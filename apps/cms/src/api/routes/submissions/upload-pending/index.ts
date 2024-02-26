@@ -11,7 +11,6 @@ import { withErrorHandler } from '../../../errors/handler/withErrorHandler'
 import { DecodeProblemSubmissionResultItem, mathWorkerClient } from '../../../external/math-worker/client'
 
 export const submissionUploadPendingSchema = z.object({
-	problemListId: z.string(),
 	problemId: z.string().optional(),
 })
 
@@ -48,18 +47,7 @@ async function submissionUploadPendingHandler({ body, payload, user, files }: Pa
 		throw new APIError('Only PDF files are supported', 400)
 	}
 
-	const { problemListId, problemId } = submissionUploadPendingSchema.parse(body)
-	const problemList = await payload.findByID({
-		collection: 'problem-lists',
-		id: problemListId,
-		// impersonate user to use collection access control logic
-		overrideAccess: false,
-		user: user,
-		depth: 0, // no need for depth, only checking for existence
-	})
-	if (!problemList) {
-		throw new APIError(`Problem list with id ${problemListId} not found, or you may not have access to it.`, 404)
-	}
+	const { problemId } = submissionUploadPendingSchema.parse(body)
 
 	let items: DecodeProblemSubmissionResultItem[] = []
 	if (typeof problemId !== 'undefined') {
@@ -74,6 +62,7 @@ async function submissionUploadPendingHandler({ body, payload, user, files }: Pa
 		const result = await mathWorkerClient.decodeProblemSubmission(new Blob([file.data]))
 		items = result.items
 	}
+	// TODO: filter out problems that user cannot access, so they can't create submission for them
 
 	// create pending uploads
 	const uploads = await Promise.all(

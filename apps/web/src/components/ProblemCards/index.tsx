@@ -2,7 +2,7 @@
 
 import { useMemo } from 'react'
 
-import { ProblemList } from '~/api/problem-list/getProblemListById'
+import { Problem } from 'core/payload-types'
 import { SubmissionInput, SubmissionInputTrigger } from '~/app/_create-submission/components/input'
 import { ProblemCard } from '~/components/ProblemCard'
 import { SubmissionStatus } from '~/components/ProblemCard/SubmissionStatus'
@@ -38,11 +38,12 @@ export function SubmissionActionGroup({ submissions, isLoadingSubmissions }: Sub
 	)
 }
 interface ProblemCardsProps {
-	problemList: ProblemList
+	problems: Problem[]
+	submissionHeaderLabel?: string
 }
 
-export function ProblemCards({ problemList }: ProblemCardsProps) {
-	const problemIds = problemList.problems.map((problem) => problem.id)
+export function ProblemCards({ problems, submissionHeaderLabel }: ProblemCardsProps) {
+	const problemIds = problems.map((problem) => problem.id)
 	const { data: submissions, isLoading: isLoadingSubmissions } = useMySubmissions({
 		problemIds,
 		depth: 1,
@@ -57,17 +58,12 @@ export function ProblemCards({ problemList }: ProblemCardsProps) {
 	)
 	return (
 		<div className="mt-8 flex flex-col gap-4 px-8">
-			{problemList.problems.map((problem, index) => {
+			{problems.map((problem, index) => {
 				const submissions = (submissionsByProblemId[problem.id] ?? []).sort(
 					(a, b) => b.createdAt.localeCompare(a.createdAt), // sort by newest first
 				)
 				return (
-					<SubmissionInput
-						key={problem.id}
-						problemListId={problemList.id}
-						problemListName={problemList.name}
-						problemId={problem.id}
-					>
+					<SubmissionInput key={problem.id} headerLabel={submissionHeaderLabel} problemId={problem.id}>
 						<ProblemCard
 							order={index + 1}
 							problem={problem}

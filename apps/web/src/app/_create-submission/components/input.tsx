@@ -10,8 +10,7 @@ import { cn } from 'ui/lib/utils'
 import { useCreateSubmissionStore } from '../store'
 
 export interface SubmissionInputProps {
-	problemListId: string
-	problemListName: string
+	headerLabel?: string
 	problemId?: string
 	children: ReactNode
 }
@@ -28,14 +27,13 @@ export function SubmissionInput(props: SubmissionInputProps) {
 		(acceptedFiles: File[]) => {
 			if (acceptedFiles.length === 0) return
 			startDraft({
-				problemListId: props.problemListId,
-				problemListName: props.problemListName,
+				headerLabel: props.headerLabel,
 			})
 			for (const file of acceptedFiles) {
 				addUpload({ file, problemId: props.problemId })
 			}
 		},
-		[startDraft, addUpload, props.problemListId, props.problemListName, props.problemId],
+		[startDraft, addUpload, props.headerLabel, props.problemId],
 	)
 	const { getRootProps, getInputProps, isDragAccept, open } = useDropzone({ onDrop, noClick: true, noKeyboard: true })
 

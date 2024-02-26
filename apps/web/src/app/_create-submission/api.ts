@@ -1,10 +1,8 @@
 import { httpClient } from '~/util/httpClient'
 
 export interface UploadFileArgs {
-	// problem list id of the submission
-	problemListId: string
 	// problem id, only available if user triggered submit from a problem
-	// maybe use as a hint if there is no data matrix in the file
+	// used to indicate single problem upload if defined
 	problemId?: string
 	file: File
 	// abort signal for the upload request
@@ -78,10 +76,9 @@ const _mockSubmissionApi: SubmissionApi = {
 }
 
 export const submissionApi: SubmissionApi = {
-	async uploadFile({ file, problemListId, signal, problemId }) {
+	async uploadFile({ file, signal, problemId }) {
 		const formData = new FormData()
 		formData.append('file', file)
-		formData.append('problemListId', problemListId)
 		if (typeof problemId !== 'undefined') {
 			formData.append('problemId', problemId)
 		}

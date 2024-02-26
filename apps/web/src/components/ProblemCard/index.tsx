@@ -68,7 +68,6 @@ export function SubmissionRow({ submission }: SubmissionRowProps) {
 				<a href={submission.file?.url} className="hover:underline" target="_blank">
 					<div className="flex items-center gap-1">
 						<span>submission.pdf</span>
-						{/* <ExternalLink size={14} /> */}
 					</div>
 				</a>
 				<SubmissionStatus status={submission.status} />

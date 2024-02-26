@@ -6,7 +6,7 @@ import { SubmissionInput, SubmissionInputTrigger } from '~/app/_create-submissio
 import { Breadcrumb, BreadcrumbItem, BreadcrumbLink } from 'ui/components/ui/breadcrumb'
 import { Button } from 'ui/components/ui/button'
 
-import { ProblemCards } from './ProblemCards'
+import { ProblemCards } from '../../../../components/ProblemCards'
 import { DownloadProblemListButton } from './downloadProblemListButton'
 
 export default async function ProblemListByIdPage({ params }: { params: { id: string } }) {
@@ -30,7 +30,7 @@ export default async function ProblemListByIdPage({ params }: { params: { id: st
 				<span>{data.name}</span>
 				<ProblemListTypeBadge type={data.type} />
 				<div className="grow" />
-				<SubmissionInput problemListId={id} problemListName={data.name}>
+				<SubmissionInput headerLabel={data.name}>
 					<SubmissionInputTrigger>
 						<Button variant="outline">Submit</Button>
 					</SubmissionInputTrigger>
@@ -38,7 +38,7 @@ export default async function ProblemListByIdPage({ params }: { params: { id: st
 				<DownloadProblemListButton problemListId={id} />
 			</div>
 			{data.description && <div className="mt-4">{data.description}</div>}
-			<ProblemCards problemList={data} />
+			<ProblemCards problems={data.problems} submissionHeaderLabel={data.name} />
 		</div>
 	)
 }

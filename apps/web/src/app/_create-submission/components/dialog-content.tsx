@@ -67,7 +67,7 @@ export default function CreateSubmissionDialogContent({
 		<div className="flex flex-col gap-4">
 			<DialogHeader>
 				<DialogTitle>Submit answers</DialogTitle>
-				<DialogDescription>{draft.problemListName}</DialogDescription>
+				{draft.headerLabel && <DialogDescription>{draft.headerLabel}</DialogDescription>}
 			</DialogHeader>
 			<ScrollArea className="-mr-4 max-h-[calc(100vh_-_280px)]">
 				<div className="flex flex-col gap-2 pr-4">
