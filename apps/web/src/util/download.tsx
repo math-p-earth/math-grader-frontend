@@ -35,7 +35,7 @@ const filenameFromResponse = (response: AxiosResponse<Buffer>): string => {
 export interface DownloadOptions {
 	path: string
 	method?: 'GET' | 'POST'
-	data: unknown
+	data?: unknown
 }
 
 export function downloadFile({ path, method = 'GET', data }: DownloadOptions) {

@@ -50,7 +50,11 @@ export const columns: ColumnDef<ProblemListRow>[] = [
 					onClick={(e) => {
 						e.stopPropagation()
 						downloadFile({
-							path: `/problem-lists/${id}/download`,
+							path: `/problems/download`,
+							method: 'POST',
+							data: {
+								problemListId: id,
+							},
 						})
 					}}
 				>
@@ -59,10 +63,4 @@ export const columns: ColumnDef<ProblemListRow>[] = [
 			)
 		},
 	},
-	// {
-	//   id: 'chevron',
-	//   cell: () => {
-	//     return <ChevronRight strokeWidth={1.5} />
-	//   },
-	// },
 ]

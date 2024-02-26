@@ -2,8 +2,11 @@
 
 import { ColumnDef } from '@tanstack/react-table'
 import { SourceTypeBadge } from 'core/components/badges/SourceTypeBadge'
-import { ChevronRight } from 'lucide-react'
+import { Download } from 'lucide-react'
 import { Source } from '~/api/source/getSources'
+import { downloadFile } from '~/util/download'
+
+import { Button } from 'ui/components/ui/button'
 
 type SourceRow = Source & { href: string }
 
@@ -36,9 +39,28 @@ export const columns: ColumnDef<SourceRow>[] = [
 		accessorFn: (row) => row.problems.length,
 	},
 	{
-		id: 'chevron',
-		cell: () => {
-			return <ChevronRight strokeWidth={1.5} />
+		id: 'download',
+		cell: ({ row }) => {
+			const { id } = row.original
+			return (
+				<Button
+					className="-my-2 flex items-center"
+					size="icon"
+					variant="ghost"
+					onClick={(e) => {
+						e.stopPropagation()
+						downloadFile({
+							path: `/problems/download`,
+							method: 'POST',
+							data: {
+								sourceId: id,
+							},
+						})
+					}}
+				>
+					<Download strokeWidth={1.25} />
+				</Button>
+			)
 		},
 	},
 ]
