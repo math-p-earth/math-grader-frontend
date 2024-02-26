@@ -16,7 +16,7 @@ interface ProblemCardProps {
 	order: number
 	actions?: ReactNode
 	className?: string
-	submissions: GetMySubmissionsResponse['docs']
+	submissions?: GetMySubmissionsResponse['docs']
 }
 
 export function ProblemCard({ problem, order, actions, className, submissions = [] }: ProblemCardProps) {

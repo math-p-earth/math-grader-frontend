@@ -58,7 +58,7 @@ export function ProblemCards({ problemList }: ProblemCardsProps) {
 	return (
 		<div className="mt-8 flex flex-col gap-4 px-8">
 			{problemList.problems.map((problem, index) => {
-				let submissions = (submissionsByProblemId[problem.id] ?? []).sort(
+				const submissions = (submissionsByProblemId[problem.id] ?? []).sort(
 					(a, b) => b.createdAt.localeCompare(a.createdAt), // sort by newest first
 				)
 				return (
