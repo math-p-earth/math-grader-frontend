@@ -14,30 +14,30 @@ export function SubmissionStatus({ status, size = 16 }: SubmissionStatusProps) {
 	}
 	switch (status) {
 		case 'CORRECT_APPROVED':
-			return <CheckCircle size={size} className="text-green-700" />
+			return <CheckCircle size={size} className="text-green-700 dark:text-green-400" />
 		case 'CORRECT':
 			return (
 				<Tooltip
 					content="The submission's answer is correct, but has not yet been manually approved by instructor."
 					className="flex cursor-pointer items-center gap-2"
 				>
-					<Check size={size} className="text-green-700" />
-					<CircleDashed size={size} className="text-orange-400" />
+					<Check size={size} className="text-green-700 dark:text-green-400" />
+					<CircleDashed size={size} className="text-orange-400 dark:text-orange-300" />
 				</Tooltip>
 			)
 		case 'INCORRECT_APPROVED':
-			return <XCircle size={size} className="text-red-500" />
+			return <XCircle size={size} className="text-red-500 dark:text-red-400" />
 		case 'INCORRECT':
 			return (
 				<Tooltip
 					content="The submission's answer is incorrect, but has not yet been manually approved by instructor."
 					className="flex cursor-pointer items-center gap-2"
 				>
-					<X size={size} className="text-red-500" />
-					<CircleDashed size={size} className="text-orange-400" />
+					<X size={size} className="text-red-500 dark:text-red-400" />
+					<CircleDashed size={size} className="text-orange-400 dark:text-orange-300" />
 				</Tooltip>
 			)
 		case 'PENDING':
-			return <CircleDashed size={size} className="text-orange-400" />
+			return <CircleDashed size={size} className="text-orange-400 dark:text-orange-300" />
 	}
 }
