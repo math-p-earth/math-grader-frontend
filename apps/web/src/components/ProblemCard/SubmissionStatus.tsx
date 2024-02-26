@@ -1,6 +1,8 @@
 import { Check, CheckCircle, CircleDashed, X, XCircle } from 'lucide-react'
 import { GetMySubmissionsResponse } from '~/hooks/useMySubmissions'
 
+import { Tooltip } from 'ui/components/ui/tooltip'
+
 interface SubmissionStatusProps {
 	status: GetMySubmissionsResponse['docs'][number]['status']
 	size?: number
@@ -21,7 +23,9 @@ export function SubmissionStatus({ status, size = 16 }: SubmissionStatusProps) {
 			return (
 				<>
 					<Check size={size} className="text-green-700" />
-					<CircleDashed size={size} className="text-orange-400" /> {/* TODO: add tooltip */}
+					<Tooltip content="Pending final check." className="cursor-pointer">
+						<CircleDashed size={size} className="text-orange-400" />
+					</Tooltip>
 				</>
 			)
 		case 'INCORRECT_APPROVED':
@@ -34,7 +38,9 @@ export function SubmissionStatus({ status, size = 16 }: SubmissionStatusProps) {
 			return (
 				<>
 					<X size={size} className="text-red-500" />
-					<CircleDashed size={size} className="text-orange-400" />
+					<Tooltip content="Pending final check." className="cursor-pointer">
+						<CircleDashed size={size} className="text-orange-400" />
+					</Tooltip>
 				</>
 			)
 		case 'PENDING':
